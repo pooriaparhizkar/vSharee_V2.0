@@ -1,0 +1,53 @@
+@mixin rtl {
+    @at-root body[dir="rtl"] & {
+        @content
+    }
+};
+
+@mixin vsharee-xs {
+    @media (max-width: 575.98px) {
+        @content
+    }
+};
+
+@mixin vsharee-sm {
+    @media (min-width: 575.98px) {
+        @content
+    }
+};
+
+@mixin vsharee-md {
+    @media (min-width: 767.98px) {
+        @content
+    }
+};
+
+@mixin vsharee-lg {
+    @media (min-width: 991.98px) {
+        @content
+    }
+};
+
+@mixin vsharee-xl {
+    @media (min-width: 1199.98px) {
+        @content
+    }
+};
+
+@mixin vsharee-size($property, $web-value, $mobile-value) {
+    @include vsharee-xs{
+        #{$property}: $mobile-value;
+    }
+    @include vsharee-sm{
+        #{$property}: (2*$mobile-value + $web-value)/3;
+    }
+    @include vsharee-md{
+        #{$property}: ($mobile-value + $web-value)/2;
+    }
+    @include vsharee-lg{
+        #{$property}: ($mobile-value + 2*$web-value)/3;
+    }
+    @include vsharee-xl{
+        #{$property}: $web-value;
+    }
+};

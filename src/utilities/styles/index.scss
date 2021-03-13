@@ -1,0 +1,28 @@
+@import "~bootstrap/dist/css/bootstrap-grid.css";
+@import "~react-toastify/dist/ReactToastify.css";
+@import "../../assets/icons/feather/feather.css";
+@import "../../assets/icons/material/material.css";
+@import "./font";
+@import "./card";
+@import "./animation";
+
+body {
+    direction: ltr;
+    padding: 0;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+}
