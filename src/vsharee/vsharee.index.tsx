@@ -7,6 +7,9 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
     return (
         <Router>
             <Switch>
+                <Route path="/login">
+                    <h1>Hi</h1>
+                </Route>
                 <Route path="*">
                     <h1>Welcome to vSharee</h1>
                     <p>{props.text.body.test}</p>
