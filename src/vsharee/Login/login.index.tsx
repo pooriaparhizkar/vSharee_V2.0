@@ -1,16 +1,18 @@
 import React from 'react';
+
 import { ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
-import background from 'src/assets/images/background.png';
+//import box from 'assets/images/box.png';
+//import RedBox from 'assets/images/RedBox.png';
 import './login.style.scss';
 
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     return (
         <div className={'vsharee-login-page'}>
-            <h1>Hi</h1>
-            <h1>HEloooooooooooooooooooo</h1>
-            <div className="background">
-                <img src={background} width="1300px" height="1024px" />
+            <div className={'Box'}>
+                <div className={'Redbox'}></div>
+
+                <div className={'Blackbox'}></div>
             </div>
         </div>
     );

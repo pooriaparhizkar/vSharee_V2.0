@@ -9,7 +9,6 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
         <Router>
             <Switch>
                 <Route path="/login">
-                    <h1>Hi</h1>
                     <Login />
                 </Route>
                 <Route path="*">
