@@ -1,0 +1,75 @@
+@import '../../../utilities/references/index';
+.main-div-header{
+    
+background-color: $gray1A;
+display: flex;
+flex-direction: row;
+    .logo-div{
+        display: flex;
+        flex-direction: row;
+        position: relative;
+       
+        img{
+            width: 80px;
+        }
+        h1{
+            color:$white;
+            font-size: 16px;
+            font-weight: bold;
+            bottom: 0;
+            position: absolute;
+            left: 80px;
+        }
+    }
+    .icon-main-div{
+        display: flex;
+flex-direction: row-reverse;
+align-items: center;
+    
+ 
+    }
+    .user-main-div{
+        display: flex;
+     flex-direction: row-reverse;
+        // justify-content: center;
+        align-items: center;
+ 
+        .dropdownToggleClasss{
+            display: flex;
+            flex-direction: row;
+               justify-content: center;
+               align-items: center;
+            background-color: transparent;
+            border-color: transparent;
+            color:$white;
+           h6{
+               padding: 10px;
+             padding-top: 20px;
+           }
+        }
+        .paddingi{
+            padding-right: 15px;
+        }
+    }
+    .input-main-div{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        .input-search{
+color: $white;
+// margin-left: 15px;
+border-bottom-style: solid;
+
+border-color: rgba($white,0.3);
+// background-color: rgba($white,0.3);
+        }
+        i{
+            font-size: 30px;
+        }
+    }
+    i{
+        color:$white
+        
+    }
+}
