@@ -25,7 +25,15 @@ flex-direction: row;
         display: flex;
 flex-direction: row-reverse;
 align-items: center;
-    
+    Button{
+        background-color: $red;
+        border-color: transparent;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      
+    }
  
     }
     .user-main-div{

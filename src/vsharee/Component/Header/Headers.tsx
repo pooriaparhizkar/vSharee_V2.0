@@ -33,7 +33,15 @@ search
                 </div>
                <div className='col-md-2 col-1 icon-main-div'>
                   
-               <Button variant="danger">{HeaderLang.body.stream}</Button>
+               <Button >
+                                  <i className="material-icons ">
+play_circle_outline
+</i>
+                   <h6 className='d-none d-md-block'>
+                       {HeaderLang.body.stream}
+                   </h6>
+   
+                   </Button>
 
 
                 </div>
@@ -49,13 +57,13 @@ search
    
      <Dropdown.Menu>
        <Dropdown.Item href="#/action-1">
-   
+   profile
        </Dropdown.Item>
        <Dropdown.Item href="#/action-2">
-   
+   tanzimat
        </Dropdown.Item>
        <Dropdown.Item href="#/action-3">
-           
+           khoroj
        </Dropdown.Item>
      </Dropdown.Menu>
    </Dropdown>
