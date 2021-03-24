@@ -5,83 +5,114 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import VshareeLogo from '../../../assets/images/profile/vshareeLogo.png'
 import './Header.scss'
 import TextField from '@material-ui/core/TextField';
-import { Dropdown , Button } from 'react-bootstrap';
+import { Dropdown, Button } from 'react-bootstrap';
 import { Profilelang } from 'vsharee/Profile/Profile.lang';
+import useOnBlur from '../../../scripts/useOnBlur'
 class Headers extends React.Component<any, any>{
 
     constructor(props: any) {
         super(props);
         this.state = {
-
+hiddentextField:true
         }
 
     }
+    showInput=(txt: string)=>{
+   if(txt==="mob"){
+        this.setState({
+            hiddentextField:!this.state.hiddentextField
+        })
+   }
+    }
+    clickOnOthers=()=>{
+        if(!this.state.hiddentextField){
+            this.setState({
+                hiddentextField:!this.state.hiddentextField
+            })
+        }
+    }
     render() {
         return (
-            <div className='row main-div-header'>
-                <div className='col-md-3 col-4 logo-div'>
+            <div className='row main-div-header' >
+                <div className='col-md-3 col-4 logo-div' onClick={this.clickOnOthers}>
                     <img src={VshareeLogo} alt='' ></img>
                     <h1>{HeaderLang.body.sharee}</h1>
                 </div>
-                <div className='col-md-3 col-3 input-main-div'>
-                <i className="material-icons">
-search
+                <div hidden={this.state.hiddentextField} className='col-6 input-main-div-mobile '>
+                <TextField  InputProps={{
+                        className: 'input-search '
+                    }} id='searchInp'></TextField>
+                        <i className="material-icons" onClick={()=>this.showInput("mob")}> 
+                        search
 </i>
-<TextField InputProps={{
-    className: 'input-search d-none d-md-block'
-  }} ></TextField>
                 </div>
-               <div className='col-md-2 col-1 icon-main-div'>
-                  
-               <Button >
-                                  <i className="material-icons ">
-play_circle_outline
+                <div hidden={this.state.hiddentextField} className='col-2 input-main-div-mobile ' onClick={this.clickOnOthers}>
+           
+                </div>
+              
+                <div className='col-md-3 col-3 input-main-div' hidden={!this.state.hiddentextField} onClick={this.clickOnOthers}>
+                    <i className="material-icons  d-none d-md-block " onClick={()=>this.showInput("desck")}> 
+                        search
 </i>
-                   <h6 className='d-none d-md-block'>
-                       {HeaderLang.body.stream}
-                   </h6>
-   
-                   </Button>
+<i className="material-icons d-md-none d-xs-block" onClick={()=>this.showInput("mob")}> 
+                        search
+</i>
+                    <TextField InputProps={{
+                        className: 'input-search d-none d-md-block'
+                    }} id='searchInp'></TextField>
+                         
+                </div>
+                <div className='col-md-2 col-1 icon-main-div' hidden={!this.state.hiddentextField} onClick={this.clickOnOthers}>
+
+                    <Button >
+                        <i className="material-icons ">
+                            play_circle_outline
+</i>
+                        <h6 className='d-none d-md-block'>
+                            {HeaderLang.body.stream}
+                        </h6>
+
+                    </Button>
 
 
                 </div>
-                
-                <div className='col-4 user-main-div'>
-                <Dropdown className='dropdownClasss'>
-     <Dropdown.Toggle variant='none' className='dropdownToggleClasss'>
-     <i className="material-icons">
-   account_circle
+
+                <div className='col-4 user-main-div' hidden={!this.state.hiddentextField} onClick={this.clickOnOthers}>
+                    <Dropdown className='dropdownClasss'>
+                        <Dropdown.Toggle variant='none' className='dropdownToggleClasss'>
+                            <i className="material-icons">
+                                account_circle
    </i>
-   <h6 className='d-none d-md-block'>{HeaderLang.body.defaultname}</h6>
-     </Dropdown.Toggle>
-   
-     <Dropdown.Menu>
-       <Dropdown.Item href="#/action-1">
-   profile
-       </Dropdown.Item>
-       <Dropdown.Item href="#/action-2">
-   tanzimat
-       </Dropdown.Item>
-       <Dropdown.Item href="#/action-3">
-           khoroj
-       </Dropdown.Item>
-     </Dropdown.Menu>
-   </Dropdown>
-   <i className="material-icons ">
-                                mail
-                            </i>
-                
+                            <h6 className='d-none d-md-block'>{HeaderLang.body.defaultname}</h6>
+                        </Dropdown.Toggle>
 
-                <i className="material-icons paddingi">
-                                notifications
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="#/action-1">
+                                profile
+       </Dropdown.Item>
+                            <Dropdown.Item href="#/action-2">
+                                tanzimat
+       </Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">
+                                khoroj
+       </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <i className="material-icons ">
+                        mail
                             </i>
-                  
-                     
-                        
-                  
-                 
-                   </div>
-                 
+
+
+                    <i className="material-icons paddingi">
+                        notifications
+                            </i>
+
+
+
+
+
+                </div>
+
             </div>
         )
     }
