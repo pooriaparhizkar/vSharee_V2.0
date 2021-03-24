@@ -60,6 +60,76 @@
       background-color: black;
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
+
+      .signin{
+          padding-top: 160px;
+          padding-left: 70px;
+          font-family: Montserrat;
+          font-size: 38px;
+          font-weight: bold;
+          font-style: normal;
+          color: #ffffff;
+      }
+      .username{
+          height: 55px;
+          width: 451px;
+          margin-left: 90px;
+          margin-top: 10px;
+          padding-left: 50px ;
+          border-radius: 27.5px;
+          border: solid 1px #ffffff;
+          background-color: #f0f0f0;
+
+      }
+      .password{
+          height: 55px;
+          width: 451px;
+          margin-left: 90px;
+          margin-top: 10px;
+          padding-left: 50px ;
+          border-radius: 27.5px;
+          border: solid 1px #ffffff;
+          background-color: #f0f0f0;
+
+      }
+      .continue{
+          height: 55px;
+          width: 451px;
+          margin-left: 90px;
+          margin-top: 20px;
+          padding-left: 50px ;
+          border-radius: 27.5px;
+          background-color: #ff0d1d;
+
+          .text-continue{
+            color: white;
+            font-size: 13px;
+            padding-top: 15px;
+            padding-left: 120px;
+
+
+          }
+
+
+
+      }
+      .social{
+        margin-top: 50px;
+        padding-left: 230px;
+        font-family: Montserrat;
+        font-size: 13px;
+        font-style: normal;
+        color: #8b8b8b;
+      }
+      .donthaveaccount{
+        padding-top:200px ;
+        padding-left: 240px;
+        font-family: Montserrat;
+        font-size: 13px;
+        font-style: normal;
+        color: #8b8b8b;
+      }
+
   }
 
   }
