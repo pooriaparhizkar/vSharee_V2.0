@@ -60,9 +60,19 @@
       background-color: black;
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
+      .Lock-icon{
+        background-color: white;
+        margin-left: 500px;
+        margin-right: 100px;
+        margin-top: 90px;
+        border-radius: 5px;
+
+
+
+      }
 
       .signin{
-          padding-top: 160px;
+          padding-top: 10px;
           padding-left: 70px;
           font-family: Montserrat;
           font-size: 38px;
@@ -109,12 +119,28 @@
 
 
           }
+        .cfi cfi-chevron-right{
+
+        }
+
 
 
 
       }
+
+      .Rectangle{
+          height: 55px;
+          width: 451px;
+          margin-left: 90px;
+          margin-top: 20px;
+          padding-left: 50px ;
+          border-radius: 27.5px;
+          background-image: linear-gradient(to left, #67e4fe, #35abd3 48%);
+
+
+      }
       .social{
-        margin-top: 50px;
+        margin-top: 30px;
         padding-left: 230px;
         font-family: Montserrat;
         font-size: 13px;

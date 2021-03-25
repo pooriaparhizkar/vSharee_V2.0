@@ -17,7 +17,10 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                 </div>
 
                 <div className={'Blackbox'}>
-                    <i className="cfi cfi-lock"></i>
+                    <div className={'Lock-icon'}>
+                        <i className="material-icons-outlined">lock</i>
+                    </div>
+                    <i className="material-icons-outlined">lock</i>
                     <h1 className={'signin'}>Sign In</h1>
                     <input className={'username'} placeholder={'Email Address'} />
                     <input className={'password'} placeholder={'Password'} />
@@ -25,7 +28,9 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                         <h1 className={'text-continue'}>C O N T I N U E</h1>
                         <i className="cfi cfi-chevron-right"></i>
                     </div>
+
                     <h1 className={'social'}>or Connect with Social Media </h1>
+                    <input className={'Rectangle'} placeholder={'Sign In With Google '} />
                     <h1 className={'donthaveaccount'}>Don’t have an accoun?</h1>
                 </div>
             </div>
