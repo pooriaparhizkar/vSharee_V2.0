@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import Login from './Login/login.index';
+import Signup from './Sign up/signup.index';
 
 const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     return (
@@ -10,6 +11,9 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
             <Switch>
                 <Route path="/login">
                     <Login />
+                </Route>
+                <Route path="/signup">
+                    <Signup />
                 </Route>
                 <Route path="*">
                     <h1>Welcome to vSharee</h1>
