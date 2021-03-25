@@ -21,7 +21,7 @@ render(){
         <div className='row main-div-profile'>
            <div className='col'>
                <div className='row description-row'>
-                   <div className='col-md-1 div-item-description'></div>
+                   <div className='col-md-1 '></div>
                    <div className='col-md-6 col-xs-12 div-item-description'>
                        <img src={TestImg} alt=''></img>
                        <div className='text-description'>
@@ -64,6 +64,147 @@ share
 
                    </div>
                </div>
+       
+         <div className='row line'></div>
+
+         <div className='row group-row'>
+                   <div className='col-md-1 '></div>
+                   <div className='col-md-11 col-xs-12 div-item-group-title'>
+                       <h1>
+                       {Profilelang.body.publicGroup}
+                       </h1>
+                   </div>
+                   <div className='col-md-1 '></div>
+                   <div className='col-md-10 col-xs-12 div-item-group'>
+      <div className='row '>
+          <div className='col-md-6 col-xs-12'>
+              <div className='row'>
+                  <div className='col-6 div-item-group-detail'>
+<img src={TestImg} alt=''></img>
+<h1>Jordan Lopez</h1>
+                  </div>
+                  <div className='col-6 div-item-group-detail'>
+
+<h5>129</h5>
+<h6>members</h6>
+                  </div>
+              </div>
+          </div>
+          <div className='col-md-6 col-xs-12'>
+              <div className='row'>
+                  <div className='col-6 div-item-group-detail'>
+<img src={TestImg} alt=''></img>
+<h1>Jordan Lopez</h1>
+                  </div>
+                  <div className='col-6 div-item-group-detail'>
+
+<h5>129</h5>
+<h6>members</h6>
+                  </div>
+              </div>
+          </div>
+        
+          <div className='col-md-6 col-xs-12'>
+              <div className='row'>
+                  <div className='col-6 div-item-group-detail'>
+<img src={TestImg} alt=''></img>
+<h1>Jordan Lopez</h1>
+                  </div>
+                  <div className='col-6 div-item-group-detail'>
+
+<h5>129</h5>
+<h6>members</h6>
+                  </div>
+              </div>
+          </div>
+        
+          <div className='col-md-6 col-xs-12'>
+              <div className='row'>
+                  <div className='col-6 div-item-group-detail'>
+<img src={TestImg} alt=''></img>
+<h1>Jordan Lopez</h1>
+                  </div>
+                  <div className='col-6 div-item-group-detail'>
+
+<h5>129</h5>
+<h6>members</h6>
+                  </div>
+              </div>
+          </div>
+        
+          <div className='col-md-6 col-xs-12'>
+              <div className='row'>
+                  <div className='col-6 div-item-group-detail'>
+<img src={TestImg} alt=''></img>
+<h1>Jordan Lopez</h1>
+                  </div>
+                  <div className='col-6 div-item-group-detail'>
+
+<h5>129</h5>
+<h6>members</h6>
+                  </div>
+              </div>
+          </div>
+        
+          <div className='col-md-6 col-xs-12'>
+              <div className='row'>
+                  <div className='col-6 div-item-group-detail'>
+<img src={TestImg} alt=''></img>
+<h1>Jordan Lopez</h1>
+                  </div>
+                  <div className='col-6 div-item-group-detail'>
+
+<h5>129</h5>
+<h6>members</h6>
+                  </div>
+              </div>
+          </div>
+        
+      </div>
+                   </div>
+                   <div className='col-md-1 '></div>
+             
+               </div>
+       
+               <div className='row mayknow-row'>
+                   <div className='col-md-1 '></div>
+                   <div className='col-md-11 col-xs-12 div-item-mayknow-title'>
+                       <h1>
+                       {Profilelang.body.mayknow}
+                       </h1>
+                   </div>
+                   <div className='col-md-1 '></div>
+                   <div className='col-md-10 col-xs-12 div-item-mayknow'>
+      <div className='row div-item-mayknow-detail'>
+<div className='col-md-2 col-xs-4 div-item-mayknow-detail-col'>
+    <img src={TestImg} alt=''></img>
+    <h1>Alan Ryan</h1>
+</div>
+<div className='col-md-2 col-xs-4 div-item-mayknow-detail-col'>
+    <img src={TestImg} alt=''></img>
+    <h1>Alan Ryan</h1>
+</div>
+<div className='col-md-2 col-xs-4 div-item-mayknow-detail-col'>
+    <img src={TestImg} alt=''></img>
+    <h1>Alan Ryan</h1>
+</div>
+<div className='col-md-2 col-xs-4 div-item-mayknow-detail-col'>
+    <img src={TestImg} alt=''></img>
+    <h1>Alan Ryan</h1>
+</div>
+<div className='col-md-2 col-xs-4 div-item-mayknow-detail-col'>
+    <img src={TestImg} alt=''></img>
+    <h1>Alan Ryan</h1>
+</div>
+
+
+      </div>
+                   </div>
+                   <div className='col-md-1 '></div>
+             
+               </div>
+       
+
            </div>
         </div>
     )
