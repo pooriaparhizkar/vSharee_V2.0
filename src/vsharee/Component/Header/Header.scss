@@ -43,8 +43,8 @@ align-items: center;
      flex-direction: row-reverse;
         // justify-content: center;
         align-items: center;
- 
-        .dropdownToggleClasss{
+ .dropdownClasss{
+      .dropdownToggleClasss{
             display: flex;
             flex-direction: row;
                justify-content: center;
@@ -57,6 +57,10 @@ align-items: center;
              padding-top: 20px;
            }
         }
+  
+
+ }
+       
         .paddingi{
             padding-right: 15px;
         }
@@ -98,5 +102,19 @@ border-color: rgba($white,0.3);
     i{
         color:$white;
         cursor: pointer;
+    }
+    .dropdowm-item{
+        display: flex;
+        flex-direction: row;
+        
+        align-items: center;
+        i{
+            color:$black !important;
+            cursor: pointer;
+        }
+        h6{
+            margin-left: 10px;
+            margin-top: 5px;
+        }
     }
 }

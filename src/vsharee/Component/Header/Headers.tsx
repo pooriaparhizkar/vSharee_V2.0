@@ -87,14 +87,33 @@ hiddentextField:true
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">
-                                profile
+                            <Dropdown.Item href="#/action-1 ">
+                                <div className='dropdowm-item'>
+        <i className="material-icons">
+                                account_circle
+   </i>
+   <h6>{HeaderLang.body.profile}</h6>
+                                </div>
+                    
+                                
        </Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">
-                                tanzimat
+                            <Dropdown.Item href="#/action-2 dropdowm-item">
+                            <div className='dropdowm-item'>
+                            <i className="material-icons">
+settings
+</i>
+ <h6>{HeaderLang.body.setting}</h6>
+                                </div>
+                               
        </Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">
-                                khoroj
+                            <Dropdown.Item href="#/action-3 dropdowm-item">
+                            <div className='dropdowm-item'>
+                            <i className="material-icons">
+logout
+</i>
+                               <h6>{HeaderLang.body.logout}</h6> 
+                            </div>
+                            
        </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>

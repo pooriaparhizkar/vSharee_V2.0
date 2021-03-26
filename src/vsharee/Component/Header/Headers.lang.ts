@@ -2,6 +2,9 @@ export const HeaderLang = {
     body: {
         sharee: 'sharee',
         defaultname:'Default name',
-        stream:"Stream"
+        stream:"Stream",
+        profile:'profile',
+        setting:'setting',
+        logout:'logout'
     },
 };
