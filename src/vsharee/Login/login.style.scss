@@ -60,12 +60,12 @@
       background-color: black;
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
-      .Lock-icon{
-        background-color: white;
-        margin-left: 500px;
-        margin-right: 100px;
-        margin-top: 90px;
-        border-radius: 5px;
+
+      .material-icons-outlined{
+        color:white;
+        margin-top: 80px;
+        margin-left: 490px;
+        font-size: 70px;
 
 
 
@@ -74,6 +74,7 @@
       .signin{
           padding-top: 10px;
           padding-left: 70px;
+          padding-bottom: 5px;
           font-family: Montserrat;
           font-size: 38px;
           font-weight: bold;
@@ -119,7 +120,12 @@
 
 
           }
-        .cfi cfi-chevron-right{
+        .material-icons{
+          color: white;
+          font-size: 30px;
+          margin-left: 350px;
+
+
 
         }
 

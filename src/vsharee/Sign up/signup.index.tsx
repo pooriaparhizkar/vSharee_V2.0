@@ -16,9 +16,6 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                     <h1 className={'Sign-in-to-continue-'}>Sign in to continue access pages</h1>
                 </div>
                 <div className={'Black-box'}>
-                    <div className={'Lock-icon'}>
-                        <i className="material-icons-outlined">lock</i>
-                    </div>
                     <i className="material-icons-outlined">lock</i>
                     <h1 className={'signun'}>Sign Up</h1>
                     <input className={'user-name'} placeholder={'Email Address'} />
