@@ -1,0 +1,242 @@
+@import '../../utilities/references/index';
+.main-div-profile{
+    height: 105vh;
+    background-color: $black;
+    .description-row{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        margin-top: 30px;
+  
+        .div-item-description{
+            // position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        img{
+           
+            width: 180px;
+            height: 180px;
+            border-radius: 100%;
+            
+            
+        }
+        .text-description{
+            // position: absolute;
+            // left: 250px;
+           
+            // margin-top: 20px;
+h1{
+    font-size: 64px;
+    font-weight: bold;
+}
+h6{
+   font-size: 14px;
+   color:$lightgray; 
+}
+        }
+        .followdiv{
+            display: flex;
+            flex-direction: row;
+            border-right-style: solid;
+            border-color: $lightborder;
+.followbtn{
+    width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+border-color: transparent;
+    height: 34px;
+    background-color: $redfollow;
+    border-radius: 6px;
+    color:$white;
+    margin-right: 10px;
+    font-size: 14px;
+}
+.sharebtn{
+    position: relative;
+    margin-right: 10px;
+    width: 110px;
+border-color: transparent;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    flex-direction: row;
+    color:$white;
+    background-color: $lightblue;
+    text-align: center;
+    
+h1{
+    font-size: 14px;
+    padding-right: 24px;
+    padding-top: 9px;
+}
+
+    .shareicondiv{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top-right-radius:6px;
+        border-bottom-right-radius: 6px;
+        width: 28px;
+            position: absolute;
+            right: 0;
+background-color: $bluedb;
+        height: 34px;
+        i{
+            font-size: 14px;
+            color: $white;
+        
+        }
+
+    }
+    
+  
+}
+        }
+        .socialmediadiv{
+            padding-right: 10px;
+            padding-left: 10px;
+            display: flex;
+            flex-direction: row;
+            border-right-style: solid;
+            border-color: $lightborder;
+            height: 34px;
+            .spotifydiv{
+                width: 34px;
+                border-radius: 3px;
+                height: 34px;
+                background-color: #273238;
+                margin-right: 10px;
+.spotifybtn{
+    width: 100%;
+
+    height: 100%;
+}
+            }
+
+.imdbbtn{
+    width: 34px;
+border-radius: 3px;
+    height: 34px;
+}
+        }
+        .messagediv{
+            border-radius: 3px;
+            margin-left: 10px;
+            width: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 34px;
+            background-color: $white;
+
+.messagebtn{
+    width: 19px;
+
+    height: 19px;
+}
+        }
+        }
+    }
+.line{
+    
+
+    height: 1px;
+  
+    margin: 45px 98px 35px 100px;
+  
+    border: solid 1px #979797;
+}
+
+.group-row
+{
+    .div-item-group-title{
+h1{
+    padding-left: 10px;
+    font-size: 21px;
+color: $white;
+    font-weight: 500;
+}
+    }
+    .div-item-group{
+        background-color: $gray1A;
+        height: 210px;
+        overflow-y: auto;
+        .div-item-group-detail{
+            display: flex;
+           flex-direction: row;
+            padding: 8px;
+            padding-left: 10px;
+            img{
+                width: 46px;
+border-radius: 100%;
+                height: 46px;
+                margin-left: 10px;
+            }
+            h1{
+                font-size: 16px;
+color: $white;
+                font-weight: 500;
+                padding-left: 10px;
+                padding-top: 10px;
+            }
+            h5{
+                font-size: 14px;
+                color: $white;
+                font-weight: 500;
+                margin-left: 10px;
+                padding-top: 15px;
+            }
+            h6{
+                font-size: 10px;
+                color: $white;
+                font-weight: 500;
+                margin-left: 10px;
+                padding-top: 18px;
+            }
+        }
+    }
+
+}
+}
+.mayknow-row
+{
+    margin-top: 50px;
+    .div-item-mayknow-title{
+h1{
+    padding-left: 10px;
+    font-size: 21px;
+color: $white;
+    font-weight: 500;
+}
+    }
+    .div-item-mayknow-detail{
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: center;
+        align-items: center;
+        .div-item-mayknow-detail-col{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        img{
+            width: 158px;
+            height: 158px;
+        border-radius: 100%; 
+        }
+       h1{
+        font-size: 16px;
+color: $white;
+        font-weight: 500;
+        padding-top: 16px;
+       }
+    }
+}
+}
