@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './signup.style.scss';
 import RedBox from '../../assets/images/RedBox.png';
 import Google from '../../assets/images/google.svg';
+import googleLogo from '../../assets/images/google.svg';
+import { post } from '../../scripts/api';
 
 const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
+    const [email, setEmail] = useState<string | undefined>(undefined);
+    const [username, setUsername] = useState<string | undefined>(undefined);
+    const [password, setPassword] = useState<string | undefined>(undefined);
+    const [password2, setPassword2] = useState<string | undefined>(undefined);
+    function submitHandler() {
+        const body = {
+            firstname: 'null',
+            lastname: 'null',
+            username: username,
+            email: email,
+            password: password,
+            password2: password2,
+        };
+        post('/user/signup/', body).then((res) => {
+            console.log(res);
+        });
+        //  console.log(body);
+    }
+
     return (
         <div className={'vsharee-Signup-page'}>
             <div className={'Box-Box'}>
@@ -18,17 +39,43 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                 <div className={'Black-box'}>
                     <i className="material-icons-outlined">lock</i>
                     <h1 className={'signun'}>Sign Up</h1>
-                    <input className={'user-name'} placeholder={'Email Address'} />
-                    <input className={'password-'} placeholder={'Password'} />
-                    <input className={'repassword'} placeholder={'Re_password'} />
-                    <div className={'continue-'}>
-                        <h1 className={'textcontinue'}>C O N T I N U E</h1>
-                        <i className="cfi cfi-chevron-right"></i>
+
+                    <input
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={'user-name'}
+                        placeholder={'Email Address'}
+                    />
+                    <input
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className={'user-name'}
+                        placeholder={'Username'}
+                    />
+                    <input
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password"
+                        className={'password-'}
+                        placeholder={'Password'}
+                    />
+                    <input
+                        value={password2}
+                        onChange={(e) => setPassword2(e.target.value)}
+                        type="password"
+                        className={'repassword'}
+                        placeholder={'Re_password'}
+                    />
+
+                    <div onClick={submitHandler} className={'continue-'}>
+                        <h1 className={'text-continue'}>CONTINUE</h1>
+                        <i className="material-icons">chevron_right</i>
                     </div>
 
                     <h1 className={'social-'}>or Connect with Social Media </h1>
-                    <div className={'Google'}>
-                        <input className={'Rectangle-'} placeholder={'Sign In With Google '} />
+                    <div className={'Rectangle'}>
+                        <img src={googleLogo} alt="google" />
+                        <p>Sign In With Google</p>
                     </div>
 
                     <h1 className={'haveaccount'}>have an accoun?</h1>

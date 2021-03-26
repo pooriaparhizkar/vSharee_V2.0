@@ -5,7 +5,7 @@ import { connect, ConnectedProps } from 'react-redux';
 //import box from 'assets/images/box.png';
 import RedBox from 'assets/images/RedBox.png';
 import './login.style.scss';
-
+import googleLogo from 'assets/images/google.svg';
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     return (
         <div className={'vsharee-login-page'}>
@@ -22,12 +22,15 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                     <input className={'username'} placeholder={'Email Address'} />
                     <input className={'password'} placeholder={'Password'} />
                     <div className={'continue'}>
-                        <h1 className={'text-continue'}>C O N T I N U E</h1>
+                        <h1 className={'text-continue'}>CONTINUE</h1>
                         <i className="material-icons">chevron_right</i>
                     </div>
 
                     <h1 className={'social'}>or Connect with Social Media </h1>
-                    <input className={'Rectangle'} placeholder={'Sign In With Google '} />
+                    <div className={'Rectangle'}>
+                        <img src={googleLogo} alt="google" />
+                        <p>Sign In With Google</p>
+                    </div>
                     <h1 className={'donthaveaccount'}>Don’t have an accoun?</h1>
                 </div>
             </div>

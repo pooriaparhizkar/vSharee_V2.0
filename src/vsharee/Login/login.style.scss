@@ -1,32 +1,37 @@
 @import 'src/utilities/references/index';
-.vsharee-login-page{
+
+.vsharee-login-page {
 
   width: 100%;
   height: 100vh;
-  display : flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 
 
-  .Box{
-   width: 1253px;
-  height: 835px;
+  .Box {
+    width: 1253px;
+    height: 835px;
 
-  object-fit: contain;
+    object-fit: contain;
     display: flex;
 
 
-    .Redbox{
+    .Redbox {
       flex: 1;
       width: 100%;
       height: 100%;
       overflow: hidden;
       position: relative;
-
-
-      .Redboxbackground{
+      border-bottom-left-radius: 20px;
+      border-top-left-radius: 20px;
+      display: none;
+      @include vsharee-md{
+        display: block;
+      }
+      .Redboxbackground {
         position: absolute;
-         z-index: -1;
+        z-index: -1;
         top: 0;
         left: 0;
         height: 100%;
@@ -42,110 +47,136 @@
         font-weight: bold;
         font-size: 50px;
         color: #ffffff;
-}
+      }
 
 
-  .Sign-in-to-continue {
-    font-size: 25px;
-    padding-left: 55px;
-    color:#ffffff;
-    font-weight: normal;
-    font-family: Montserrat;
-}
-}
-    .Blackbox{
+      .Sign-in-to-continue {
+        font-size: 25px;
+        padding-left: 55px;
+        color: #ffffff;
+        font-weight: normal;
+        font-family: Montserrat;
+      }
+    }
+
+    .Blackbox {
 
       flex: 1;
-      height: 96.9%;
+      height: 100%;
       background-color: black;
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
 
-      .material-icons-outlined{
-        color:white;
+      .material-icons-outlined {
+        color: white;
         margin-top: 80px;
         margin-left: 490px;
         font-size: 70px;
 
 
+      }
+
+      .signin {
+        padding-top: 10px;
+        padding-left: 70px;
+        padding-bottom: 5px;
+        font-family: Montserrat;
+        font-size: 38px;
+        font-weight: bold;
+        font-style: normal;
+        color: #ffffff;
+      }
+
+      .username {
+        height: 55px;
+        width: 451px;
+        margin-left: 90px;
+        margin-top: 10px;
+        padding-left: 50px;
+        border-radius: 27.5px;
+        border: solid 1px #ffffff;
+        background-color: #f0f0f0;
 
       }
 
-      .signin{
-          padding-top: 10px;
-          padding-left: 70px;
-          padding-bottom: 5px;
-          font-family: Montserrat;
-          font-size: 38px;
-          font-weight: bold;
-          font-style: normal;
-          color: #ffffff;
-      }
-      .username{
-          height: 55px;
-          width: 451px;
-          margin-left: 90px;
-          margin-top: 10px;
-          padding-left: 50px ;
-          border-radius: 27.5px;
-          border: solid 1px #ffffff;
-          background-color: #f0f0f0;
+      .password {
+        height: 55px;
+        width: 451px;
+        margin-left: 90px;
+        margin-top: 10px;
+        padding-left: 50px;
+        border-radius: 27.5px;
+        border: solid 1px #ffffff;
+        background-color: #f0f0f0;
 
       }
-      .password{
-          height: 55px;
-          width: 451px;
-          margin-left: 90px;
-          margin-top: 10px;
-          padding-left: 50px ;
-          border-radius: 27.5px;
-          border: solid 1px #ffffff;
-          background-color: #f0f0f0;
 
-      }
-      .continue{
-          height: 55px;
-          width: 451px;
-          margin-left: 90px;
-          margin-top: 20px;
-          padding-left: 50px ;
-          border-radius: 27.5px;
-          background-color: #ff0d1d;
+      .continue {
+        height: 55px;
+        width: 451px;
+        margin-left: 90px;
+        margin-top: 20px;
+        // padding-left: 50px;
+        border-radius: 27.5px;
+        background-color: #ff0d1d;
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
 
-          .text-continue{
-            color: white;
-            font-size: 13px;
-            padding-top: 15px;
-            padding-left: 120px;
-
-
-          }
-        .material-icons{
+        .text-continue {
           color: white;
-          font-size: 30px;
-          margin-left: 350px;
+          height: fit-content;
+          font-size: 13px;
+          display: flex;
+          align-content: center;
+          justify-content: center;
+          // padding-top: 15px;
+          //padding-left: 120px;
 
+
+        }
+
+        .material-icons {
+          color: white;
+          //  font-size: 30px;
+          position: absolute;
+          right: 6px;
+          font-size: 45px;
+          // margin-left: 350px;
 
 
         }
 
 
+      }
 
+      .Rectangle {
+        height: 55px;
+        width: 451px;
+        margin-left: 90px;
+        margin-top: 20px;
+        padding-left: 50px;
+        border-radius: 27.5px;
+        background-image: linear-gradient(to left, #67e4fe, #35abd3 48%);
+        display: flex;
+        align-items: center;
+        justify-content: left;
+          cursor: pointer;
+        img {
+          width: 25px;
+          height: 25px;
+        }
+
+        p {
+          font-size: 14px;
+          color: #ffffff;
+          margin-left: 28px;
+        }
 
       }
 
-      .Rectangle{
-          height: 55px;
-          width: 451px;
-          margin-left: 90px;
-          margin-top: 20px;
-          padding-left: 50px ;
-          border-radius: 27.5px;
-          background-image: linear-gradient(to left, #67e4fe, #35abd3 48%);
-
-
-      }
-      .social{
+      .social {
         margin-top: 30px;
         padding-left: 230px;
         font-family: Montserrat;
@@ -153,8 +184,9 @@
         font-style: normal;
         color: #8b8b8b;
       }
-      .donthaveaccount{
-        padding-top:200px ;
+
+      .donthaveaccount {
+        padding-top: 200px;
         padding-left: 240px;
         font-family: Montserrat;
         font-size: 13px;
@@ -162,7 +194,7 @@
         color: #8b8b8b;
       }
 
-  }
+    }
 
   }
 
