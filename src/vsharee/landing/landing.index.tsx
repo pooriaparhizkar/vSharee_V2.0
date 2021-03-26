@@ -8,6 +8,7 @@ import Slider from 'react-slick';
 import movie1Pic from 'assets/images/landing/tenet.jpg';
 import movie2Pic from 'assets/images/landing/johnwick.jpg';
 import moviePreview from 'assets/images/landing/tenetHeader.jpg';
+import { Link } from 'react-router-dom';
 
 const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
     const sliderRef = useRef<Slider | null>(null);
@@ -262,6 +263,92 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div className="questions">
+                <h1>Questions Looks Here </h1>
+                <h3>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the{' '}
+                </h3>
+                <div className="box">
+                    <div className="my-column">
+                        <div className="items">
+                            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante nibh, scelerisque
+                                a vehicula nec, eleifend at tortor. Aliquam eget suscipit lectus. Suspendisse efficitur
+                                congue purus non molestie. Phasellus pulvinar massa in mauris imperdiet, eget tristique
+                                ex pharetra. Proin viverra mattis felis, eu egestas urna pharetra maximus. Aliquam non
+                                faucibus neque, a interdum purus. Maecenas vitae suscipit justo.
+                            </p>
+                        </div>
+                        <div className="items">
+                            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante nibh, scelerisque
+                                a vehicula nec, eleifend at tortor. Aliquam eget suscipit lectus. Suspendisse efficitur
+                                us. Maecenas vitae suscipit justo.
+                            </p>
+                        </div>
+                        <div className="items">
+                            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante nibh, scelerisque
+                                a vehicula nec, eleifend at tortor. Aliquam eget suscipit lectus. Suspendisse efficitur
+                                r massa in mauris imperdiet, eget tristique ex pharetra. Proin viverra mattis felis, eu
+                                egestas urna pharetra maximus. Aliquam non faucibus neque, a interdum purus. Maecenas
+                                vitae suscipit justo.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="my-column">
+                        <div className="items">
+                            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante nibh, scelerisque
+                                a vehicula nec, eleifend at tortor. Aliquam eget suscipit lectus. Suspendisse efficitur
+                                congue purus non molestie. Phasellus pulvinar massa in mauris imperdiet, eget tristique
+                                ex pharetra. Proin viverra mattis felis, eu egestas urna pharetra maximus. Aliquam non
+                                congue purus non molestie. Phasellus pulvinar massa in mauris imperdiet, eget tristique
+                                ex pharetra. Proin viverra mattis felis, eu eg congue purus non molestie. Phasellus
+                                pulvinar massa in mauris imperdiet, eget tristique ex pharetra. Proin viverra mattis
+                                felis, eu eg faucibus neque, a interdum purus. Maecenas vitae suscipit justo.
+                            </p>
+                        </div>
+                        <div className="items">
+                            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ante nibh, scelerisque
+                                a vehicula nec, eleifend at tortor. Aliquam eget suscipit lectus. Suspendisse efficitur
+                                congue purus non molestie. Phasellus pulvinar massa in mauris imperdiet, eget tristique
+                                ex pharetra. Proin viverra mattis felis, eu eg congue purus non molestie. Phasellus
+                                pulvinar massa in mauris imperdiet, eget tristique ex pharetra. Proin viverra mattis
+                                felis, eu eg congue purus non molestie. Phasellus pulvinar massa in mauris imperdiet,
+                                eget tristique ex pharetra. Proin viverra mattis felis, eu egestas urna pharetra
+                                maximus. Aliquam non faucibus neque, a interdum purus. Maecenas vitae suscipit justo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="footer">
+                <div className="logo">
+                    <img src={logo} alt="logo" />
+                    <h1>Sharee</h1>
+                </div>
+                <div className="links">
+                    <Link to="#">Home</Link>
+                    <Link to="#">About</Link>
+                    <Link to="#">Service</Link>
+                    <Link to="#">Contact Us</Link>
+                </div>
+                <div className="circles">
+                    <div className="items">Po</div>
+                    <div className="items">Ka</div>
+                    <div className="items">Mo</div>
+                </div>
+                <h6>Copyright Vsharee</h6>
             </div>
         </div>
     );
