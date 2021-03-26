@@ -4,7 +4,7 @@ import { ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import Landing from './landing/landing.index';
 
-const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
+const Vsharee: React.FC<ConnectedProps<typeof connector>> = function () {
     return (
         <Router>
             <Switch>

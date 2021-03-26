@@ -4,107 +4,15 @@
   position: relative;
   background-color: $primary;
   z-index: 0;
+  overflow-x: hidden;
+  padding-bottom: 100px;
 
-  .top-pic {
-    width: 100%;
+  .header {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
-
-    .top-pic-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-
-      img {
-        width: 100%;
-        min-height: 300px;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .name {
-        position: absolute;
-        //  background-color: red;
-        height: 100%;
-        top: 0;
-        left: 0;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        color: #ffffff;
-        @include vsharee-size(padding-left, 100px, 20px);
-
-        h2 {
-          @include vsharee-size(font-size, 46px, 24px);
-          //  font-size: 46px;
-          font-weight: bold;
-        }
-
-        p {
-          @include vsharee-size(font-size, 16px, 12px);
-          font-weight: normal;
-          line-height: 1.38;
-          max-width: 526px;
-          margin: 12px 0;
-        }
-
-        .detail {
-          display: flex;
-          align-items: center;
-
-          i {
-            @include vsharee-size(font-size, 30px, 20px);
-            color: $gold;
-          }
-
-          span {
-            @include vsharee-size(font-size, 22px, 14px);
-            font-weight: normal;
-            margin: 0 12px;
-          }
-
-          h4 {
-            @include vsharee-size(font-size, 16px, 12px);
-            font-weight: 300;
-            height: fit-content;
-          }
-        }
-
-        button {
-          @include vsharee-size(width, 155px, 100px);
-          @include vsharee-size(height, 54px, 40px);
-          border-radius: 12px;
-          box-shadow: 0 4px 12px 0 rgba(255, 13, 29, 0.47);
-          background-color: $primary2;
-          display: flex;
-          color: #ffffff;
-          outline: none;
-          border: none;
-          cursor: pointer;
-          align-items: center;
-          justify-content: center;
-          padding: 0;
-          @include vsharee-size(margin-top, 40px, 20px);
-
-
-          h3 {
-            @include vsharee-size(font-size, 16px, 12px);
-            font-weight: bold
-          }
-
-          i {
-            @include vsharee-size(font-size, 30px, 16px);
-
-          }
-        }
-      }
-    }
-
-  }
-
-  .header {
+    width: 100%;
+    z-index: 1;
     @include vsharee-size(height, 80px, 50px);
     display: flex;
     // height: 80px;
@@ -125,6 +33,7 @@
         @include vsharee-size(max-width, 75px, 50px);
         //  max-width: 75px;
         width: 100%;
+        height: 100%;
       }
 
       h1 {
@@ -175,5 +84,599 @@
         }
       }
     }
+  }
+
+  .slider-top {
+    position: relative;
+
+    .top-pic-image {
+      width: 100%;
+      min-height: 300px;
+      max-height: 800px;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .top-pic {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      top: 0;
+
+      .top-pic-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+
+        .name {
+          position: absolute;
+          //  background-color: red;
+          height: 100%;
+          top: 0;
+          left: 0;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          color: #ffffff;
+          @include vsharee-size(padding-left, 100px, 20px);
+
+          h2 {
+            @include vsharee-size(font-size, 46px, 24px);
+            //  font-size: 46px;
+            font-weight: bold;
+          }
+
+          p {
+            @include vsharee-size(font-size, 16px, 12px);
+            font-weight: normal;
+            line-height: 1.38;
+            max-width: 526px;
+            margin: 12px 0;
+          }
+
+          .detail {
+            display: flex;
+            align-items: center;
+
+            i {
+              @include vsharee-size(font-size, 30px, 20px);
+              color: $gold;
+            }
+
+            span {
+              @include vsharee-size(font-size, 22px, 14px);
+              font-weight: normal;
+              margin: 0 12px;
+            }
+
+            h4 {
+              @include vsharee-size(font-size, 16px, 12px);
+              font-weight: 300;
+              height: fit-content;
+            }
+          }
+
+          button {
+            @include vsharee-size(width, 155px, 100px);
+            @include vsharee-size(height, 54px, 40px);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px 0 rgba(255, 13, 29, 0.47);
+            background-color: $primary2;
+            display: flex;
+            color: #ffffff;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            @include vsharee-size(margin-top, 40px, 20px);
+
+
+            h3 {
+              @include vsharee-size(font-size, 16px, 12px);
+              font-weight: bold
+            }
+
+            i {
+              @include vsharee-size(font-size, 30px, 16px);
+
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+  .category {
+    display: flex;
+    background-color: transparent;
+    //@include vsharee-size(width,85%,95%);
+    width: 85%;
+    margin: auto;
+    justify-content: space-between;
+    height: 100px;
+    align-items: center;
+    border-bottom: solid 1px rgba($gray97, 0.6);
+
+    .items {
+      color: white;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      cursor: pointer;
+      height: 100%;
+
+      h2 {
+        @include vsharee-size(font-size, 21px, 14px);
+        @include vsharee-size(font-weight, 500, 500);
+        display: none;
+        @include vsharee-md {
+          display: block;
+        }
+      }
+
+      i {
+        @include vsharee-size(font-size, 30px, 22px);
+        margin-right: 12px;
+        // font-size: 30px;
+      }
+
+      &.active {
+        border-bottom: solid 4px $primary2;
+      }
+    }
+  }
+
+  .genres {
+    display: flex;
+    flex-wrap: unset;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+    @include vsharee-md {
+      flex-wrap: wrap;
+    }
+    @include vsharee-size(width, 85%, 95%);
+    margin: auto;
+
+    .items {
+      //min-width: 146px;
+      @include vsharee-size(min-width, 146px, 110px);
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $black2;
+      border-radius: 10px;
+      margin-right: 24px;
+      margin-top: 42px;
+
+      &.active {
+        background-color: $primary2;
+      }
+
+      h2 {
+        font-size: 16px;
+        font-weight: normal;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .movies {
+    position: relative;
+    margin-top: 64px;
+
+    .slick-slide {
+      margin-right: 36px;
+    }
+
+    .my-gradient {
+      opacity: 0.83;
+      width: 88px;
+      height: 100%;
+      position: absolute;
+      z-index: 10;
+    }
+
+    .right-gradient {
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #000000 61%);
+
+      right: 0;
+    }
+
+    .left-gradient {
+      background-image: linear-gradient(to left, rgba(0, 0, 0, 0), #000000 61%);
+
+      left: 0;
+    }
+
+    .arrow {
+      position: absolute;
+      z-index: 100;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .cfi-chevron-right {
+      right: 0;
+    }
+
+    .cfi-chevron-left {
+      left: 0;
+    }
+
+    .items {
+      min-width: 160px;
+      max-width: 180px;
+      max-height: 290px;
+      height: 100%;
+      width: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .detail {
+        min-height: 60px;
+        height: 100%;
+        width: 100%;
+        background-color: $primary;
+        padding: 16px 0;
+
+        h2 {
+          font-size: 16px;
+          font-weight: 500;
+          color: #ffffff;
+        }
+
+        .more {
+          display: flex;
+
+          span {
+            flex: 1;
+          }
+
+          h4 {
+            font-size: 12px;
+            font-weight: 500;
+            color: $gray7a;
+          }
+
+          i {
+            color: $gray7a;
+            font-size: 16px;
+            margin-right: 8px;
+          }
+
+          .heart {
+            color: $primary2;
+          }
+
+          p {
+            font-size: 12px;
+            color: #ffffff;
+
+          }
+        }
+      }
+    }
+  }
+
+  .total-info {
+    display: flex;
+    margin-top: 120px;
+    height: fit-content;
+    flex-direction: column;
+    @include vsharee-md {
+      flex-direction: row;
+    }
+
+    .left {
+      flex: 1;
+      @include vsharee-size(padding-left, 100px, 30px);
+      @include vsharee-size(padding-right, 50px, 0);
+      margin-bottom: 40px;
+      @include vsharee-md {
+        margin-bottom: 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: flex-end;
+
+        img {
+          @include vsharee-size(max-width, 200px, 145px);
+          @include vsharee-size(max-height, 302px, 220px);
+          width: 100%;
+          height: 100%;
+
+        }
+
+        .text {
+          height: 100%;
+          @include vsharee-size(margin-left, 0, -20px);
+          //  margin-left: -20px;
+          h1 {
+            @include vsharee-size(font-size, 64px, 42px);
+
+            // font-size: 64px;
+            font-weight: bold;
+            color: #ffffff;
+          }
+
+          h2 {
+            @include vsharee-size(font-size, 48px, 28px);
+            //font-size: 48px;
+            font-weight: 300;
+            color: $gray77;
+          }
+        }
+      }
+
+      p {
+        margin-top: 30px;
+        @include vsharee-size(font-size, 18px, 14px);
+        // font-size: 18px;
+        font-weight: normal;
+        color: #ffffff;
+      }
+
+    }
+
+    .right {
+      background-color: $black2;
+      border-radius: 10px;
+      width: 100%;
+      flex: 1;
+      @include vsharee-size(padding, 48px, 32px);
+      // padding: 48px;
+      display: flex;
+      flex-direction: column;
+
+      .spacer {
+        flex: 1;
+        min-height: 50px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+
+        .items {
+          display: flex;
+          flex: 1;
+
+          i {
+            color: $primary2;
+            @include vsharee-size(font-size, 30px, 24px);
+            //font-size: 30px;
+            margin-right: 12px;
+          }
+
+          .index {
+            color: #ffffff;
+
+            h2 {
+              @include vsharee-size(font-size, 21px, 16px);
+              //font-size: 21px;
+              font-weight: 500;
+              margin-bottom: 12px;
+            }
+
+            p {
+              @include vsharee-size(font-size, 12px, 10px);
+              //     font-size: 12px;
+              font-weight: 300;
+            }
+
+          }
+        }
+      }
+    }
+  }
+
+  .online {
+    display: flex;
+    margin-top: 120px;
+    flex-direction: column;
+    @include vsharee-md {
+      flex-direction: row;
+    }
+
+    .left {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      justify-content: flex-end;
+
+      .video {
+        position: relative;
+        max-width: 627px;
+        max-height: 355px;
+        border-radius: 10px;
+        width: 100%;
+        height: 100%;
+        // overflow: hidden;
+
+        video {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+        }
+
+        i {
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 10;
+          color: white;
+          top: 0;
+          left: 0;
+          font-size: 128px;
+          opacity: 0.5;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        .shadow {
+          position: absolute;
+          top: -80px;
+          left: -60px;
+          border-radius: 10px;
+          background-color: $black2;
+          width: 498px;
+          height: 279px;
+          z-index: -1;
+        }
+      }
+    }
+
+    .right {
+      flex: 1;
+      @include vsharee-size(padding, 60px, 30px);
+      //  padding: 60px;
+      color: #ffffff;
+
+      h1 {
+        @include vsharee-size(font-size, 46px, 32px);
+        //font-size: 46px;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+
+      h3 {
+        @include vsharee-size(font-size, 18px, 14px);
+        // font-size: 18px;
+        font-weight: normal;
+      }
+
+      .statistic {
+        @include vsharee-size(margin-top, 50px, 40px);
+        //  margin-top: 50px;
+        display: flex;
+        color: #ffffff;
+
+        .items {
+          margin-right: 66px;
+
+          span {
+            @include vsharee-size(font-size, 38px, 24px);
+            //font-size: 38px;
+            margin-bottom: 6px;
+          }
+
+          h4 {
+            @include vsharee-size(font-size, 18px, 14px);
+            //font-size: 18px;
+            color: $gray7a;
+          }
+        }
+      }
+    }
+  }
+
+  .join-us {
+    height: 400px;
+    background-color: $primary2;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 120px;
+    padding: 0 12px;
+    .context {
+      max-width: 685px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+
+      h1 {
+        @include vsharee-size(font-size, 38px, 24px);
+        // font-size: 38px;
+        font-weight: bold;
+        color: $black2;
+
+      }
+
+      p {
+        @include vsharee-size(font-size, 18px, 14px);
+        //  font-size: 18px;
+        font-weight: normal;
+        margin: 30px 0 48px;
+      }
+
+      .email {
+        display: flex;
+        width: 100%;
+
+        .my-input {
+          width: 100%;
+          background-color: #ffffff;
+          display: flex;
+          align-items: center;
+          border-bottom-left-radius: 8px;
+          border-top-left-radius: 8px;
+
+          input {
+            width: 100%;
+            border: none;
+            outline: none;
+            @include vsharee-size(font-size, 18px, 14px);
+            // font-size: 18px;
+            color: $black2;
+            padding-left: 24px;
+          }
+        }
+
+        .my-btn {
+          border-bottom-right-radius: 8px;
+          border-top-right-radius: 8px;
+        //  max-width: 200px;
+          width: 100%;
+          background-color: $black2;
+          @include vsharee-size(min-width, 200px, 100px);
+            @include vsharee-size(max-width, 200px, 100px);
+          // min-width: 200px;
+          height: 80px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          span {
+            @include vsharee-size(font-size, 22px, 16px);
+            // font-size: 22px;
+            color: #ffffff;
+          }
+
+
+        }
+      }
+    }
+
   }
 }
