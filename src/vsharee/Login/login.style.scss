@@ -117,12 +117,20 @@
           font-size: 14px;
           border: solid 1px #ffffff;
           background-color: #f0f0f0;
-          color: #a0a0a0;
+           color: $black2;
+
+          &::placeholder {
+            color: #a0a0a0;
+          }
           //  border: none;
 
         }
 
         .continue {
+          &.disable {
+            background-color: $gray99;
+            cursor: not-allowed;
+          }
           min-height: 48px;
           max-width: 451px;
           width: 100%;

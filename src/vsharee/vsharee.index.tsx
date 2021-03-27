@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import Login from './Login/login.index';
@@ -15,7 +15,10 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                 <Route path={RoutePath.login} component={Login} />
                 <Route path={RoutePath.signup} component={Signup} />
                 <Route path={RoutePath.profile} component={Profile} />
-                <Route path="*" component={Landing} />
+                <Route path="*">
+                    <Redirect to="#" />
+                    <Landing />
+                </Route>
             </Switch>
         </Router>
     );

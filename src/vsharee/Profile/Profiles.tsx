@@ -1,7 +1,7 @@
 import React from 'react';
 import { Profilelang } from './Profile.lang';
 import './Profile.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import TestImg from '../../assets/images/profile/fakeimage.jpg';
 import Spotify from '../../assets/images/profile/spotify.png';
 import Imdb from '../../assets/images/profile/imdb.png';

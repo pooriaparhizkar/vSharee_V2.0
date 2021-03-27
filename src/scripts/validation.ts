@@ -4,7 +4,7 @@ export function emailValidation(value: string) {
 }
 
 export function passwordValidation(value: string) {
-    const re = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{10,})');
+    const re = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
     return re.test(value);
 }
 

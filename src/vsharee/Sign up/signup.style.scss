@@ -64,8 +64,34 @@
     }
 
     .blackbox {
-      @include vsharee-size(margin,100px , 5px);
-      @include vsharee-lg{
+      .email-verify{
+        margin-top: -52px;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        height: fit-content;
+        color: $white;
+        flex-direction: column;
+        i{
+          font-size: 50px;
+        }
+        h2{
+          font-size: 32px;
+          margin-top: 12px;
+          text-align: center;
+          width: 100%;
+        }
+        p{
+          width: 100%;
+          text-align: center;
+          font-size: 14px;
+          margin-top: 12px;
+          color: $gray99;
+        }
+
+      }
+      @include vsharee-size(margin, 100px, 5px);
+      @include vsharee-lg {
         margin: 0;
       }
       flex: 1;
@@ -117,9 +143,40 @@
           font-size: 14px;
           border: solid 1px #ffffff;
           background-color: #f0f0f0;
-          color: #a0a0a0;
+          color: $black2;
+
+          &::placeholder {
+            color: #a0a0a0;
+          }
+
           //  border: none;
 
+        }
+
+        .password-input {
+          max-width: 450px;
+          width: 100%;
+          // width: fit-content;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 22px;
+
+          input {
+            width: 100%;
+            margin-bottom: 0;
+          }
+
+          i {
+            position: absolute;
+            right: 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            color: gray;
+            cursor: default;
+          }
         }
 
         .continue {
@@ -151,6 +208,11 @@
             position: absolute;
             right: 6px;
             font-size: 45px;
+          }
+
+          &.disable {
+            background-color: $gray99;
+            cursor: not-allowed;
           }
         }
 
@@ -188,13 +250,15 @@
 
         .new-acc {
           margin-top: 20px;
-           font-size: 13px;
+          font-size: 13px;
           display: flex;
+
           h4 {
             color: #8b8b8b;
             font-size: 14px;
           }
-          a{
+
+          a {
             color: #ff0d1d;
             margin-left: 8px;
 
