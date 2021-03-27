@@ -1,0 +1,139 @@
+@import '../../../utilities/references/index';
+
+.main-div-header {
+  padding: 5px;
+  background-color: $gray1A;
+  display: flex;
+  flex-direction: row;
+
+  .logo-div {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+    img {
+      width: 80px;
+    }
+
+    h1 {
+      color: $white;
+      font-size: 16px;
+      font-weight: bold;
+      bottom: 0;
+      position: absolute;
+      left: 80px;
+    }
+  }
+
+  .icon-main-div {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    Button {
+      background-color: $red;
+      border-color: transparent;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      h6 {
+        margin-bottom: 0;
+      }
+    }
+
+  }
+
+  .user-main-div {
+    display: flex;
+    flex-direction: row-reverse;
+    // justify-content: center;
+    align-items: center;
+
+    .dropdownClasss {
+      .dropdownToggleClasss {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        border-color: transparent;
+        color: $white;
+
+        h6 {
+          padding: 10px;
+          padding-top: 20px;
+        }
+      }
+
+
+    }
+
+    .paddingi {
+      padding-right: 15px;
+    }
+  }
+
+  .input-main-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .input-search {
+      color: $white;
+      // margin-left: 15px;
+      border-bottom-style: solid;
+
+      border-color: rgba($white, 0.3);
+      // background-color: rgba($white,0.3);
+    }
+
+    i {
+      font-size: 30px;
+    }
+  }
+
+  .input-main-div-mobile {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+
+    .input-search {
+      color: $white;
+      // margin-left: 15px;
+      border-bottom-style: solid;
+
+      border-color: rgba($white, 0.3);
+      // background-color: rgba($white,0.3);
+    }
+
+    i {
+      font-size: 30px;
+    }
+  }
+
+  i {
+    color: $white;
+    cursor: pointer;
+  }
+
+  .dropdowm-item {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    i {
+      color: $black !important;
+      cursor: pointer;
+    }
+
+    h6 {
+      margin-left: 10px;
+      margin-top: 5px;
+    }
+  }
+}
