@@ -17,7 +17,6 @@ class Profiles extends React.Component<any, any> {
     render() {
         return (
             <React.Fragment>
-                <Header />
                 <div className="row main-div-profile">
                     <div className="col">
                         <div className="row description-row">

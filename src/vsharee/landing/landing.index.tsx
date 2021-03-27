@@ -9,6 +9,7 @@ import movie1Pic from 'assets/images/landing/tenet.jpg';
 import movie2Pic from 'assets/images/landing/johnwick.jpg';
 import moviePreview from 'assets/images/landing/tenetHeader.jpg';
 import { Link } from 'react-router-dom';
+import { RoutePath } from '../../data';
 
 const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
     const sliderRef = useRef<Slider | null>(null);
@@ -38,9 +39,9 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
                     <div className="items">
                         <i className="material-icons">search</i>
                     </div>
-                    <div className="items">
+                    <Link to={RoutePath.login} className="items">
                         <i className="material-icons">person</i>
-                    </div>
+                    </Link>
                 </div>
             </div>
             <div className="slider-top">

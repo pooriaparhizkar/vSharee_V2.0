@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ReduxState } from 'interface';
+import { AuthStatus, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import background from 'assets/images/login-background.jpg';
 import RedBox from 'assets/images/RedBox.png';
@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import { post, responseValidator } from '../../scripts/api';
 import { toast } from 'react-toastify';
 import { Spinner } from 'react-bootstrap';
+import { authToken } from '../../scripts/storage';
+import { setAuth } from '../../redux/actions';
 
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [username, setUsername] = useState<string | undefined>(undefined);
@@ -23,10 +25,18 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                 username,
                 password,
             };
-            post('/user/login/', body).then((res) => {
+            post<any>('/user/login/', body).then((res) => {
                 setSubmitLoading(false);
-                if (responseValidator(res.status)) console.log(res);
-                else toast.error('Username or Password is incorrect');
+
+                if (responseValidator(res.status)) {
+                    console.log(res.data.tokens);
+                    authToken.set(res.data.tokens);
+                    props.dispatch(setAuth(AuthStatus.valid));
+                } else {
+                    toast.error(res.data.non_field_errors[0]);
+                    authToken.remove();
+                    props.dispatch(setAuth(AuthStatus.inValid));
+                }
             });
         }
     }
@@ -56,6 +66,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                             placeholder="Email Address or Username"
                         />
                         <input
+                            type="password"
                             onKeyUp={enterHandler}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
