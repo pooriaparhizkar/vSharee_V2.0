@@ -6,6 +6,7 @@ import Login from './Login/login.index';
 import Signup from './Sign up/signup.index';
 import Landing from './landing/landing.index';
 import Profile from './Profile/Profiles';
+import Verify from './Verify/Verify'
 import { RoutePath } from 'data';
 
 const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
@@ -15,6 +16,7 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                 <Route path={RoutePath.login} component={Login} />
                 <Route path={RoutePath.signup} component={Signup} />
                 <Route path={RoutePath.profile} component={Profile} />
+                <Route path={RoutePath.verify}  component={Verify}></Route>
                 <Route path="*" component={Landing} />
             </Switch>
         </Router>

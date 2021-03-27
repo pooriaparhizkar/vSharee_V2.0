@@ -1,0 +1,248 @@
+@import 'src/utilities/references/index';
+
+.vsharee-verify-page {
+
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    position: absolute;
+  }
+
+  .box {
+    max-width: 1000px;
+    max-height: 666px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+justify-content: center;
+align-items: center;
+
+    .redbox {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      border-bottom-left-radius: 20px;
+      border-top-left-radius: 20px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      @include vsharee-lg {
+        display: flex;
+      }
+
+      img {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      color: #ffffff;
+
+      .welcome-Back {
+        font-weight: bold;
+        font-size: 50px;
+      }
+
+
+      .sign-in-to-continue {
+        font-size: 25px;
+      }
+    }
+
+    .blackbox {
+      @include vsharee-size(margin,100px , 5px);
+      @include vsharee-lg{
+        margin: 0;
+      }
+
+      height: 50%;
+      background-color: rgba($black,0.3);
+     border-radius: 20px;
+      width: 50%;
+
+      .lock {
+        color: white;
+        margin-top: 80px;
+        margin-left: 490px;
+        font-size: 70px;
+
+
+      }
+
+      .context {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        padding: 40px;
+.responseVerifySuccess{
+  margin-top: -52px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  height: fit-content;
+  color: $white;
+  flex-direction: column;
+  i{
+    font-size: 50px;
+    color:$success
+  }
+  h2{
+    font-size: 32px;
+    margin-top: 12px;
+    text-align: center;
+    width: 100%;
+  }
+
+}
+.responseVerifyFail{
+  margin-top: -52px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  height: fit-content;
+  color: $white;
+  flex-direction: column;
+  i{
+    font-size: 50px;
+    color:$error
+  }
+  h2{
+    font-size: 32px;
+    margin-top: 12px;
+    text-align: center;
+    width: 100%;
+  }
+}
+        h1 {
+          width: 100%;
+          text-align: left;
+          font-size: 38px;
+          font-weight: bold;
+          color: #ffffff;
+          margin-bottom: 40px;
+        }
+
+        input {
+          display: flex;
+          align-items: center;
+          margin-bottom: 22px;
+          //  padding: 19px 301px 18px 45px;
+          outline: none;
+          min-height: 48px;
+          max-width: 450px;
+          width: 100%;
+          // width: 451px;
+          border-radius: 27.5px;
+          padding-left: 44px;
+          font-size: 14px;
+          border: solid 1px #ffffff;
+          background-color: #f0f0f0;
+          color: #a0a0a0;
+          //  border: none;
+
+        }
+
+        .continue {
+          min-height: 48px;
+          max-width: 451px;
+          width: 100%;
+          //  margin-left: 90px;
+          margin-top: 16px;
+          // padding-left: 50px;
+          border-radius: 28px;
+          background-color: #ff0d1d;
+          display: flex;
+          position: relative;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+
+          span {
+            color: white;
+            height: fit-content;
+            font-size: 14px;
+            font-weight: 500;
+            width: 100%;
+            text-align: center;
+          }
+
+          i {
+            color: white;
+            position: absolute;
+            right: 6px;
+            font-size: 45px;
+          }
+        }
+
+        .rectangle {
+          min-height: 48px;
+          max-width: 451px;
+          width: 100%;
+          margin-top: 20px;
+          padding-left: 50px;
+          border-radius: 28px;
+          background-image: linear-gradient(to left, #67e4fe, #35abd3 48%);
+          display: flex;
+          align-items: center;
+          justify-content: left;
+          cursor: pointer;
+
+          img {
+            width: 25px;
+            height: 25px;
+          }
+
+          p {
+            font-size: 14px;
+            color: #ffffff;
+            margin-left: 28px;
+          }
+
+        }
+
+        h3 {
+          margin-top: 20px;
+          font-size: 13px;
+          color: #8b8b8b;
+        }
+
+        .new-acc {
+          margin-top: 20px;
+           font-size: 13px;
+          display: flex;
+          h4 {
+            color: #8b8b8b;
+            font-size: 14px;
+          }
+          a{
+            color: #ff0d1d;
+            margin-left: 8px;
+
+          }
+        }
+      }
+
+
+    }
+
+  }
+
+}
