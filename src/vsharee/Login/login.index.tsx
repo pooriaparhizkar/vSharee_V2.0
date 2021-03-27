@@ -6,18 +6,21 @@ import background from 'assets/images/login-background.jpg';
 import RedBox from 'assets/images/RedBox.png';
 import './login.style.scss';
 import googleLogo from 'assets/images/google.svg';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { post, responseValidator } from '../../scripts/api';
 import { toast } from 'react-toastify';
 import { Spinner } from 'react-bootstrap';
 import { authToken } from '../../scripts/storage';
 import { setAuth } from '../../redux/actions';
+import { VshareeLanguage } from '../vsharee.lang';
+import { RoutePath } from '../../data';
 
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [username, setUsername] = useState<string | undefined>(undefined);
     const [password, setPassword] = useState<string | undefined>(undefined);
     const [submitLoading, setSubmitLoading] = useState<boolean>(false);
-
+    const LANG = VshareeLanguage;
+    const history = useHistory();
     function submitHandler() {
         if (username && password) {
             setSubmitLoading(true);
@@ -32,6 +35,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                     console.log(res.data.tokens);
                     authToken.set(res.data.tokens);
                     props.dispatch(setAuth(AuthStatus.valid));
+                    //   history.push(RoutePath.dashboard);
                 } else {
                     toast.error(res.data.non_field_errors[0]);
                     authToken.remove();

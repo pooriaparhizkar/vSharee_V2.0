@@ -5,7 +5,7 @@ import { VshareeLanguage } from '../vsharee/vsharee.lang';
 export const initial_state: ReduxState = {
     userData: null,
     language: VshareeLanguage,
-    authStatus: AuthStatus.inValid,
+    authStatus: AuthStatus.pending,
 };
 
 function reducer(state: ReduxState = initial_state, action: ReduxAction<any>): ReduxState {

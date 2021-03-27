@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { AuthStatus, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
@@ -8,8 +8,14 @@ import Landing from './landing/landing.index';
 import Profile from './Profile/Profiles';
 import { RoutePath } from 'data';
 import Header from './Component/Header/Headers';
+import { vShareeInitialize } from './Sign up/vsharee.script';
+import store from '../redux/store';
+import { setAuth } from '../redux/actions';
 
 const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
+    useEffect(() => {
+        vShareeInitialize(props.dispatch);
+    }, []);
     return (
         <Router>
             <Switch>
@@ -24,13 +30,18 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                     </Switch>
                 )}
                 {props.isAuth === AuthStatus.valid && (
-                    <Switch>
-                        <Header />
-                        <Route path={RoutePath.profile} component={Profile} />
-                        <Route path="*">
-                            <h1>dashboard</h1>
-                        </Route>
-                    </Switch>
+                    <React.Fragment>
+                        <Header store={store} />
+                        <Switch>
+                            <Route path={RoutePath.profile} component={Profile} />
+                            <Route path={RoutePath.dashboard}>
+                                <h1>Dashboard</h1>
+                            </Route>
+                            <Route path="*">
+                                <Redirect to={RoutePath.dashboard} />
+                            </Route>
+                        </Switch>
+                    </React.Fragment>
                 )}
             </Switch>
         </Router>

@@ -5,7 +5,16 @@
   background-color: $gray1A;
   display: flex;
   flex-direction: row;
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin-bottom: .5rem;
+   // font-size: unset;
+}
   .logo-div {
     display: flex;
     flex-direction: row;
@@ -123,6 +132,9 @@
   .dropdowm-item {
     display: flex;
     flex-direction: row;
+
+    text-decoration: none;
+    color: unset;
 
     align-items: center;
 
