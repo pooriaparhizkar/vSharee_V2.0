@@ -1,7 +1,6 @@
 import React from 'react';
-import { Profilelang } from './Profile.lang';
 import './Profile.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import TestImg from '../../assets/images/profile/fakeimage.jpg';
 import Spotify from '../../assets/images/profile/spotify.png';
 import Imdb from '../../assets/images/profile/imdb.png';
@@ -9,6 +8,7 @@ import Message from '../../assets/images/profile/message.svg';
 import { Dropdown, Button } from 'react-bootstrap';
 import Header from '../Component/Header/Headers';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { VshareeLanguage } from '../vsharee.lang';
 class Profiles extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -17,7 +17,6 @@ class Profiles extends React.Component<any, any> {
     render() {
         return (
             <React.Fragment>
-                <Header />
                 <div className="row main-div-profile">
                     <div className="col">
                         <div className="row description-row">
@@ -34,9 +33,9 @@ class Profiles extends React.Component<any, any> {
                             </div>
                             <div className="col-md-5 col-xs-12 div-item-description">
                                 <div className="followdiv">
-                                    <Button className="followbtn">{Profilelang.body.follow}</Button>
+                                    <Button className="followbtn">{VshareeLanguage.Profile.body.follow}</Button>
                                     <Button className="sharebtn">
-                                        <h1>{Profilelang.body.share}</h1>
+                                        <h1>{VshareeLanguage.Profile.body.share}</h1>
 
                                         <div className="shareicondiv">
                                             <i className="material-icons ">share</i>
@@ -61,7 +60,7 @@ class Profiles extends React.Component<any, any> {
                         <div className="row group-row">
                             <div className="col-md-1 "></div>
                             <div className="col-md-11 col-xs-12 div-item-group-title">
-                                <h1>{Profilelang.body.publicGroup}</h1>
+                                <h1>{VshareeLanguage.Profile.body.publicGroup}</h1>
                             </div>
                             <div className="col-md-1 "></div>
                             <div className="col-md-10 col-xs-12 div-item-group">
@@ -150,7 +149,7 @@ class Profiles extends React.Component<any, any> {
                         <div className="row mayknow-row">
                             <div className="col-md-1 "></div>
                             <div className="col-md-11 col-xs-12 div-item-mayknow-title">
-                                <h1>{Profilelang.body.mayknow}</h1>
+                                <h1>{VshareeLanguage.Profile.body.mayknow}</h1>
                             </div>
                             <div className="col-md-1 "></div>
                             <div className="col-md-10 col-xs-12 div-item-mayknow">

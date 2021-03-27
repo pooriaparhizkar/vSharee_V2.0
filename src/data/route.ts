@@ -1,7 +1,8 @@
 type routeParam = string | number;
 export const __RoutePath = {
     profile: '/profile',
-    login: '/login',
+    login: '/signin',
     signup: '/signup',
-    verify:'/verify'
+    dashboard: '/dashboard',
+    verify: '/verify',
 };
