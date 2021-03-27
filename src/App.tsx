@@ -2,6 +2,7 @@ import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'utilities/styles/index.scss';
 import Vsharee from './vsharee/vsharee.index';
 import 'slick-carousel/slick/slick.css';
