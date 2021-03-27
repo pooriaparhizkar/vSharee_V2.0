@@ -11,7 +11,7 @@ import {VerifyLang} from './Verify.lang'
 import background from 'assets/images/login-background.jpg';
 import { Link } from 'react-router-dom';
 import { get, post, responseValidator } from 'scripts/api';
-import { APIPath } from 'data';
+import { APIPath, RoutePath } from 'data';
 
 class Verify extends React.Component<any, any> {
     constructor(props: any) {
@@ -66,6 +66,10 @@ check_circle_outline
     {VerifyLang.body.successful}
    
 </h2>
+<div className='gotodiv'>
+                         <p>{VerifyLang.body.goto}</p>
+                         <Link className='linktag' to={RoutePath.login}>{VerifyLang.body.login}</Link>
+                    </div>
                  </div>
                  <div className='responseVerifyFail' hidden={this.state.hidefail}>
                  <i className="material-icons">
@@ -74,8 +78,14 @@ highlight_off
 <h2>
 {VerifyLang.body.error}
 </h2>
+<div className='gotodiv'>
+                         <p>{VerifyLang.body.goto}</p>
+                         <Link className='linktag' to={RoutePath.login}>{VerifyLang.body.login}</Link>
+                    </div>
                      </div>
                     </div>
+                 
+                   
                 </div>
             </div>
         </div>

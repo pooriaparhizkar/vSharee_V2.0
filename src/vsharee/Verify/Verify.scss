@@ -110,6 +110,27 @@ align-items: center;
     text-align: center;
     width: 100%;
   }
+  .gotodiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+      p{
+  
+    text-align: center;
+    font-size: 14px;
+    margin-top: 12px;
+    color: $gray99;
+  }
+  .linktag{
+    
+    text-align: center;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-left: 5px;
+  }
+  }
 
 }
 .responseVerifyFail{
@@ -130,6 +151,28 @@ align-items: center;
     text-align: center;
     width: 100%;
   }
+  .gotodiv{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+      p{
+   
+    text-align: center;
+    font-size: 14px;
+    margin-top: 12px;
+    color: $gray99;
+  }
+  .linktag{
+    
+    text-align: center;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-left: 5px;
+  }
+  }
+
 }
         h1 {
           width: 100%;
