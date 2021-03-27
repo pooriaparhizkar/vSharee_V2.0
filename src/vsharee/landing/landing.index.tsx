@@ -10,7 +10,7 @@ import movie2Pic from 'assets/images/landing/johnwick.jpg';
 import moviePreview from 'assets/images/landing/tenetHeader.jpg';
 import { Link } from 'react-router-dom';
 import { RoutePath } from '../../data';
-
+import redBackground from 'assets/images/landing/red-background.svg';
 const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
     const sliderRef = useRef<Slider | null>(null);
     const settings = {
@@ -249,6 +249,7 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
                 </div>
             </div>
             <div className="join-us">
+                <img src={redBackground} alt="vSharee" />
                 <div className="context">
                     <h1>Join Us</h1>
                     <p>
