@@ -25,10 +25,16 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
         <div className="vsharee-dashboard-page">
             <div className="leftcolumn">
                 <div className={"top"}>
-                    <div className="top-in"></div>
+
+                    <div className="top-in">
+                        <h3>My Groups</h3>
+                    </div>
+
                 </div>
                 <div className="bottom">
-                    <div className="bottom-in"></div>
+                    <div className="bottom-in">
+                        <h3>Top Groups</h3>
+                    </div>
                 </div>
             </div>
             <div className="centercolumn">
@@ -51,11 +57,13 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
                     <h3>My Friends</h3>
                     <div className={"context"}>
                         <div className="items">
-                            <div className={"left-items"}>
+                            <div className="left-items">
                                 <img src={fakePic} alt="fakePic"/>
                                 <i className="material-icons-outlined circle">circle</i>
                             </div>
-                            <div className={"right-items"}>
+                            <div className="right-items">
+                                <p>Bonelwa Ngqawana</p>
+                                <span>watching movie</span>
 
                             </div>
 
@@ -66,6 +74,80 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
                                 <i className="material-icons-outlined circle">circle</i>
                             </div>
                             <div className={"right-items"}>
+                                <p>Bonelwa Ngqawana</p>
+                                <span>watching movie</span>
+
+                            </div>
+
+                        </div>
+                        <div className="items online">
+                            <div className={"left-items"}>
+                                <img src={fakePic} alt="fakePic"/>
+                                <i className="material-icons-outlined circle">circle</i>
+                            </div>
+                            <div className={"right-items"}>
+                                <p>Bonelwa Ngqawana</p>
+                                <span>watching movie</span>
+
+                            </div>
+
+                        </div>
+                        <div className="items">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                                <i className="material-icons-outlined circle">circle</i>
+                            </div>
+                            <div className="right-items">
+                                <p>Bonelwa Ngqawana</p>
+                                <span>watching movie</span>
+
+                            </div>
+
+                        </div>
+                        <div className="items">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                                <i className="material-icons-outlined circle">circle</i>
+                            </div>
+                            <div className="right-items">
+                                <p>Bonelwa Ngqawana</p>
+                                <span>watching movie</span>
+
+                            </div>
+
+                        </div>
+                        <div className="items">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                                <i className="material-icons-outlined circle">circle</i>
+                            </div>
+                            <div className="right-items">
+                                <p>Bonelwa Ngqawana</p>
+                                <span>watching movie</span>
+
+                            </div>
+
+                        </div>
+                        <div className="items">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                                <i className="material-icons-outlined circle">circle</i>
+                            </div>
+                            <div className="right-items">
+                                <p>Bonelwa Ngqawana</p>
+                                <span>watching movie</span>
+
+                            </div>
+
+                        </div>
+                        <div className="items">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                                <i className="material-icons-outlined circle">circle</i>
+                            </div>
+                            <div className="right-items">
+                                <p>Bonelwa Ngqawana</p>
+                                <span>watching movie</span>
 
                             </div>
 
