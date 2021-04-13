@@ -2,9 +2,10 @@
 
 .vsharee-dashboard-page{
    width: 100%;
-  height: 100vh;
+  height: calc(100vh - 90px);
   display: flex;
   z-index: -1;
+
 
   position: relative;
   background-color: #0c0b10;
@@ -13,18 +14,80 @@
     background-color: #16151a;
     width: 100%;
     height: 100%;
-
+    max-height: calc(100vh - 90px);
     max-width: 286px;
+
+    .top{
+      width: 100%;
+      height: 100%;
+      max-width: 286px;
+      max-height: 214px;
+      background-color: #ff5252;
+      .top-in{
+
+      }
+    }
+    .bottom{
+      width: 100%;
+      height: 100%;
+      max-width: 286px;
+       max-height: calc(100% - 214px);
+      background-color: #00b944;
+
+      .bottom-in{
+        width: 100%;
+      height: 100%;
+      max-width: 286px;
+
+
+      }
+    }
+
   }
   .centercolumn{
-    background-color: #fddb3a;
+
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    max-height: calc(100vh - 90px);
+    .center-items{
+      align-items: center;
+      justify-content: center;
+      h2{
+        font-family: Rubik;
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+        margin-top: 38px;
+        margin-left: 105px;
+        margin-bottom: 20px;
+      }
 
-  .tvPic{
+      p{
+         font-family: Rubik;
+         font-size: 13px;
+         color: #999999;
+        margin-left: 50px;
+        margin-top: 8px;
+      }
+      span{
+
+         font-family: Rubik;
+         font-size: 13px;
+         color: #999999;
+
+
+      }
+      h3{
+         font-family: Rubik;
+         font-size: 13px;
+         color: #999999;
+
+      }
+
+      .tvPic{
     display: flex;
     position: relative;
     max-height: 359px;
@@ -32,7 +95,11 @@
     width: 100%;
     height: 100%;
 
+
   }
+    }
+
+
 
   }
 
@@ -42,6 +109,7 @@
     padding: 24px;
     width: 100%;
     height: 100%;
+    max-height: calc(100vh - 90px);
      max-width: 286px;
 
     h3{
@@ -58,13 +126,20 @@
       height: 100%;
       max-width: 286px;
       border-radius: 10px;
-
+      max-height: 896px;
 
     }
     .context{
       padding-top: 10px;
 
       .items{
+        &.online{
+          .left-items{
+            .circle{
+              display: block!important;
+            }
+          }
+        }
         .left-items{
            position: relative;
 
@@ -83,7 +158,7 @@
             min-height: 36px;
             border-radius: 100%;
             object-fit : cover;
-            position: relative;
+
 
           }
           .circle{
@@ -95,9 +170,10 @@
             min-height: 6px;
             border-radius: 100%;
             background-color: #00b944;
-            position: relative;
+            position: absolute;
             bottom: 0;
             right: 0;
+            display: none;
           }
         }
 
