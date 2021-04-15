@@ -28,6 +28,45 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
 
                     <div className="top-in">
                         <h3>My Groups</h3>
+                        <div className="index">
+                            <div className="items-top">
+
+                                <div className="items-top-left">
+                                    <img src={fakePic} alt="fakePic"/>
+                                </div>
+                                <div className="items-top-right">
+                                    <p># Group Num1</p>
+                                </div>
+
+
+
+                            </div>
+                            <div className="items-top">
+
+                                <div className="items-top-left">
+                                    <img src={fakePic} alt="fakePic"/>
+                                </div>
+                                <div className="items-top-right">
+                                    <p># Group Num2</p>
+                                </div>
+
+
+
+                            </div>
+                            <div className="items-top">
+
+                                <div className="items-top-left">
+                                    <img src={fakePic} alt="fakePic"/>
+                                </div>
+                                <div className="items-top-right">
+                                    <p># Group Num3</p>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>
