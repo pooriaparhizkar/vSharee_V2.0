@@ -11,6 +11,7 @@ import { AuthStatus, ReduxState } from '../../../interface';
 import { connect } from 'react-redux';
 import { RoutePath } from '../../../data';
 import { Link } from 'react-router-dom';
+import CreateGroupModal from '../createGroupModal/createGroupModal.index';
 
 class Headers extends React.Component<any, any> {
     constructor(props: any) {
@@ -18,6 +19,7 @@ class Headers extends React.Component<any, any> {
         super(props);
         this.state = {
             hiddentextField: true,
+            isCreateGroupModal: false,
         };
         // console.log(props.store);
         this.logoutHandler = this.logoutHandler.bind('ss');
@@ -48,6 +50,10 @@ class Headers extends React.Component<any, any> {
     render() {
         return (
             <div className="row main-div-header">
+                <CreateGroupModal
+                    show={this.state.isCreateGroupModal}
+                    onClose={() => this.setState({ isCreateGroupModal: false })}
+                />
                 <div className="col-md-3 col-4 logo-div" onClick={this.clickOnOthers}>
                     <img src={VshareeLogo} alt=""></img>
                     <h1>{HeaderLang.body.sharee}</h1>
@@ -92,9 +98,15 @@ class Headers extends React.Component<any, any> {
                     hidden={!this.state.hiddentextField}
                     onClick={this.clickOnOthers}
                 >
-                    <Button>
+                    <Button
+                        onClick={() => {
+                            this.setState({ isCreateGroupModal: true });
+                        }}
+                    >
                         <i className="material-icons ">play_circle_outline</i>
-                        <h6 className="d-none d-md-block">{HeaderLang.body.stream}</h6>
+                        <h6 style={{ marginLeft: '6px' }} className="d-none d-md-block">
+                            {HeaderLang.body.stream}
+                        </h6>
                     </Button>
                 </div>
 

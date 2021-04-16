@@ -1,0 +1,89 @@
+@import 'src/utilities/references/index';
+
+
+.vsharee-create-group-modal {
+  .modal-dialog {
+    max-width: 632px;
+  }
+
+  .my-container {
+    width: 100%;
+    height: 100%;
+    background-color: $black2;
+    padding: 32px 0;
+    max-width: 632px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .context {
+      @include vsharee-size(width, 70%, 96%);
+
+      h1 {
+        @include vsharee-size(font-size, 32px, 24px);
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+      }
+
+      h5 {
+        @include vsharee-size(font-size, 16px, 14px);
+        margin: 28px 0;
+        text-align: center;
+        color: #ffffff;
+      }
+
+      .image-uploader {
+        position: relative;
+        margin: auto;
+        border-radius: 100%;
+        border: dashed 2px #ffffff;
+        min-width: 94px;
+        min-height: 94px;
+        max-width: 94px;
+        max-height: 94px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        cursor: pointer;
+        i {
+          font-size: 34px;
+          color: #ffffff;
+        }
+        p{
+          color: #ffffff;
+          font-size: 14px;
+        }
+
+        .icon-plus {
+          position: absolute;
+          background-color: $primary2;
+          top: 0;
+          right: 0;
+          border-radius: 100%;
+          min-width: 24px;
+          min-height: 24px;
+          max-width: 24px;
+          max-height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          width: 100%;
+          height: 100%;
+
+          i {
+            color: #ffffff;
+            font-size: 23px;
+          }
+        }
+      }
+    }
+
+  }
+
+
+}
