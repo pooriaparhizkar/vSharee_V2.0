@@ -1,4 +1,3 @@
-import { profile } from 'console';
 import React from 'react';
 import { HeaderLang } from './Headers.lang';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,14 +5,10 @@ import VshareeLogo from '../../../assets/images/profile/vshareeLogo.png';
 import './Header.scss';
 import TextField from '@material-ui/core/TextField';
 import { Dropdown, Button } from 'react-bootstrap';
-import { Profilelang } from 'vsharee/Profile/Profile.lang';
-import useOnBlur from '../../../scripts/useOnBlur';
 import { authToken } from '../../../scripts/storage';
 import { setAuth } from '../../../redux/actions';
 import { AuthStatus, ReduxState } from '../../../interface';
 import { connect } from 'react-redux';
-import store from '../../../redux/store';
-import { vShareeInitialize } from '../../Sign up/vsharee.script';
 import { RoutePath } from '../../../data';
 import { Link } from 'react-router-dom';
 

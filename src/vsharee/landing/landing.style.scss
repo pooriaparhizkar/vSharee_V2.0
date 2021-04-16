@@ -5,7 +5,7 @@
   background-color: $primary;
   z-index: 0;
   overflow-x: hidden;
-  padding-bottom: 100px;
+ // padding-bottom: 100px;
 
   .header {
     position: absolute;
@@ -599,7 +599,7 @@
 
   .join-us {
     height: 400px;
-
+background-color: rgba($primary2,85);
     align-items: center;
     justify-content: center;
     display: flex;
@@ -758,7 +758,8 @@
 
   .footer {
     height: 416px;
-    background-color: $primary2;
+    //border-top: 1px solid $primary2;
+    background-color: $black2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -778,7 +779,7 @@
       h1 {
         @include vsharee-size(font-size, 16px, 12px);
         font-weight: bold;
-        color: $black2;
+        color: $grayLight;
         position: absolute;
         @include vsharee-size(left, 50px, 35px);
         bottom: 0;
@@ -791,7 +792,12 @@
 
       a {
         font-size: 16px;
-        color: $black2;
+        text-decoration: none;
+        &:hover{
+          color: white;
+        }
+        transition: color 0.5s;
+        color: $grayLight;
         @include vsharee-size(margin-right,50px,25px);
         //margin-right: 50px;
       }
@@ -803,18 +809,18 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          background-color: $black2;
+          background-color: $grayLight;
           border-radius: 100%;
           min-width: 40px;
           min-height: 40px;
           width: 100%;
           height: 100%;
-          color: #ffffff;
+          color: $black;
           margin-right: 16px;
         }
       }
     h6{
-      color: $black2;
+      color: $grayLight;
       font-size: 14px;
       margin-top: 60px;
     }

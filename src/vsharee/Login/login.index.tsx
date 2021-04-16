@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { AuthStatus, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import background from 'assets/images/login-background.jpg';
@@ -13,35 +12,47 @@ import { Spinner } from 'react-bootstrap';
 import { authToken } from '../../scripts/storage';
 import { setAuth } from '../../redux/actions';
 import { VshareeLanguage } from '../vsharee.lang';
-import { RoutePath } from '../../data';
+import { APIPath, RoutePath } from '../../data';
+import { emailValidation, passwordValidation, usernameValidation } from '../../scripts/validation';
 
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [username, setUsername] = useState<string | undefined>(undefined);
     const [password, setPassword] = useState<string | undefined>(undefined);
     const [submitLoading, setSubmitLoading] = useState<boolean>(false);
-    const LANG = VshareeLanguage;
+    const [isError, setIsError] = useState<'password' | 'username' | 'all' | undefined>(undefined);
+    const LANG = VshareeLanguage.Login;
     const history = useHistory();
+
     function submitHandler() {
         if (username && password) {
-            setSubmitLoading(true);
-            const body = {
-                username,
-                password,
-            };
-            post<any>('/user/login/', body).then((res) => {
-                setSubmitLoading(false);
-
-                if (responseValidator(res.status)) {
-                    console.log(res.data.tokens);
-                    authToken.set(res.data.tokens);
-                    props.dispatch(setAuth(AuthStatus.valid));
-                    //   history.push(RoutePath.dashboard);
-                } else {
-                    toast.error(res.data.non_field_errors[0]);
-                    authToken.remove();
-                    props.dispatch(setAuth(AuthStatus.inValid));
-                }
-            });
+            if (!passwordValidation(password)) {
+                toast.error(LANG.incorrectPassword);
+                setIsError('password');
+            } else if (!usernameValidation(username) && !emailValidation(username)) {
+                toast.error(LANG.incorrectUsername);
+                setIsError('username');
+            } else {
+                setSubmitLoading(true);
+                const body = {
+                    username,
+                    password,
+                };
+                post<any>(APIPath.user.login, body).then((res) => {
+                    setSubmitLoading(false);
+                    if (responseValidator(res.status)) {
+                        authToken.set(res.data.tokens);
+                        props.dispatch(setAuth(AuthStatus.valid));
+                        history.push(RoutePath.dashboard);
+                    } else {
+                        setIsError('all');
+                        res.data.non_field_errors.map((item: string) => {
+                            toast.error(item);
+                        });
+                        authToken.remove();
+                        props.dispatch(setAuth(AuthStatus.inValid));
+                    }
+                });
+            }
         }
     }
 
@@ -57,29 +68,36 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
             <div className="box">
                 <div className="redbox">
                     <img alt="background" src={RedBox} />
-                    <h1 className="welcome-Back">Welcome Back</h1>
-                    <h1 className="sign-in-to-continue">Sign in to continue access pages</h1>
+                    <h1 className="welcome-Back">{LANG.welcomeBack}</h1>
+                    <h1 className="sign-in-to-continue">{LANG.welcomeBackText}</h1>
                 </div>
                 <div className="blackbox">
-                    {/*<i className="material-icons-outlined lock">lock</i> */}
                     <div className="context">
-                        <h1 className="signin">Sign In</h1>
+                        <h1 className="signin">{LANG.signin}</h1>
                         <input
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Email Address or Username"
+                            onChange={(e) => {
+                                if (isError === 'username' || isError === 'all') setIsError(undefined);
+                                setUsername(e.target.value);
+                            }}
+                            placeholder={LANG.emailAddressPH}
+                            className={isError === 'username' || isError === 'all' ? 'error' : ''}
                         />
                         <input
                             type="password"
                             onKeyUp={enterHandler}
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Password"
+                            onChange={(e) => {
+                                if (isError === 'password' || isError === 'all') setIsError(undefined);
+                                setPassword(e.target.value);
+                            }}
+                            placeholder={LANG.password}
+                            className={isError === 'password' || isError === 'all' ? 'error' : ''}
                         />
                         <div onClick={submitHandler} className={`continue ${!username! || !password ? 'disable' : ''}`}>
                             {!submitLoading ? (
                                 <React.Fragment>
-                                    <span>C O N T I N U E</span>
+                                    <span>{LANG.continue}</span>
                                     <i className="material-icons">chevron_right</i>
                                 </React.Fragment>
                             ) : (
@@ -87,14 +105,14 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                             )}
                         </div>
 
-                        <h3 className="social"> or Connect with Social Media </h3>
+                        <h3 className="social">{LANG.connectWithSocialMedia} </h3>
                         <div className="rectangle">
                             <img src={googleLogo} alt="google" />
-                            <p>Sign In With Google</p>
+                            <p>{LANG.signInGoogle}</p>
                         </div>
                         <div className="new-acc">
-                            <h4>Don’t have an account?</h4>
-                            <Link to="/signup">Sign up</Link>
+                            <h4>{LANG.dontHaveAccount}</h4>
+                            <Link to={RoutePath.signup}>{LANG.signup}</Link>
                         </div>
                     </div>
                 </div>

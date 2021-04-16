@@ -6,13 +6,14 @@ import Login from './Login/login.index';
 import Signup from './Sign up/signup.index';
 import Landing from './landing/landing.index';
 import Profile from './Profile/Profiles';
-import Verify from './Verify/Verify'
+import Verify from './Verify/Verify';
 import { RoutePath } from 'data';
 import Header from './Component/Header/Headers';
-import { vShareeInitialize } from './Sign up/vsharee.script';
+import { vShareeInitialize } from './vsharee.script';
 import store from '../redux/store';
-import { setAuth } from '../redux/actions';
+
 import Dashboard from "./Dashboard/dashboard.index";
+
 
 const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     useEffect(() => {
@@ -25,7 +26,7 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                     <Switch>
                         <Route path={RoutePath.login} component={Login} />
                         <Route path={RoutePath.signup} component={Signup} />
-                        <Route path={RoutePath.verify}  component={Verify}/>
+                        <Route path={RoutePath.verify} component={Verify} />
                         <Route path="*">
                             <Redirect to="#" />
                             <Landing />
