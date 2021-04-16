@@ -1,9 +1,9 @@
 import { Dispatch } from 'react';
 import { AnyAction } from 'redux';
-import { authToken } from '../../scripts/storage';
-import { VshareeLanguage } from '../vsharee.lang';
-import { setAuth } from '../../redux/actions';
-import { AuthStatus } from '../../interface';
+import { authToken } from '../scripts/storage';
+import { VshareeLanguage } from './vsharee.lang';
+import { setAuth } from '../redux/actions';
+import { AuthStatus } from '../interface';
 
 export const vShareeInitialize = (dispatch: Dispatch<AnyAction>) => {
     getUser(dispatch);

@@ -26,5 +26,10 @@ p {
 
 a {
     outline: none;
-    text-decoration: none;
+    text-decoration: none ;
+    color: unset;
+    &:hover{
+        text-decoration: none;
+        color: unset;
+    }
 }
