@@ -249,7 +249,7 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
                 </div>
             </div>
             <div className="join-us">
-                <img src={redBackground} alt="vSharee" />
+                {/*<img src={redBackground} alt="vSharee" />*/}
                 <div className="context">
                     <h1>Join Us</h1>
                     <p>

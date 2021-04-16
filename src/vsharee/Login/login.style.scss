@@ -19,8 +19,8 @@
   }
 
   .box {
-    max-width: 1000px;
-    max-height: 666px;
+    @include vsharee-size(max-width, 1000px, 600px);
+    @include vsharee-size(max-height, 666px, 512px);
     width: 100%;
     height: 100%;
     display: flex;
@@ -64,8 +64,8 @@
     }
 
     .blackbox {
-      @include vsharee-size(margin,100px , 5px);
-      @include vsharee-lg{
+      @include vsharee-size(margin, 100px, 5px);
+      @include vsharee-lg {
         margin: 0;
       }
       flex: 1;
@@ -75,14 +75,6 @@
       border-bottom-right-radius: 20px;
       width: 100%;
 
-      .lock {
-        color: white;
-        margin-top: 80px;
-        margin-left: 490px;
-        font-size: 70px;
-
-
-      }
 
       .context {
         display: flex;
@@ -91,7 +83,7 @@
         flex-direction: column;
         height: 100%;
         width: 100%;
-        padding: 40px;
+       @include vsharee-size(padding,40px,20px);
 
         h1 {
           width: 100%;
@@ -99,31 +91,34 @@
           font-size: 38px;
           font-weight: bold;
           color: #ffffff;
+          max-width: 450px;
+          @include vsharee-size(font-size, 40px, 26px);
           margin-bottom: 40px;
         }
 
         input {
+          &.error {
+            animation: vsharee-shake 1s;
+            border: red solid 2px;
+          }
+
           display: flex;
           align-items: center;
           margin-bottom: 22px;
-          //  padding: 19px 301px 18px 45px;
           outline: none;
-          min-height: 48px;
+          @include vsharee-size(min-height, 48px, 42px);
           max-width: 450px;
           width: 100%;
-          // width: 451px;
           border-radius: 27.5px;
           padding-left: 44px;
           font-size: 14px;
           border: solid 1px #ffffff;
           background-color: #f0f0f0;
-           color: $black2;
+          color: $black2;
 
           &::placeholder {
             color: #a0a0a0;
           }
-          //  border: none;
-
         }
 
         .continue {
@@ -131,12 +126,11 @@
             background-color: $gray99;
             cursor: not-allowed;
           }
-          min-height: 48px;
+
+          @include vsharee-size(min-height, 48px, 42px);
           max-width: 451px;
           width: 100%;
-          //  margin-left: 90px;
-          margin-top: 32px;
-          // padding-left: 50px;
+          @include vsharee-size(margin-top, 32px, 24px);
           border-radius: 28px;
           background-color: #ff0d1d;
           display: flex;
@@ -163,24 +157,28 @@
         }
 
         .rectangle {
-          min-height: 48px;
+          @include vsharee-size(min-height, 48px, 42px);
           max-width: 451px;
           width: 100%;
           margin-top: 20px;
-          padding-left: 50px;
           border-radius: 28px;
           background-image: linear-gradient(to left, #67e4fe, #35abd3 48%);
           display: flex;
           align-items: center;
           justify-content: left;
           cursor: pointer;
+          position: relative;
 
           img {
             width: 25px;
             height: 25px;
+            position: absolute;
+            right: 18px;
           }
 
           p {
+            width: 100%;
+            text-align: center;
             font-size: 14px;
             color: #ffffff;
             margin-left: 28px;
@@ -189,30 +187,27 @@
         }
 
         h3 {
-          margin-top: 50px;
+          @include vsharee-size(margin-top, 50px, 32px);
           font-size: 13px;
           color: #8b8b8b;
         }
 
         .new-acc {
-          margin-top: 80px;
-           font-size: 13px;
+          @include vsharee-size(margin-top, 80px, 40px);
+          font-size: 13px;
           display: flex;
+
           h4 {
             color: #8b8b8b;
-              font-size: 14px;
+            font-size: 14px;
           }
-          a{
+
+          a {
             color: #ff0d1d;
             margin-left: 8px;
-
           }
         }
       }
-
-
     }
-
   }
-
 }

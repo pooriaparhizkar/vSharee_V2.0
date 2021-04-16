@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './signup.style.scss';
@@ -8,7 +7,7 @@ import googleLogo from '../../assets/images/google.svg';
 import { post, responseValidator } from '../../scripts/api';
 import background from 'assets/images/login-background.jpg';
 import { Link } from 'react-router-dom';
-import { RoutePath } from '../../data';
+import { APIPath, RoutePath } from '../../data';
 import { emailValidation, passwordValidation, usernameValidation } from '../../scripts/validation';
 import { toast } from 'react-toastify';
 import ReactTooltip from 'react-tooltip';
@@ -21,15 +20,23 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
     const [password2, setPassword2] = useState<string | undefined>(undefined);
     const [submitLoading, setSubmitLoading] = useState<boolean>(false);
     const [isVerify, setIsVerify] = useState<boolean>(false);
-
+    const [isError, setIsError] = useState<'email' | 'password' | 'rePassword' | 'username' | undefined>(undefined);
+    const LANG = props.text.Signup;
     function submitHandler() {
         if (email && username && password2 && password) {
-            if (!emailValidation(email)) {
-                toast.error('Enter a valid Email address');
-            } else if (password !== password2) toast.error('Your passwords is not same');
-            else if (!passwordValidation(password)) toast.error('Your password is not secure');
-            else if (!usernameValidation(username)) toast.error('Your username is in a incorrect format');
-            else {
+            if (!usernameValidation(username)) {
+                toast.error(LANG.incorrectUsername);
+                setIsError('username');
+            } else if (!emailValidation(email)) {
+                toast.error(LANG.incorrectEmail);
+                setIsError('email');
+            } else if (!passwordValidation(password)) {
+                toast.error(LANG.incorrectPassword);
+                setIsError('password');
+            } else if (password !== password2) {
+                toast.error(LANG.incorrectConfirmPassword);
+                setIsError('rePassword');
+            } else {
                 setSubmitLoading(true);
                 const body = {
                     firstname: 'null',
@@ -39,10 +46,18 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                     password: password,
                     password2: password2,
                 };
-                post('/user/signup/', body).then((res) => {
+                post<any>(APIPath.user.signup, body).then((res) => {
                     setSubmitLoading(false);
                     if (responseValidator(res.status)) setIsVerify(true);
-                    else toast.error('Something went wrong');
+                    else {
+                        if (res.data.username) {
+                            toast.error(res.data.username[0]);
+                            setIsError('username');
+                        } else if (res.data.email) {
+                            toast.error(res.data.email[0]);
+                            setIsError('email');
+                        }
+                    }
                 });
             }
         }
@@ -54,38 +69,49 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
         }
     }
     return (
-        <div className={'vsharee-signup-page'}>
+        <div className="vsharee-signup-page">
             <img className="background" src={background} alt="background" />
-
             <div className="box">
                 <div className="redbox">
                     <img alt="background" src={RedBox} />
-                    <h1 className="welcome-Back">Welcome Back</h1>
-                    <h1 className="sign-in-to-continue">Sign up to continue access pages</h1>
+                    <h1 className="welcome-Back">{LANG.welcomeBack}</h1>
+                    <h1 className="sign-in-to-continue">{LANG.welcomeBackText}</h1>
                 </div>
                 <div className="blackbox">
                     <div className="context">
                         {!isVerify ? (
                             <React.Fragment>
-                                <h1 className="signin">Sign Up</h1>
+                                <h1 className="signin">{LANG.signup}</h1>
                                 <input
+                                    onChange={(e) => {
+                                        if (isError === 'username') setIsError(undefined);
+                                        setUsername(e.target.value);
+                                    }}
                                     value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    placeholder="Username"
+                                    className={isError === 'username' ? 'error' : ''}
+                                    placeholder={LANG.username}
                                 />
                                 <input
+                                    onChange={(e) => {
+                                        if (isError === 'email') setIsError(undefined);
+                                        setEmail(e.target.value);
+                                    }}
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Email Address"
+                                    className={isError === 'email' ? 'error' : ''}
+                                    placeholder={LANG.email}
                                 />
 
                                 <div className="password-input">
                                     <input
+                                        onChange={(e) => {
+                                            if (isError === 'password') setIsError(undefined);
+                                            setPassword(e.target.value);
+                                        }}
                                         autoComplete="new-password"
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
                                         type="password"
-                                        placeholder="Password"
+                                        placeholder={LANG.password}
+                                        className={isError === 'password' ? 'error' : ''}
                                     />
                                     <i className="material-icons info" data-tip data-for="global">
                                         info
@@ -93,18 +119,21 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                 </div>
 
                                 <ReactTooltip id="global" place="right" type="info" effect="solid">
-                                    <p>∘ at least 8 characters</p>
-                                    <p>∘ combination of upper and lower case characters</p>
-                                    <p>∘ one or more digits</p>
+                                    <p>∘ {LANG.atLeast8Char}</p>
+                                    <p>∘ {LANG.combineUpAndLow}</p>
+                                    <p>∘ {LANG.moreDigit}</p>
                                 </ReactTooltip>
                                 <input
+                                    onChange={(e) => {
+                                        if (isError === 'rePassword') setIsError(undefined);
+                                        setPassword2(e.target.value);
+                                    }}
                                     onKeyUp={enterHandler}
                                     value={password2}
-                                    onChange={(e) => setPassword2(e.target.value)}
                                     type="password"
-                                    placeholder="Re_password"
+                                    className={isError === 'rePassword' ? 'error' : ''}
+                                    placeholder={LANG.confirmPassword}
                                 />
-                                {/*<h3 className="social"Your password should  </h3>*/}
                                 <div
                                     onClick={submitHandler}
                                     className={`continue ${
@@ -113,7 +142,7 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                 >
                                     {!submitLoading ? (
                                         <React.Fragment>
-                                            <span>C O N T I N U E</span>
+                                            <span>{LANG.continue}</span>
                                             <i className="material-icons">chevron_right</i>
                                         </React.Fragment>
                                     ) : (
@@ -121,22 +150,23 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                     )}
                                 </div>
 
-                                <h3 className="social"> or Connect with Social Media </h3>
+                                <h3 className="social">{LANG.connectWithSocialMedia}</h3>
                                 <div className="rectangle">
                                     <img src={googleLogo} alt="google" />
-                                    <p>Sign In With Google</p>
+                                    <p>{LANG.signInGoogle}</p>
                                 </div>
 
                                 <div className="new-acc">
-                                    <h4>Have an account?</h4>
-                                    <Link to={RoutePath.login}>Sign In</Link>
+                                    <h4>{LANG.haveAccount}</h4>
+                                    <Link to={RoutePath.login}>{LANG.signin}</Link>
                                 </div>
                             </React.Fragment>
                         ) : (
                             <div className="email-verify">
                                 <i className="material-icons">mark_email_read</i>
-                                <h2>Email confirmation send</h2>
-                                <p>To continue please click on a link that sent it to your email</p>
+                                <h2>{LANG.emailSent}</h2>
+                                <p>{LANG.activeEmailText}</p>
+                                <Link to={RoutePath.login}>Back to login</Link>
                             </div>
                         )}
                     </div>
