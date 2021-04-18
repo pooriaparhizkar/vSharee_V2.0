@@ -6,5 +6,9 @@ export const __APIPath = {
     user: {
         signup: '/user/auth/registration/',
         login: '/user/auth/login/',
+        find: '/user/find/username/',
+    },
+    groups: {
+        index: '/groups/',
     },
 };

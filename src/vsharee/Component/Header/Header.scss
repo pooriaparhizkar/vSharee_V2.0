@@ -5,16 +5,23 @@
   background-color: $gray1A;
   display: flex;
   flex-direction: row;
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
+  outline: none !important;
+
+  .btn:focus {
+    box-shadow: none !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
     margin-bottom: .5rem;
-   // font-size: unset;
-}
+    // font-size: unset;
+  }
+
   .logo-div {
     display: flex;
     flex-direction: row;
@@ -88,21 +95,109 @@ p {
   .input-main-div {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
-
-    .input-search {
-      color: $white;
-      // margin-left: 15px;
-      border-bottom-style: solid;
-
-      border-color: rgba($white, 0.3);
-      // background-color: rgba($white,0.3);
-    }
 
     i {
       font-size: 30px;
+      margin-top: 4px;
+      margin-right: 8px;
     }
+
+    .search-input {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+
+    }
+
+    .search-result-box {
+      position: absolute;
+      background-color: $gray1A;
+      width: 100%;
+      top: 40px;
+      z-index: 1;
+      box-shadow: black 0px 20px 30px -10px;
+      overflow: hidden;
+      height: 0;
+      transition: height 0.4s;
+      label{
+        color: #ffffff;
+
+      }
+      &.open {
+        overflow: auto;
+        height: 250px;
+        padding: 12px;
+      }
+
+      .not-found {
+        margin-top: 8px;
+        color: $gray99;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .loader {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 14px;
+      }
+
+      .items-group {
+        display: flex;
+        height: 40px;
+        //  padding: 0 12px;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color .3s;
+
+        &:hover {
+          background-color: #2d2d2d;
+        }
+
+        img {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          margin-right: 8px;
+        }
+
+        p {
+          color: $gray99;
+          font-size: 16px;
+          margin: 0;
+        }
+      }
+
+      .items-user {
+        display: flex;
+        height: 40px;
+        //  padding: 0 12px;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color .3s;
+
+        &:hover {
+          background-color: #2d2d2d;
+        }
+
+        img {
+          width: 32px;
+          height: 32px;
+          border-radius: 100%;
+          margin-right: 8px;
+        }
+
+        p {
+          color: $gray99;
+          font-size: 16px;
+          margin: 0;
+        }
+      }
+    }
+
+
   }
 
   .input-main-div-mobile {
