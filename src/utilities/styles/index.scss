@@ -7,10 +7,10 @@
 @import "./animation";
 
 body {
-    direction: ltr;
-    padding: 0;
-    margin: 0;
-    overflow-x: hidden;
+  direction: ltr;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
 }
 
 h1,
@@ -20,16 +20,55 @@ h4,
 h5,
 h6,
 p {
-    margin: 0;
-    font-size: unset;
+  margin: 0;
+  font-size: unset;
 }
 
 a {
-    outline: none;
-    text-decoration: none ;
+  outline: none;
+  text-decoration: none;
+  color: unset;
+
+  &:hover {
+    text-decoration: none;
     color: unset;
-    &:hover{
-        text-decoration: none;
-        color: unset;
+  }
+}
+
+.MuiFormLabel-root {
+  color: #ffffff !important;
+
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: $primary2 !important;
+}
+
+.MuiTypography-body1 {
+  color: #ffffff !important;
+  font-size: 14px !important;
+
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  transition: all 0.5s;
+}
+
+.MuiPaper-root {
+  //background-color: transparent !important;
+}
+
+.MuiFormControl-root {
+  width: 100%;
+
+  input {
+    &::placeholder {
+      font-size: 12px;
+      font-weight: 300;
+      color: #ffffff;
     }
+  }
+}
+.MuiInput-underline:after{
+    border-bottom: 2px solid $primary2 !important;
 }

@@ -7,21 +7,29 @@ import 'utilities/styles/index.scss';
 import Vsharee from './vsharee/vsharee.index';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 function App() {
+    const darkTheme = createMuiTheme({
+        palette: {
+            type: 'dark',
+        },
+    });
     return (
         <Provider store={store}>
-            <Vsharee />
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
+            <ThemeProvider theme={darkTheme}>
+                <Vsharee />
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
+            </ThemeProvider>
         </Provider>
     );
 }

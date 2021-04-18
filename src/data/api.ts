@@ -4,7 +4,7 @@ type apiParams = string | number;
 export const __APIPath = {
     verifyEmail: '/user/email-verify',
     user: {
-        signup: '/user/signup/',
-        login: '/user/login/',
+        signup: '/user/auth/registration/',
+        login: '/user/auth/login/',
     },
 };

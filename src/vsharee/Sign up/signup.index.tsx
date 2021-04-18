@@ -39,11 +39,9 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
             } else {
                 setSubmitLoading(true);
                 const body = {
-                    firstname: 'null',
-                    lastname: 'null',
                     username: username,
                     email: email,
-                    password: password,
+                    password1: password,
                     password2: password2,
                 };
                 post<any>(APIPath.user.signup, body).then((res) => {
