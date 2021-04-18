@@ -10,4 +10,5 @@ export interface __ReduxState {
     userData: any;
     language: typeof VshareeLanguage;
     authStatus: __AuthStatus;
+    isEdit: boolean;
 }

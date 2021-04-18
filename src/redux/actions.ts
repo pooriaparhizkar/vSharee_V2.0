@@ -11,3 +11,7 @@ export { SYSTEM_LANG, setLanguage };
 const AUTH_STATUS = 'AUTH_STATUS';
 const setAuth = (payload: AuthStatus): ReduxAction<AuthStatus> => ({ type: AUTH_STATUS, payload: payload });
 export { AUTH_STATUS, setAuth };
+
+const IS_EDIT = 'IS_EDIT';
+const setIsEdit = (payload: any): ReduxAction<any> => ({ type: IS_EDIT, payload: payload });
+export { IS_EDIT, setIsEdit };
