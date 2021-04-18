@@ -4,5 +4,5 @@ export const __RoutePath = {
     login: '/signin',
     signup: '/signup',
     dashboard: '/dashboard',
-    verify: '/verify',
+    verify: '/email-verified',
 };

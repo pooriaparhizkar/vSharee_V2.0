@@ -5,6 +5,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import tvPic from 'assets/images/dashboard/tv.png';
 import fakePic from 'assets/images/dashboard/fakepic.jpg';
 import './dashboard.style.scss';
+import EditProfile from '../Component/editProfile/editProfile.index';
 
 const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     return (
@@ -140,18 +141,22 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
                 </div>
             </div>
             <div className="centercolumn">
-                <div className="center-items">
-                    <img src={tvPic} alt="tvPic" />
-                    <h2>Welcome!</h2>
-                    <span>This is your brand, shiny server. Here are some steps </span>
-                    <h3>to help you et stared:</h3>
-                    <div className="p-text">
-                        <p>● Create your group</p>
-                        <p>● personalize your group with an icon</p>
-                        <p>● Invite your friends</p>
-                        <p>● Enjoy!</p>
+                {!props.isEdit ? (
+                    <div className="center-items">
+                        <img src={tvPic} alt="tvPic" />
+                        <h2>Welcome!</h2>
+                        <span>This is your brand, shiny server. Here are some steps </span>
+                        <h3>to help you et stared:</h3>
+                        <div className="p-text">
+                            <p>● Create your group</p>
+                            <p>● personalize your group with an icon</p>
+                            <p>● Invite your friends</p>
+                            <p>● Enjoy!</p>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <EditProfile />
+                )}
             </div>
             <div className={'rightcolumn'}>
                 <div className={'rightcolumn-in'}>
@@ -226,6 +231,7 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
 
 const mapStateToProps = (state: ReduxState) => ({
     text: state.language,
+    isEdit: state.isEdit,
 });
 
 const connector = connect(mapStateToProps);
