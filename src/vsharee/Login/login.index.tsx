@@ -40,14 +40,15 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                 post<any>(APIPath.user.login, body).then((res) => {
                     setSubmitLoading(false);
                     if (responseValidator(res.status)) {
-                        authToken.set(res.data.tokens);
+                        authToken.set(res.data.access_token);
                         props.dispatch(setAuth(AuthStatus.valid));
                         history.push(RoutePath.dashboard);
                     } else {
                         setIsError('all');
-                        res.data.non_field_errors.map((item: string) => {
-                            toast.error(item);
-                        });
+                        toast.error(LANG.incorrectData);
+                        // res.data.non_field_errors.map((item: string) => {
+                        //     toast.error(item);
+                        // });
                         authToken.remove();
                         props.dispatch(setAuth(AuthStatus.inValid));
                     }

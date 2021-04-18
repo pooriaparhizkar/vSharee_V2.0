@@ -11,6 +11,7 @@ import { AuthStatus, ReduxState } from '../../../interface';
 import { connect } from 'react-redux';
 import { RoutePath } from '../../../data';
 import { Link } from 'react-router-dom';
+import CreateGroupModal from '../createGroupModal/createGroupModal.index';
 
 class Headers extends React.Component<any, any> {
     constructor(props: any) {
@@ -18,6 +19,7 @@ class Headers extends React.Component<any, any> {
         super(props);
         this.state = {
             hiddentextField: true,
+            isCreateGroupModal: false,
         };
         // console.log(props.store);
         this.logoutHandler = this.logoutHandler.bind('ss');
@@ -48,8 +50,12 @@ class Headers extends React.Component<any, any> {
     render() {
         return (
             <div className="row main-div-header">
+                <CreateGroupModal
+                    show={this.state.isCreateGroupModal}
+                    onClose={() => this.setState({ isCreateGroupModal: false })}
+                />
                 <div className="col-md-3 col-4 logo-div" onClick={this.clickOnOthers}>
-                    <img src={VshareeLogo} alt=""></img>
+                    <img src={VshareeLogo} alt="" />
                     <h1>{HeaderLang.body.sharee}</h1>
                 </div>
                 <div hidden={this.state.hiddentextField} className="col-6 input-main-div-mobile ">
@@ -58,7 +64,8 @@ class Headers extends React.Component<any, any> {
                             className: 'input-search ',
                         }}
                         id="searchInp"
-                    ></TextField>
+                        placeholder="Search user, groups , …"
+                    />
                     <i className="material-icons" onClick={() => this.showInput('mob')}>
                         search
                     </i>
@@ -67,7 +74,7 @@ class Headers extends React.Component<any, any> {
                     hidden={this.state.hiddentextField}
                     className="col-2 input-main-div-mobile "
                     onClick={this.clickOnOthers}
-                ></div>
+                />
 
                 <div
                     className="col-md-3 col-3 input-main-div"
@@ -85,16 +92,23 @@ class Headers extends React.Component<any, any> {
                             className: 'input-search d-none d-md-block',
                         }}
                         id="searchInp"
-                    ></TextField>
+                        placeholder="Search user, groups , …"
+                    />
                 </div>
                 <div
                     className="col-md-2 col-1 icon-main-div"
                     hidden={!this.state.hiddentextField}
                     onClick={this.clickOnOthers}
                 >
-                    <Button>
+                    <Button
+                        onClick={() => {
+                            this.setState({ isCreateGroupModal: true });
+                        }}
+                    >
                         <i className="material-icons ">play_circle_outline</i>
-                        <h6 className="d-none d-md-block">{HeaderLang.body.stream}</h6>
+                        <h6 style={{ marginLeft: '6px' }} className="d-none d-md-block">
+                            {HeaderLang.body.stream}
+                        </h6>
                     </Button>
                 </div>
 

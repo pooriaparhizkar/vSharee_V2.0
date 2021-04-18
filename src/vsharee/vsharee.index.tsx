@@ -12,8 +12,7 @@ import Header from './Component/Header/Headers';
 import { vShareeInitialize } from './vsharee.script';
 import store from '../redux/store';
 
-import Dashboard from "./Dashboard/dashboard.index";
-
+import Dashboard from './Dashboard/dashboard.index';
 
 const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     useEffect(() => {
@@ -39,7 +38,7 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                         <Switch>
                             <Route path={RoutePath.profile} component={Profile} />
                             <Route path={RoutePath.dashboard}>
-                                <Dashboard/>
+                                <Dashboard />
                             </Route>
                             <Route path="*">
                                 <Redirect to={RoutePath.dashboard} />
