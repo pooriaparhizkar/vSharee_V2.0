@@ -5,6 +5,7 @@ import './createGroupModal.style.scss';
 import { Modal } from 'react-bootstrap';
 import { CreateGroupModalProps } from './createGroupModal.interface';
 import {
+    Button,
     Card,
     FormControl,
     FormControlLabel,
@@ -119,6 +120,14 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
                                 </div>
                             </div>
                         </Card>
+                    </div>
+                    <div className="my-btn">
+                        <Button variant="contained" color="primary">
+                            Create
+                        </Button>
+                        <Button onClick={() => props.onClose()} variant="contained" color="default">
+                            Cancel
+                        </Button>
                     </div>
                 </div>
             </div>

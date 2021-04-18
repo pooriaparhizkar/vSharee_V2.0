@@ -38,6 +38,7 @@
 
         &:hover {
           background-color: $black;
+          border-color: $primary2;
         }
 
         position: relative;
@@ -166,6 +167,18 @@
               padding: 0;
             }
           }
+        }
+      }
+
+      .my-btn{
+        display: flex;
+        justify-content: center;
+        @include vsharee-size(width, 75%, 96%);
+        margin: auto;
+        margin-top: 28px;
+        //margin-right: -10px;
+        >*{
+          margin-right: 10px;
         }
       }
     }

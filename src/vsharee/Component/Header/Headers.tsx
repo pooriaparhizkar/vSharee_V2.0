@@ -9,20 +9,29 @@ import { authToken } from '../../../scripts/storage';
 import { setAuth } from '../../../redux/actions';
 import { AuthStatus, ReduxState } from '../../../interface';
 import { connect } from 'react-redux';
-import { RoutePath } from '../../../data';
+import { APIPath, RoutePath } from '../../../data';
 import { Link } from 'react-router-dom';
 import CreateGroupModal from '../createGroupModal/createGroupModal.index';
+import { get, responseValidator } from '../../../scripts/api';
+import { CircularProgress } from '@material-ui/core';
+import emptyProfilePhoto from '../../../assets/images/fakeimage.svg';
 
 class Headers extends React.Component<any, any> {
+    searchResultRef: React.RefObject<HTMLDivElement>;
+
     constructor(props: any) {
-        // console.log(props.store);
         super(props);
         this.state = {
             hiddentextField: true,
             isCreateGroupModal: false,
+            searchTerm: null,
+            isLoadingSearch: true,
+            searchResult: [],
+            searchResult2: [],
         };
-        // console.log(props.store);
+        this.searchResultRef = React.createRef();
         this.logoutHandler = this.logoutHandler.bind('ss');
+        this.onClickOutSide = this.onClickOutSide.bind(this);
     }
 
     showInput = (txt: string) => {
@@ -39,6 +48,7 @@ class Headers extends React.Component<any, any> {
             });
         }
     };
+
     logoutHandler(item: any) {
         authToken.remove();
         //vShareeInitialize(props);
@@ -47,6 +57,39 @@ class Headers extends React.Component<any, any> {
         item.dispatch(setAuth(AuthStatus.inValid));
         // console.log(item);
     }
+
+    onSearchChangeHandler(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+        this.setState({ isLoadingSearch: true });
+        this.setState({ searchTerm: e.target.value });
+        get(APIPath.user.find, { search: e.target.value }).then((res) => {
+            // this.setState({ isLoadingSearch: false });
+            if (responseValidator(res.status)) {
+                this.setState({ searchResult: res.data });
+            }
+        });
+        get(APIPath.groups.index, { search: e.target.value }).then((res) => {
+            this.setState({ isLoadingSearch: false });
+            if (responseValidator(res.status)) {
+                this.setState({ searchResult2: res.data });
+            }
+        });
+    }
+
+    private onClickOutSide(event: any) {
+        // console.log(this.searchResultRef);
+        if (this.searchResultRef.current && !this.searchResultRef.current.contains(event.target)) {
+            this.setState({ searchResult: [], isLoadingSearch: true, searchTerm: '' });
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.onClickOutSide, { passive: true });
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.onClickOutSide);
+    }
+
     render() {
         return (
             <div className="row main-div-header">
@@ -54,10 +97,10 @@ class Headers extends React.Component<any, any> {
                     show={this.state.isCreateGroupModal}
                     onClose={() => this.setState({ isCreateGroupModal: false })}
                 />
-                <div className="col-md-3 col-4 logo-div" onClick={this.clickOnOthers}>
+                <Link to={RoutePath.dashboard} className="col-md-3 col-4 logo-div" onClick={this.clickOnOthers}>
                     <img src={VshareeLogo} alt="" />
                     <h1>{HeaderLang.body.sharee}</h1>
-                </div>
+                </Link>
                 <div hidden={this.state.hiddentextField} className="col-6 input-main-div-mobile ">
                     <TextField
                         InputProps={{
@@ -87,13 +130,70 @@ class Headers extends React.Component<any, any> {
                     <i className="material-icons d-md-none d-xs-block" onClick={() => this.showInput('mob')}>
                         search
                     </i>
-                    <TextField
-                        InputProps={{
-                            className: 'input-search d-none d-md-block',
-                        }}
-                        id="searchInp"
-                        placeholder="Search user, groups , …"
-                    />
+                    <div ref={this.searchResultRef} className="search-input">
+                        <TextField
+                            InputProps={{
+                                className: 'input-search d-none d-md-block',
+                            }}
+                            value={this.state.searchTerm}
+                            autoComplete="off"
+                            id="searchInp"
+                            placeholder="Search user, groups , …"
+                            onChange={(e) => {
+                                this.onSearchChangeHandler(e);
+                            }}
+                        />
+                        <div
+                            className={`search-result-box ${
+                                this.state.searchTerm !== '' && this.state.searchTerm ? 'open' : ''
+                            }`}
+                        >
+                            {this.state.isLoadingSearch ? (
+                                <div className="loader">
+                                    <CircularProgress />
+                                </div>
+                            ) : this.state.searchResult.length !== 0 || this.state.searchResult2.length !== 0 ? (
+                                <React.Fragment>
+                                    <label>Groups</label>
+                                    {this.state.searchResult2.length !== 0 ? (
+                                        this.state.searchResult2.map(
+                                            (item: { username: string; photo: any }, index: number) => (
+                                                <div key={index} className="items-group">
+                                                    {item.photo ? (
+                                                        <img src {...item.photo} alt="profile-pic" />
+                                                    ) : (
+                                                        <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                    )}
+                                                    <p>{item.username}</p>
+                                                </div>
+                                            ),
+                                        )
+                                    ) : (
+                                        <p className="not-found">No groups found</p>
+                                    )}
+                                    <label>Users</label>
+                                    {this.state.searchResult.length !== 0 ? (
+                                        this.state.searchResult.map(
+                                            (item: { username: string; photo: any }, index: number) => (
+                                                <div key={index} className="items-user">
+                                                    {item.photo ? (
+                                                        <img src {...item.photo} alt="profile-pic" />
+                                                    ) : (
+                                                        <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                    )}
+                                                    <p>{item.username}</p>
+                                                </div>
+                                            ),
+                                        )
+                                    ) : (
+                                        <p className="not-found">No user founds</p>
+                                    )}
+                                </React.Fragment>
+                            ) : (
+                                <p className="not-found">no result found</p>
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <div
                     className="col-md-2 col-1 icon-main-div"

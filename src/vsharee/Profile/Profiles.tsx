@@ -174,6 +174,10 @@ class Profiles extends React.Component<any, any> {
                                         <img src={TestImg} alt=""></img>
                                         <h1>Alan Ryan</h1>
                                     </div>
+                                    <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">
+                                        <img src={TestImg} alt=""></img>
+                                        <h1>Alan Ryan</h1>
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-md-1 "></div>

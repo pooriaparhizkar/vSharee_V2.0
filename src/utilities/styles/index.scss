@@ -72,3 +72,12 @@ a {
 .MuiInput-underline:after{
     border-bottom: 2px solid $primary2 !important;
 }
+.MuiButton-containedPrimary{
+  background-color: $primary2 !important;
+  &:hover{
+    background-color: rgba($primary2,0.7) !important;
+  }
+}
+.MuiCircularProgress-colorPrimary{
+  color: $primary2 !important;
+}
