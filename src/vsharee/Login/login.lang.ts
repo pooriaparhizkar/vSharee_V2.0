@@ -11,4 +11,5 @@ export const LoginLang = {
     incorrectUsername: 'Your username is incorrect',
     welcomeBack: 'Welcome Back',
     welcomeBackText: 'Sign in to continue access pages',
+    incorrectData: 'Your email address or password is incorrect',
 };

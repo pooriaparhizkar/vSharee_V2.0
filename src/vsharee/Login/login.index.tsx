@@ -45,9 +45,10 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                         history.push(RoutePath.dashboard);
                     } else {
                         setIsError('all');
-                        res.data.non_field_errors.map((item: string) => {
-                            toast.error(item);
-                        });
+                        toast.error(LANG.incorrectData);
+                        // res.data.non_field_errors.map((item: string) => {
+                        //     toast.error(item);
+                        // });
                         authToken.remove();
                         props.dispatch(setAuth(AuthStatus.inValid));
                     }

@@ -55,7 +55,7 @@ class Headers extends React.Component<any, any> {
                     onClose={() => this.setState({ isCreateGroupModal: false })}
                 />
                 <div className="col-md-3 col-4 logo-div" onClick={this.clickOnOthers}>
-                    <img src={VshareeLogo} alt=""></img>
+                    <img src={VshareeLogo} alt="" />
                     <h1>{HeaderLang.body.sharee}</h1>
                 </div>
                 <div hidden={this.state.hiddentextField} className="col-6 input-main-div-mobile ">
@@ -64,7 +64,8 @@ class Headers extends React.Component<any, any> {
                             className: 'input-search ',
                         }}
                         id="searchInp"
-                    ></TextField>
+                        placeholder="Search user, groups , …"
+                    />
                     <i className="material-icons" onClick={() => this.showInput('mob')}>
                         search
                     </i>
@@ -73,7 +74,7 @@ class Headers extends React.Component<any, any> {
                     hidden={this.state.hiddentextField}
                     className="col-2 input-main-div-mobile "
                     onClick={this.clickOnOthers}
-                ></div>
+                />
 
                 <div
                     className="col-md-3 col-3 input-main-div"
@@ -91,7 +92,8 @@ class Headers extends React.Component<any, any> {
                             className: 'input-search d-none d-md-block',
                         }}
                         id="searchInp"
-                    ></TextField>
+                        placeholder="Search user, groups , …"
+                    />
                 </div>
                 <div
                     className="col-md-2 col-1 icon-main-div"

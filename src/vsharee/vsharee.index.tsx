@@ -11,7 +11,8 @@ import { RoutePath } from 'data';
 import Header from './Component/Header/Headers';
 import { vShareeInitialize } from './vsharee.script';
 import store from '../redux/store';
-import CreateGroupModal from './Component/createGroupModal/createGroupModal.index';
+
+import Dashboard from './Dashboard/dashboard.index';
 
 const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     useEffect(() => {
@@ -20,7 +21,7 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
     return (
         <Router>
             <Switch>
-                {props.isAuth === AuthStatus.inValid && (
+                {props.isAuth === AuthStatus.valid && (
                     <Switch>
                         <Route path={RoutePath.login} component={Login} />
                         <Route path={RoutePath.signup} component={Signup} />
@@ -31,12 +32,14 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                         </Route>
                     </Switch>
                 )}
-                {props.isAuth === AuthStatus.valid && (
+                {props.isAuth === AuthStatus.inValid && (
                     <React.Fragment>
                         <Header store={store} />
                         <Switch>
                             <Route path={RoutePath.profile} component={Profile} />
-                            <Route path={RoutePath.dashboard}></Route>
+                            <Route path={RoutePath.dashboard}>
+                                <Dashboard />
+                            </Route>
                             <Route path="*">
                                 <Redirect to={RoutePath.dashboard} />
                             </Route>
