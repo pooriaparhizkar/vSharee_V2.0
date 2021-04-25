@@ -1,164 +1,57 @@
 import React, {useState} from 'react';
 
-import { ReduxState } from 'interface';
-import { connect, ConnectedProps } from 'react-redux';
+import {ReduxState} from 'interface';
+import {connect, ConnectedProps} from 'react-redux';
 import tvPic from 'assets/images/dashboard/tv.png';
 import fakePic from 'assets/images/dashboard/fakepic.jpg';
 import './dashboard.style.scss';
 import EditProfile from '../Component/editProfile/editProfile.index';
 import {FormControl, MenuItem, Select} from "@material-ui/core";
+import MyGroupsList from "./myGroups/myGroups.index";
+import TopGroupsList from "./topGroups/topGroups.index";
+import MyFriendsList from "./myFriends/myfriends.index";
 
 const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
-    const [view, setView] = useState<string>('myGroups');
+    const [view, setView] = useState<'myGroups' | 'topGroups' | 'myFriends'>('myGroups');
+
     return (
         <div className="vsharee-dashboard-page">
+
             <div className="leftcolumn">
-                <FormControl variant="outlined">
+                <FormControl className="d-flex d-md-none" variant="outlined">
                     <Select
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
                         value={view}
                         onChange={(e: any) => setView(e.target.value)}
-
                     >
                         <MenuItem value={'myGroups'}>My Groups</MenuItem>
                         <MenuItem value={'topGroups'}>Top Groups</MenuItem>
                         <MenuItem value={'myFriends'}>My Friends</MenuItem>
                     </Select>
                 </FormControl>
-                <div className={'top'}>
-                    <div className="top-in">
-                        <h3>My Groups</h3>
-                        <div className="index">
-                            <div className="items-top">
-                                <div className="items-top-left">
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-top-right">
-                                    <p># Group Num1</p>
-                                </div>
-                            </div>
-                            <div className="items-top">
-                                <div className="items-top-left">
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-top-right">
-                                    <p># Group Num2</p>
-                                </div>
-                            </div>
-                            <div className="items-top">
-                                <div className="items-top-left">
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-top-right">
-                                    <p># Group Num3</p>
-                                </div>
-                            </div>
-                            <div className="items-top">
-                                <div className="items-top-left">
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-top-right">
-                                    <p># Group Num4</p>
-                                </div>
-                            </div>
-                            <div className="items-top">
-                                <div className="items-top-left">
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-top-right">
-                                    <p># Group Num3</p>
-                                </div>
-                            </div>
-                            <div className="items-top">
-                                <div className="items-top-left">
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-top-right">
-                                    <p># Group Num6</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                <div className="d-none d-md-block">
+                    <MyGroupsList/>
+
+                    <TopGroupsList/>
+
                 </div>
-                <div className="bottom">
-                    <div className="bottom-in">
-                        <h3>Top Groups</h3>
-                        <div className="my-container">
-                            <div className="items-bottom">
-                                <div className="items-bottom-left">
-                                    <i className="material-icons-outlined star">star</i>
+                <div className="d-block d-md-none">
+                    {view === "myFriends" ? <MyFriendsList/>
+                    : view === "myGroups" ? <MyGroupsList/>
+                    : <TopGroupsList/>}
 
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-bottom-right">
-                                    <p>Johnhayes</p>
-                                    <span>685 members</span>
-                                </div>
-                            </div>
-                            <div className="items-bottom">
-                                <div className="items-bottom-left">
-                                    <i className="material-icons-outlined star">star</i>
 
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-bottom-right">
-                                    <p>Johnhayes</p>
-                                    <span>685 members</span>
-                                </div>
-                            </div>{' '}
-                            <div className="items-bottom">
-                                <div className="items-bottom-left">
-                                    <i className="material-icons-outlined star">star</i>
-
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-bottom-right">
-                                    <p>Johnhayes</p>
-                                    <span>685 members</span>
-                                </div>
-                            </div>
-                            <div className="items-bottom">
-                                <div className="items-bottom-left">
-                                    <i className="material-icons-outlined star">star</i>
-
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-bottom-right">
-                                    <p>Johnhayes</p>
-                                    <span>685 members</span>
-                                </div>
-                            </div>
-                            <div className="items-bottom">
-                                <div className="items-bottom-left">
-                                    <i className="material-icons-outlined star">star</i>
-
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-bottom-right">
-                                    <p>Johnhayes</p>
-                                    <span>685 members</span>
-                                </div>
-                            </div>
-                            <div className="items-bottom">
-                                <div className="items-bottom-left">
-                                    <i className="material-icons-outlined star">star</i>
-
-                                    <img src={fakePic} alt="fakePic" />
-                                </div>
-                                <div className="items-bottom-right">
-                                    <p>Johnhayes</p>
-                                    <span>685 members</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+
+
             </div>
+
             <div className="centercolumn">
                 {!props.isEdit ? (
                     <div className="center-items">
-                        <img src={tvPic} alt="tvPic" />
+                        <img src={tvPic} alt="tvPic"/>
                         <h2>Welcome!</h2>
                         <span>This is your brand, shiny server. Here are some steps </span>
                         <h3>to help you et stared:</h3>
@@ -170,76 +63,13 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
                         </div>
                     </div>
                 ) : (
-                    <EditProfile />
+                    <EditProfile/>
                 )}
             </div>
-            <div className={'rightcolumn'}>
-                <div className={'rightcolumn-in'}>
-                    <h3>My Friends</h3>
-                    <div className={'context'}>
-                        <div className="items">
-                            <div className="left-items">
-                                <img src={fakePic} alt="fakePic" />
-                                <i className="material-icons-outlined circle">circle</i>
-                            </div>
-                            <div className="right-items">
-                                <p>Bonelwa Ngqawana</p>
-                                <span>watching movie</span>
-                            </div>
-                        </div>
-                        <div className="items online">
-                            <div className={'left-items'}>
-                                <img src={fakePic} alt="fakePic" />
-                                <i className="material-icons-outlined circle">circle</i>
-                            </div>
-                            <div className={'right-items'}>
-                                <p>Bonelwa Ngqawana</p>
-                                <span>watching movie</span>
-                            </div>
-                        </div>
-                        <div className="items online">
-                            <div className={'left-items'}>
-                                <img src={fakePic} alt="fakePic" />
-                                <i className="material-icons-outlined circle">circle</i>
-                            </div>
-                            <div className={'right-items'}>
-                                <p>Bonelwa Ngqawana</p>
-                                <span>watching movie</span>
-                            </div>
-                        </div>
-                        <div className="items">
-                            <div className="left-items">
-                                <img src={fakePic} alt="fakePic" />
-                                <i className="material-icons-outlined circle">circle</i>
-                            </div>
-                            <div className="right-items">
-                                <p>Bonelwa Ngqawana</p>
-                                <span>watching movie</span>
-                            </div>
-                        </div>
-                        <div className="items">
-                            <div className="left-items">
-                                <img src={fakePic} alt="fakePic" />
-                                <i className="material-icons-outlined circle">circle</i>
-                            </div>
-                            <div className="right-items">
-                                <p>Bonelwa Ngqawana</p>
-                                <span>watching movie</span>
-                            </div>
-                        </div>
-                        <div className="items">
-                            <div className="left-items">
-                                <img src={fakePic} alt="fakePic" />
-                                <i className="material-icons-outlined circle">circle</i>
-                            </div>
-                            <div className="right-items">
-                                <p>Bonelwa Ngqawana</p>
-                                <span>watching movie</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div className="d-none d-md-block">
+                <MyFriendsList/>
             </div>
+
         </div>
     );
 };

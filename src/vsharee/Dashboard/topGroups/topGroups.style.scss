@@ -1,0 +1,120 @@
+@import 'src/utilities/references/index';
+
+
+.vsharee-dashboard-top-groups{
+
+  .bottom {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      //height: 100%;
+
+      flex: 1;
+     // max-height: calc(100vh - 264px);
+
+
+      .bottom-in {
+        width: 100%;
+        flex: 1;
+       // height: 100%;
+
+        border-radius: 10px;
+        padding: 18px;
+        background-color: #16151a;
+
+
+        h3 {
+          font-size: 21px;
+          font-weight: 500;
+          color: #ffffff;
+
+        }
+
+        .my-container {
+          padding-top: 10px;
+          overflow: auto;
+          margin-top: 12px;
+          max-height: calc(100% - 40px);
+
+          .items-bottom {
+            margin-top: 8px;
+            display: flex;
+            transition: all 0.2s;
+            padding: 6px 6px 6px 6px;
+
+            &:first-child {
+              margin-top: 0 !important;
+            }
+
+            cursor: pointer;
+
+            &:hover {
+              background-color: $black;
+
+              .items-top-right {
+                p {
+                  color: #ffffff;
+                }
+              }
+            }
+
+            .items-bottom-left {
+              position: relative;
+              width: 100%;
+              height: 100%;
+              max-width: 38px;
+              max-height: 38px;
+              border-radius: 8px;
+              display: flex;
+
+              .star {
+                width: 100%;
+                height: 100%;
+                top: -8px;
+                left: -8px;
+                color: #ffcc00;
+                position: absolute;
+
+              }
+
+
+              img {
+                width: 100%;
+                height: 100%;
+                max-width: 38px;
+                max-height: 38px;
+                min-width: 38px;
+                min-height: 38px;
+                border-radius: 8px;
+                object-fit: cover;
+
+              }
+
+            }
+
+            .items-bottom-right {
+              margin-left: 14px;
+
+              p {
+
+                font-size: 16px;
+                font-weight: 500;
+                color: #ffffff;
+              }
+
+              span {
+
+                font-size: 12px;
+                font-weight: 300;
+                color: #ffffff;
+              }
+            }
+
+          }
+
+        }
+
+
+      }
+    }
+}
