@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
@@ -6,11 +6,26 @@ import tvPic from 'assets/images/dashboard/tv.png';
 import fakePic from 'assets/images/dashboard/fakepic.jpg';
 import './dashboard.style.scss';
 import EditProfile from '../Component/editProfile/editProfile.index';
+import {FormControl, MenuItem, Select} from "@material-ui/core";
 
 const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
+    const [view, setView] = useState<string>('myGroups');
     return (
         <div className="vsharee-dashboard-page">
             <div className="leftcolumn">
+                <FormControl variant="outlined">
+                    <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={view}
+                        onChange={(e: any) => setView(e.target.value)}
+
+                    >
+                        <MenuItem value={'myGroups'}>My Groups</MenuItem>
+                        <MenuItem value={'topGroups'}>Top Groups</MenuItem>
+                        <MenuItem value={'myFriends'}>My Friends</MenuItem>
+                    </Select>
+                </FormControl>
                 <div className={'top'}>
                     <div className="top-in">
                         <h3>My Groups</h3>

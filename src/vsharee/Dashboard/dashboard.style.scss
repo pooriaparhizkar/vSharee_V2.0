@@ -10,12 +10,18 @@
   background-color: #0c0b10;
 
   .leftcolumn {
+
+
 display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
     min-height: calc(100vh - 90px);
-    max-width: 286px;
+    @include vsharee-md{
+    max-width: 306px;
+    }
+    flex: 1;
+
     padding: 24px;
 
     h3 {
@@ -28,15 +34,18 @@ display: flex;
     .top {
       width: 100%;
       height: 100%;
-      max-width: 286px;
+      margin-top: 15px;
       max-height: 264px;
+      @include vsharee-md{
+      margin-top: 0px;
+
+      }
 
 
       .top-in {
         background-color: #16151a;
         width: 100%;
         height: 100%;
-        max-width: 286px;
         border-radius: 10px;
         padding: 18px;
 
@@ -123,7 +132,7 @@ display: flex;
       width: 100%;
       display: flex;
       //height: 100%;
-      max-width: 286px;
+
       flex: 1;
      // max-height: calc(100vh - 264px);
 
@@ -132,7 +141,7 @@ display: flex;
         width: 100%;
         flex: 1;
        // height: 100%;
-        max-width: 286px;
+
         border-radius: 10px;
         padding: 18px;
         background-color: #16151a;
@@ -317,6 +326,10 @@ display: flex;
 
 
   .rightcolumn {
+    display: none;
+    @include vsharee-md{
+      display: block;
+    }
 
     padding: 24px;
     width: 100%;
