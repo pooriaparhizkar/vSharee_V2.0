@@ -21,7 +21,7 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
     return (
         <Router>
             <Switch>
-                {props.isAuth === AuthStatus.valid && (
+                {props.isAuth === AuthStatus.inValid && (
                     <Switch>
                         <Route path={RoutePath.login} component={Login} />
                         <Route path={RoutePath.signup} component={Signup} />
@@ -32,7 +32,7 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                         </Route>
                     </Switch>
                 )}
-                {props.isAuth === AuthStatus.inValid && (
+                {props.isAuth === AuthStatus.valid && (
                     <React.Fragment>
                         <Header store={store} />
                         <Switch>

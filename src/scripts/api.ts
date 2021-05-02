@@ -5,7 +5,7 @@ import ENV from '../env.json';
 function generateHeader(object: any = {}): any {
     const header: { [k: string]: any } = {};
     if (authToken.get()) {
-        header['Authorization'] = 'jwt ' + authToken.get()?.access;
+        header['Authorization'] = 'Bearer ' + authToken.get();
     }
     for (const key of Object.keys(object)) {
         header[key] = object[key];
