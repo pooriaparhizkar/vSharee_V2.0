@@ -10,7 +10,7 @@ import { setAuth, setIsEdit } from '../../../redux/actions';
 import { AuthStatus, ReduxState } from '../../../interface';
 import { connect } from 'react-redux';
 import { APIPath, RoutePath } from '../../../data';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import CreateGroupModal from '../createGroupModal/createGroupModal.index';
 import { get, responseValidator } from '../../../scripts/api';
 import { Button, CircularProgress } from '@material-ui/core';
@@ -232,14 +232,18 @@ class Headers extends React.Component<any, any> {
                                     {this.state.searchResult.length !== 0 ? (
                                         this.state.searchResult.map(
                                             (item: { username: string; photo: any }, index: number) => (
-                                                <div key={index} className="items-user">
+                                                <Link
+                                                    to={RoutePath.profileDetail(item.username)}
+                                                    key={index}
+                                                    className="items-user"
+                                                >
                                                     {item.photo ? (
                                                         <img src {...item.photo} alt="profile-pic" />
                                                     ) : (
                                                         <img src={emptyProfilePhoto} alt="profile-pic" />
                                                     )}
                                                     <p>{item.username}</p>
-                                                </div>
+                                                </Link>
                                             ),
                                         )
                                     ) : (
@@ -275,7 +279,7 @@ class Headers extends React.Component<any, any> {
                     <Dropdown className="dropdownClasss">
                         <Dropdown.Toggle variant="none" className="dropdownToggleClasss">
                             <i className="material-icons">account_circle</i>
-                            <h6 className="d-none d-md-block">{HeaderLang.body.defaultname}</h6>
+                            <h6 className="d-none d-md-block">{this.props.useData && this.props.userData.username}</h6>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
@@ -314,6 +318,7 @@ class Headers extends React.Component<any, any> {
 const mapStateToProps = (state: ReduxState) => ({
     // direction: state.direction,
     isAuth: state.authStatus,
+    userData: state.userData,
     //language: state.language,
 });
 

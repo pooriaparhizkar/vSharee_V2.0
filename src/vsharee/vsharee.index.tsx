@@ -40,6 +40,9 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                             <Route path={RoutePath.dashboard}>
                                 <Dashboard />
                             </Route>
+                            <Route path={RoutePath.profileDetail(':username')}>
+                                <Profile />
+                            </Route>
                             <Route path="*">
                                 <Redirect to={RoutePath.dashboard} />
                             </Route>
