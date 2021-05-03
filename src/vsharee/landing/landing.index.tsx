@@ -8,10 +8,11 @@ import Slider from 'react-slick';
 import movie1Pic from 'assets/images/landing/tenet.jpg';
 import movie2Pic from 'assets/images/landing/johnwick.jpg';
 import moviePreview from 'assets/images/landing/tenetHeader.jpg';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { RoutePath } from '../../data';
 import redBackground from 'assets/images/landing/red-background.svg';
 const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
+    const history = useHistory();
     const sliderRef = useRef<Slider | null>(null);
     const settings = {
         dots: false,
@@ -59,7 +60,7 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
                                 <span>6.5</span>
                                 <h4>Action | Adventure | sci-fi</h4>
                             </div>
-                            <button>
+                            <button onClick={() => history.push(RoutePath.login)}>
                                 <i className="material-icons">play_arrow</i>
                                 <h3>Watch Now</h3>
                             </button>

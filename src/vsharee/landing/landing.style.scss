@@ -250,6 +250,7 @@
 
     .items {
       //min-width: 146px;
+      cursor: pointer;
       @include vsharee-size(min-width, 146px, 110px);
       height: 48px;
       display: flex;
