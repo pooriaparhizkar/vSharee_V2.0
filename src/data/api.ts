@@ -20,4 +20,7 @@ export const __APIPath = {
         follower: '/user/relations/followers/',
         following: '/user/relations/followings/',
     },
+    notification:{
+        index: '/notifications/'
+    }
 };

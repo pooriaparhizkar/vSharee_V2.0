@@ -16,6 +16,7 @@ import { get, responseValidator } from '../../../scripts/api';
 import { Button, CircularProgress } from '@material-ui/core';
 import emptyProfilePhoto from '../../../assets/images/fakeimage.svg';
 import EditProfile from '../editProfile/editProfile.index';
+import Notification from "../../notification/notification.index";
 
 class Headers extends React.Component<any, any> {
     searchResultRef: React.RefObject<HTMLDivElement>;
@@ -94,6 +95,7 @@ class Headers extends React.Component<any, any> {
         return (
             <div className="row main-div-header">
                 <EditProfile />
+                <Notification/>
                 <CreateGroupModal
                     show={this.state.isCreateGroupModal}
                     onClose={() => this.setState({ isCreateGroupModal: false })}
