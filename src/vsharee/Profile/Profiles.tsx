@@ -6,8 +6,7 @@ import Spotify from '../../assets/images/profile/spotify.png';
 import Imdb from '../../assets/images/profile/imdb.png';
 import Message from '../../assets/images/profile/message.svg';
 import { Dropdown, Button } from 'react-bootstrap';
-import Header from '../Component/Header/Headers';
-import { BrowserRouter as Router } from 'react-router-dom';
+
 import { VshareeLanguage } from '../vsharee.lang';
 import { ReduxState } from '../../interface';
 import { connect } from 'react-redux';

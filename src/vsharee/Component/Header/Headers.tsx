@@ -51,7 +51,7 @@ class Headers extends React.Component<any, any> {
 
     logoutHandler(item: any) {
         authToken.remove();
-        item.dispatch(setAuth(AuthStatus.inValid));
+        item.dispatch(setAuth(AuthStatus.isInValid));
     }
     profileSettingHandler(item: any) {
         item.dispatch(setIsEdit(true));
@@ -232,8 +232,10 @@ class Headers extends React.Component<any, any> {
                                     {this.state.searchResult.length !== 0 ? (
                                         this.state.searchResult.map(
                                             (item: { username: string; photo: any }, index: number) => (
-                                                <Link
-                                                    to={RoutePath.profileDetail(item.username)}
+                                                <div
+                                                    onClick={() =>
+                                                        window.location.replace(RoutePath.profileDetail(item.username))
+                                                    }
                                                     key={index}
                                                     className="items-user"
                                                 >
@@ -243,7 +245,7 @@ class Headers extends React.Component<any, any> {
                                                         <img src={emptyProfilePhoto} alt="profile-pic" />
                                                     )}
                                                     <p>{item.username}</p>
-                                                </Link>
+                                                </div>
                                             ),
                                         )
                                     ) : (
@@ -279,15 +281,20 @@ class Headers extends React.Component<any, any> {
                     <Dropdown className="dropdownClasss">
                         <Dropdown.Toggle variant="none" className="dropdownToggleClasss">
                             <i className="material-icons">account_circle</i>
-                            <h6 className="d-none d-md-block">{this.props.useData && this.props.userData.username}</h6>
+                            <h6 className="d-none d-md-block">{this.props.userData && this.props.userData.username}</h6>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
                             <Dropdown.Item>
-                                <Link to={RoutePath.profile} className="dropdowm-item">
+                                <div
+                                    onClick={() =>
+                                        window.location.replace(RoutePath.profileDetail(this.props.userData.username))
+                                    }
+                                    className="dropdowm-item"
+                                >
                                     <i className="material-icons">account_circle</i>
                                     <h6>{HeaderLang.body.profile}</h6>
-                                </Link>
+                                </div>
                             </Dropdown.Item>
                             <Dropdown.Item>
                                 <div

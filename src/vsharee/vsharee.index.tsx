@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { AuthStatus, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
-import Login from './Login/login.index';
+
 import Signup from './Sign up/signup.index';
 import Landing from './landing/landing.index';
 import Profile from './Profile/Profiles';
@@ -11,8 +11,8 @@ import { RoutePath } from 'data';
 import Header from './Component/Header/Headers';
 import { vShareeInitialize } from './vsharee.script';
 import store from '../redux/store';
-
 import Dashboard from './Dashboard/dashboard.index';
+import Login from './Login/login.index';
 
 const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     useEffect(() => {
@@ -21,7 +21,7 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
     return (
         <Router>
             <Switch>
-                {props.isAuth === AuthStatus.inValid && (
+                {props.isAuth === AuthStatus.isInValid && (
                     <Switch>
                         <Route path={RoutePath.login} component={Login} />
                         <Route path={RoutePath.signup} component={Signup} />
@@ -32,7 +32,7 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                         </Route>
                     </Switch>
                 )}
-                {props.isAuth === AuthStatus.valid && (
+                {props.isAuth === AuthStatus.isValid && (
                     <React.Fragment>
                         <Header store={store} />
                         <Switch>
@@ -40,9 +40,7 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                             <Route path={RoutePath.dashboard}>
                                 <Dashboard />
                             </Route>
-                            <Route path={RoutePath.profileDetail(':username')}>
-                                <Profile />
-                            </Route>
+                            <Route path={RoutePath.profileDetail(':username')} component={Profile} />
                             <Route path="*">
                                 <Redirect to={RoutePath.dashboard} />
                             </Route>

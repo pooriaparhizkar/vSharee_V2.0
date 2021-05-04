@@ -14,4 +14,10 @@ export const __APIPath = {
         top: '/group/top_groups/',
         my: '/group/joined_groups/',
     },
+    profile: {
+        userdata: '/user/find/username/',
+        usergroup: '/group/user_groups/',
+        follower: '/user/relations/followers/',
+        following: '/user/relations/followings/',
+    },
 };
