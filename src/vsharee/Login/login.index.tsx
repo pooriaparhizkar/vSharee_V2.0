@@ -12,7 +12,7 @@ import { Spinner } from 'react-bootstrap';
 import { authToken } from '../../scripts/storage';
 import { setAuth, setUserData } from '../../redux/actions';
 import { VshareeLanguage } from '../vsharee.lang';
-import { APIPath, RoutePath } from '../../data';
+import { APIPath, navigationAnim, RoutePath } from '../../data';
 import { emailValidation, passwordValidation, usernameValidation } from '../../scripts/validation';
 import { AST } from 'eslint';
 import { getMyGroups } from '../vsharee.script';
@@ -45,8 +45,12 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                         authToken.set(res.data);
                         get<UserData[]>(APIPath.user.myInfo).then((res) => {
                             if (responseValidator(res.status) && res.data) {
-                                props.dispatch(setUserData(res.data[0]));
-                                props.dispatch(setAuth(AuthStatus.isValid));
+                                document.body.classList.add(navigationAnim);
+                                setTimeout(() => {
+                                    document.body.classList.remove(navigationAnim);
+                                    props.dispatch(setUserData(res.data![0]));
+                                    props.dispatch(setAuth(AuthStatus.isValid));
+                                }, 500);
                             } else {
                                 authToken.remove();
                                 props.dispatch(setAuth(AuthStatus.isInValid));
@@ -74,15 +78,33 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
             submitHandler();
         }
     }
-
+    function backHandler() {
+        document.body.classList.add(navigationAnim);
+        setTimeout(() => {
+            document.body.classList.remove(navigationAnim);
+            history.push(RoutePath.landing);
+        }, 500);
+    }
+    function goToSignup() {
+        document.body.classList.add(navigationAnim);
+        setTimeout(() => {
+            document.body.classList.remove(navigationAnim);
+            history.push(RoutePath.signup);
+        }, 500);
+    }
     return (
         <div className="vsharee-login-page">
             <img className="background" src={background} alt="background" />
             <div className="box">
                 <div className="redbox">
+                    <span />
                     <img alt="background" src={RedBox} />
                     <h1 className="welcome-Back">{LANG.welcomeBack}</h1>
                     <h1 className="sign-in-to-continue">{LANG.welcomeBackText}</h1>
+                    <span />
+                    <p className="copy-right" onClick={backHandler}>
+                        copyright vSharee.ir
+                    </p>
                 </div>
                 <div className="blackbox">
                     <div className="context">
@@ -125,7 +147,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                         </div>
                         <div className="new-acc">
                             <h4>{LANG.dontHaveAccount}</h4>
-                            <Link to={RoutePath.signup}>{LANG.signup}</Link>
+                            <a onClick={goToSignup}>{LANG.signup}</a>
                         </div>
                     </div>
                 </div>

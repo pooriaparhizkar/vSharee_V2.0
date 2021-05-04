@@ -1,6 +1,10 @@
 @import "src/utilities/references/index";
 
 .vsharee-landing-page {
+   animation: vsharee-fade-in 0.5s ease-in-out forwards;
+  @include die {
+    animation: vsharee-fade-out 0.5s ease-in-out forwards;
+  }
   position: relative;
   background-color: $primary;
   z-index: 0;
