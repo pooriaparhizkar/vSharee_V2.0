@@ -1,6 +1,9 @@
 @import 'src/utilities/references/index';
-
-.vsharee-edit-profile-component {
+.vsharee-edit-profile-modal{
+  .modal-content{
+    background-color: $black2;
+  }
+  .vsharee-edit-profile-component {
   > div {
     background-color: transparent;
     padding: 20px;
@@ -76,7 +79,7 @@
     .my-btn {
       display: flex;
       flex-direction: row-reverse;
-      justify-content: flex-start;
+      justify-content: center;
       margin: auto;
       margin-top: 36px;
       //margin-right: -10px;
@@ -87,4 +90,5 @@
     }
   }
 
+}
 }

@@ -36,11 +36,15 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                     <React.Fragment>
                         <Header store={store} />
                         <Switch>
-                            <Route path={RoutePath.profile} component={Profile} />
+                            <Route path={RoutePath.profile}>
+                                <Profile store={store} />
+                            </Route>
                             <Route path={RoutePath.dashboard}>
                                 <Dashboard />
                             </Route>
-                            <Route path={RoutePath.profileDetail(':username')} component={Profile} />
+                            <Route path={RoutePath.profileDetail(':username')}>
+                                <Profile store={store} />
+                            </Route>
                             <Route path="*">
                                 <Redirect to={RoutePath.dashboard} />
                             </Route>

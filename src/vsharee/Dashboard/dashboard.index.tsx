@@ -78,22 +78,18 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
             </div>
 
             <div className="centercolumn">
-                {!props.isEdit ? (
-                    <div className="center-items">
-                        <img alt="tv" src={tvPic} className="tvPic" />
-                        <h2>Welcome!</h2>
-                        <span>This is your brand, shiny server. Here are some steps </span>
-                        <h3>to help you et stared:</h3>
-                        <div className="p-text">
-                            <p>● Create your group</p>
-                            <p>● personalize your group with an icon</p>
-                            <p>● Invite your friends</p>
-                            <p>● Enjoy!</p>
-                        </div>
+                <div className="center-items">
+                    <img alt="tv" src={tvPic} className="tvPic" />
+                    <h2>Welcome!</h2>
+                    <span>This is your brand, shiny server. Here are some steps </span>
+                    <h3>to help you et stared:</h3>
+                    <div className="p-text">
+                        <p>● Create your group</p>
+                        <p>● personalize your group with an icon</p>
+                        <p>● Invite your friends</p>
+                        <p>● Enjoy!</p>
                     </div>
-                ) : (
-                    <EditProfile />
-                )}
+                </div>
             </div>
             <div className="d-none d-md-flex my-column">
                 <MyFriendsList offline={offline} online={online} />

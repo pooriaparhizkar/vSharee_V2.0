@@ -19,5 +19,7 @@ export const __APIPath = {
         usergroup: '/group/user_groups/',
         follower: '/user/relations/followers/',
         following: '/user/relations/followings/',
+        followUser:'/user/relations/follow/',
+        unfollowUser:'/user/followers/unfollow/'
     },
 };
