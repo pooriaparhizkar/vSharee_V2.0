@@ -1,10 +1,10 @@
 import { Response } from 'interface';
 import { authToken } from './storage';
 
+
 const ENV = {
     api: 'https://api.vsharee.ir',
 };
-
 function generateHeader(object: any = {}): any {
     const header: { [k: string]: any } = {};
     if (authToken.get()) {

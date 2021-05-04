@@ -1,0 +1,30 @@
+@import "src/utilities/references/mixins";
+.vsharee-dashboard-skeleton{
+  display: flex;
+  margin: 12px;
+  .skeleton-pic{
+    min-width: 48px;
+    min-height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    margin-right: 8px;
+  }
+  .skeleton-info{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    .skeleton-items{
+
+      height: 10px;
+      margin-top: 12px;
+       &:first-child{
+        margin-top: 0;
+      }
+    }
+  }
+}

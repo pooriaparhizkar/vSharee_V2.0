@@ -5,7 +5,7 @@ import { VshareeLanguage } from '../vsharee/vsharee.lang';
 export const initial_state: ReduxState = {
     userData: null,
     language: VshareeLanguage,
-    authStatus: AuthStatus.pending,
+    authStatus: AuthStatus.isPending,
     isEdit: false,
 };
 

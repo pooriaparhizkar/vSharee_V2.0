@@ -23,7 +23,7 @@ export interface __UserData {
 }
 
 export enum __AuthStatus {
-    valid = 'valid',
-    pending = 'pending',
-    inValid = 'inValid',
+    isValid = 'isValid',
+    isPending = 'isPending',
+    isInValid = 'isInValid',
 }

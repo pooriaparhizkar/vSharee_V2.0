@@ -12,8 +12,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { RoutePath } from '../../data';
 import redBackground from 'assets/images/landing/red-background.svg';
 const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
-    const history = useHistory();
     const sliderRef = useRef<Slider | null>(null);
+    const history = useHistory();
     const settings = {
         dots: false,
         infinite: false,
@@ -62,7 +62,7 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
                             </div>
                             <button onClick={() => history.push(RoutePath.login)}>
                                 <i className="material-icons">play_arrow</i>
-                                <h3>Watch Now</h3>
+                                <h3 onClick={() => history.push(RoutePath.login)}>Watch Now</h3>
                             </button>
                         </div>
                     </div>

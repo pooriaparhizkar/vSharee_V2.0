@@ -12,15 +12,15 @@ export const vShareeInitialize = (dispatch: Dispatch<AnyAction>) => {
 
 const getUser = (dispatch: Dispatch<AnyAction>) => {
     if (!authToken.get()) {
-        dispatch(setAuth(AuthStatus.inValid));
+        dispatch(setAuth(AuthStatus.isInValid));
     } else {
         get<UserData[]>(APIPath.user.myInfo).then((res) => {
             if (responseValidator(res.status) && res.data) {
                 dispatch(setUserData(res.data[0]));
-                dispatch(setAuth(AuthStatus.valid));
+                dispatch(setAuth(AuthStatus.isValid));
             } else {
                 authToken.remove();
-                dispatch(setAuth(AuthStatus.inValid));
+                dispatch(setAuth(AuthStatus.isInValid));
             }
         });
     }

@@ -42,7 +42,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                     setSubmitLoading(false);
                     if (responseValidator(res.status) && res.data) {
                         authToken.set(res.data);
-                        props.dispatch(setAuth(AuthStatus.valid));
+                        props.dispatch(setAuth(AuthStatus.isValid));
                         history.push(RoutePath.dashboard);
                     } else {
                         setIsError('all');
@@ -51,7 +51,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                         //     toast.error(item);
                         // });
                         authToken.remove();
-                        props.dispatch(setAuth(AuthStatus.inValid));
+                        props.dispatch(setAuth(AuthStatus.isInValid));
                     }
                 });
             }
