@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import DashboardEmptyState from '../emptyState/emptyState.index';
 import DashboardItemsSkeleton from '../skeleton/dashboard.skeleton';
 import { Link } from 'react-router-dom';
+
 const MyGroupsList: React.FC<ConnectedProps<typeof connector> & { data?: GroupType[] }> = function (
     props: ConnectedProps<typeof connector> & { data?: GroupType[] },
 ) {
@@ -19,15 +20,22 @@ const MyGroupsList: React.FC<ConnectedProps<typeof connector> & { data?: GroupTy
             <div className="index">
                 {props.data ? (
                     props.data.length !== 0 ? (
-                        props.data.map((item: any, index: any) => (
-                            <Link to={RoutePath.profileDetail(item.username)} key={index} className="items-top">
+                        props.data.map((item, index) => (
+                            <div key={index} className="items-top">
                                 <div className="items-top-left">
                                     <img src={fakePic} alt="fakePic" />
                                 </div>
                                 <div className="items-top-right">
                                     <p>{item.title}</p>
+                                    {item.privacy === 2 ? (
+                                        <i className="material-icons-outlined">lock</i>
+                                    ) : item.privacy === 1 ? (
+                                        <i className="material-icons-outlined">lock</i>
+                                    ) : (
+                                        <i className="material-icons-outlined"></i>
+                                    )}
                                 </div>
-                            </Link>
+                            </div>
                         ))
                     ) : (
                         <DashboardEmptyState info="You have no groups" />

@@ -15,6 +15,7 @@ import { VshareeLanguage } from '../vsharee.lang';
 import { APIPath, RoutePath } from '../../data';
 import { emailValidation, passwordValidation, usernameValidation } from '../../scripts/validation';
 import { AST } from 'eslint';
+import { getMyGroups } from '../vsharee.script';
 
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [username, setUsername] = useState<string | undefined>(undefined);
@@ -42,6 +43,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                     setSubmitLoading(false);
                     if (responseValidator(res.status) && res.data) {
                         authToken.set(res.data);
+                        getMyGroups(props.dispatch);
                         props.dispatch(setAuth(AuthStatus.isValid));
                         history.push(RoutePath.dashboard);
                     } else {

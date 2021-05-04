@@ -7,6 +7,7 @@ import { CreateGroupModalProps } from './createGroupModal.interface';
 import {
     Button,
     Card,
+    CircularProgress,
     FormControl,
     FormControlLabel,
     FormLabel,
@@ -17,12 +18,54 @@ import {
     TextField,
 } from '@material-ui/core';
 import fakeImage from '../../../assets/images/profile/fakeimage.jpg';
+import { post, responseValidator } from '../../../scripts/api';
+import { APIPath } from '../../../data';
+import { toast } from 'react-toastify';
+import { getMyGroups } from '../../vsharee.script';
+import { Simulate } from 'react-dom/test-utils';
+import WhiteSpinner from '../../../utilities/whiteSpinner/whiteSpinner.index';
 const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupModalProps> = function (
     props: ConnectedProps<typeof connector> & CreateGroupModalProps,
 ) {
     const LANG = props.text.components.CreateGroupModal;
-    const [privacy, setPrivacy] = useState<string>('public');
+    const [privacy, setPrivacy] = useState<'semiPrivate' | 'public' | 'private' | string>('public');
     const [role, setRole] = useState<string>('viewer');
+    const [id, setId] = useState<string | undefined>(undefined);
+    const [name, setName] = useState<string | undefined>(undefined);
+    const [description, setDescription] = useState<string | undefined>(undefined);
+    const [loading, setLoading] = useState<boolean>(false);
+    function resetValue() {
+        setId(undefined);
+        setName(undefined);
+        setDescription(undefined);
+        setPrivacy('public');
+    }
+    function submitHandler() {
+        setLoading(true);
+        const body: any = {
+            groupid: id,
+            title: name,
+            describtion: description,
+        };
+        if (privacy === 'public') body.privacy = 0;
+        else if (privacy === 'semiPrivate') body.privacy = 1;
+        else body.privacy = 2;
+        post<any>(APIPath.groups.index, body).then((res) => {
+            setLoading(false);
+            if (responseValidator(res.status)) {
+                toast.success('Your group successfully created');
+                getMyGroups(props.dispatch);
+                props.onClose();
+                resetValue();
+            } else {
+                if (res.data.groupid) toast.error(res.data.groupid[0]);
+                else if (res.data.title) toast.error(res.data.title[0]);
+                else if (res.data.describtion) toast.error(res.data.describtion[0]);
+                else toast.error('Something went wrong!');
+            }
+        });
+    }
+
     return (
         <Modal className="vsharee-create-group-modal" show={props.show} onHide={props.onClose}>
             <div className="my-container">
@@ -37,10 +80,27 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
                         </div>
                     </div>
                     <div className="my-input">
-                        <TextField label={LANG.groupName} id="outlined-basic" variant="outlined" />
+                        <TextField
+                            value={id}
+                            onChange={(e) => setId(e.target.value)}
+                            label={LANG.groupId}
+                            id="outlined-basic"
+                            variant="outlined"
+                        />
                     </div>
                     <div className="my-input">
                         <TextField
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            label={LANG.groupName}
+                            id="outlined-basic"
+                            variant="outlined"
+                        />
+                    </div>
+                    <div className="my-input">
+                        <TextField
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                             rows={4}
                             multiline={true}
                             label={LANG.description}
@@ -61,71 +121,78 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
                             </RadioGroup>
                         </FormControl>
                     </div>
-                    <div className="my-card">
-                        <Card variant={'outlined'}>
-                            <div className="my-card-inputs">
-                                <TextField autoComplete="new-password" id="standard-basic" placeholder={LANG.search} />
-                            </div>
-                            <div className="context">
-                                <div className="items">
-                                    <img src={fakeImage} alt="profile-pic" />
-                                    <p>Pooria Parhizkar</p>
-                                    <span className="spacer" />
-                                    <FormControl variant="outlined">
-                                        <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="demo-simple-select-outlined"
-                                            value={role}
-                                            onChange={(e: any) => setRole(e.target.value)}
-                                        >
-                                            <MenuItem value={'owner'}>{LANG.owner}</MenuItem>
-                                            <MenuItem value={'viewer'}>{LANG.viewer}</MenuItem>
-                                            <MenuItem value={'controller'}>{LANG.controller}</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </div>
-                                <div className="items">
-                                    <img src={fakeImage} alt="profile-pic" />
-                                    <p>Pooria Parhizkar</p>
-                                    <span className="spacer" />
-                                    <FormControl variant="outlined">
-                                        <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="demo-simple-select-outlined"
-                                            value={role}
-                                            onChange={(e: any) => setRole(e.target.value)}
-                                        >
-                                            <MenuItem value={'owner'}>{LANG.owner}</MenuItem>
-                                            <MenuItem value={'viewer'}>{LANG.viewer}</MenuItem>
-                                            <MenuItem value={'controller'}>{LANG.controller}</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </div>
-                                <div className="items">
-                                    <img src={fakeImage} alt="profile-pic" />
-                                    <p>Pooria Parhizkar</p>
-                                    <span className="spacer" />
-                                    <FormControl variant="outlined">
-                                        <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="demo-simple-select-outlined"
-                                            value={role}
-                                            onChange={(e: any) => setRole(e.target.value)}
-                                        >
-                                            <MenuItem value={'owner'}>{LANG.owner}</MenuItem>
-                                            <MenuItem value={'viewer'}>{LANG.viewer}</MenuItem>
-                                            <MenuItem value={'controller'}>{LANG.controller}</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </div>
-                            </div>
-                        </Card>
-                    </div>
+                    {/*<div className="my-card">*/}
+                    {/*    <Card variant={'outlined'}>*/}
+                    {/*        <div className="my-card-inputs">*/}
+                    {/*            <TextField autoComplete="new-password" id="standard-basic" placeholder={LANG.search} />*/}
+                    {/*        </div>*/}
+                    {/*        <div className="context">*/}
+                    {/*            <div className="items">*/}
+                    {/*                <img src={fakeImage} alt="profile-pic" />*/}
+                    {/*                <p>Pooria Parhizkar</p>*/}
+                    {/*                <span className="spacer" />*/}
+                    {/*                <FormControl variant="outlined">*/}
+                    {/*                    <Select*/}
+                    {/*                        labelId="demo-simple-select-outlined-label"*/}
+                    {/*                        id="demo-simple-select-outlined"*/}
+                    {/*                        value={role}*/}
+                    {/*                        onChange={(e: any) => setRole(e.target.value)}*/}
+                    {/*                    >*/}
+                    {/*                        <MenuItem value={'owner'}>{LANG.owner}</MenuItem>*/}
+                    {/*                        <MenuItem value={'viewer'}>{LANG.viewer}</MenuItem>*/}
+                    {/*                        <MenuItem value={'controller'}>{LANG.controller}</MenuItem>*/}
+                    {/*                    </Select>*/}
+                    {/*                </FormControl>*/}
+                    {/*            </div>*/}
+                    {/*            <div className="items">*/}
+                    {/*                <img src={fakeImage} alt="profile-pic" />*/}
+                    {/*                <p>Pooria Parhizkar</p>*/}
+                    {/*                <span className="spacer" />*/}
+                    {/*                <FormControl variant="outlined">*/}
+                    {/*                    <Select*/}
+                    {/*                        labelId="demo-simple-select-outlined-label"*/}
+                    {/*                        id="demo-simple-select-outlined"*/}
+                    {/*                        value={role}*/}
+                    {/*                        onChange={(e: any) => setRole(e.target.value)}*/}
+                    {/*                    >*/}
+                    {/*                        <MenuItem value={'owner'}>{LANG.owner}</MenuItem>*/}
+                    {/*                        <MenuItem value={'viewer'}>{LANG.viewer}</MenuItem>*/}
+                    {/*                        <MenuItem value={'controller'}>{LANG.controller}</MenuItem>*/}
+                    {/*                    </Select>*/}
+                    {/*                </FormControl>*/}
+                    {/*            </div>*/}
+                    {/*            <div className="items">*/}
+                    {/*                <img src={fakeImage} alt="profile-pic" />*/}
+                    {/*                <p>Pooria Parhizkar</p>*/}
+                    {/*                <span className="spacer" />*/}
+                    {/*                <FormControl variant="outlined">*/}
+                    {/*                    <Select*/}
+                    {/*                        labelId="demo-simple-select-outlined-label"*/}
+                    {/*                        id="demo-simple-select-outlined"*/}
+                    {/*                        value={role}*/}
+                    {/*                        onChange={(e: any) => setRole(e.target.value)}*/}
+                    {/*                    >*/}
+                    {/*                        <MenuItem value={'owner'}>{LANG.owner}</MenuItem>*/}
+                    {/*                        <MenuItem value={'viewer'}>{LANG.viewer}</MenuItem>*/}
+                    {/*                        <MenuItem value={'controller'}>{LANG.controller}</MenuItem>*/}
+                    {/*                    </Select>*/}
+                    {/*                </FormControl>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    </Card>*/}
+                    {/*</div>*/}
                     <div className="my-btn">
-                        <Button variant="contained" color="primary">
-                            Create
+                        <Button onClick={submitHandler} variant="contained" color="primary">
+                            {loading ? <WhiteSpinner /> : 'Create'}
                         </Button>
-                        <Button onClick={() => props.onClose()} variant="contained" color="default">
+                        <Button
+                            onClick={() => {
+                                props.onClose();
+                                resetValue();
+                            }}
+                            variant="contained"
+                            color="default"
+                        >
                             Cancel
                         </Button>
                     </div>
