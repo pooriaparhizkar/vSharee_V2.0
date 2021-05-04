@@ -3,6 +3,7 @@ export const CreateGroupModalLang = {
     descriptionHeader: 'Give your new Group a personality with a name and image.\n' + 'You can always change it later.',
     upload: 'Upload',
     groupName: 'Group Name',
+    groupId: 'Group ID',
     description: 'Description',
     privacyTitle: 'Group Privacy',
     private: 'Private',

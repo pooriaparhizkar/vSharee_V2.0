@@ -2,6 +2,7 @@
 
 
 .vsharee-create-group-modal {
+
   .modal-dialog {
     max-width: 632px;
   }
@@ -180,6 +181,10 @@
         //margin-right: -10px;
         >*{
           margin-right: 10px;
+        }
+        button{
+          min-width: 100px;
+          min-height: 40px;
         }
       }
     }

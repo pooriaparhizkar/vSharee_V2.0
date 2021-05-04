@@ -22,6 +22,7 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
     const [privacy, setPrivacy] = useState<string>('public');
     const [firstname, setfirstname] = useState<string | undefined>(props.userData?.firstname);
     const [lastname, setlastname] = useState<string | undefined>(props.userData?.lastname);
+    const [bio, setbio] = useState<string | undefined>(props.userData?.bio);
     return (
         <Modal
             className="vsharee-edit-profile-modal"
@@ -52,7 +53,7 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
                             variant="outlined"
                         />
                     </div>
-                    <TextField rows={4} multiline={true} label={'bio'} id="outlined-basic bio" variant="outlined" />
+                    <TextField rows={4} multiline={true} label={'bio'} id="outlined-basic bio" variant="outlined" value={bio} onChange={(e)=>setbio(e.target.value)} />
                     <div className="my-radio">
                         <FormControl component="fieldset">
                             <FormLabel component="legend">{LANG.privacyTitle}</FormLabel>

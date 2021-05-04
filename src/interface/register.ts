@@ -5,6 +5,7 @@ export interface __Tokens {
 }
 
 export interface __UserData {
+    bio:string;
     email: string;
     firstname: string;
     groups: any[];

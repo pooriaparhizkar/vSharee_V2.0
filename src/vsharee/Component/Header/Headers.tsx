@@ -6,8 +6,8 @@ import './Header.scss';
 import TextField from '@material-ui/core/TextField';
 import { Dropdown } from 'react-bootstrap';
 import { authToken } from '../../../scripts/storage';
-import { setAuth, setIsEdit } from '../../../redux/actions';
-import { AuthStatus, ReduxState } from '../../../interface';
+import { setAuth, setIsEdit, USER_DATA } from '../../../redux/actions';
+import { AuthStatus, GroupType, ReduxState, UserData } from '../../../interface';
 import { connect } from 'react-redux';
 import { APIPath, RoutePath } from '../../../data';
 import { Link, useHistory } from 'react-router-dom';
@@ -61,13 +61,13 @@ class Headers extends React.Component<any, any> {
     onSearchChangeHandler(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
         this.setState({ isLoadingSearch: true });
         this.setState({ searchTerm: e.target.value });
-        get(APIPath.user.find, { search: e.target.value }).then((res) => {
+        get<UserData[]>(APIPath.user.find, { search: e.target.value }).then((res) => {
             // this.setState({ isLoadingSearch: false });
             if (responseValidator(res.status)) {
                 this.setState({ searchResult: res.data });
             }
         });
-        get(APIPath.groups.index, { search: e.target.value }).then((res) => {
+        get<GroupType[]>(APIPath.groups.index, { search: e.target.value }).then((res) => {
             this.setState({ isLoadingSearch: false });
             if (responseValidator(res.status)) {
                 this.setState({ searchResult2: res.data });
@@ -129,35 +129,31 @@ class Headers extends React.Component<any, any> {
                                 <React.Fragment>
                                     <label>Groups</label>
                                     {this.state.searchResult2.length !== 0 ? (
-                                        this.state.searchResult2.map(
-                                            (item: { username: string; photo: any }, index: number) => (
-                                                <div key={index} className="items-group">
-                                                    {item.photo ? (
-                                                        <img src {...item.photo} alt="profile-pic" />
-                                                    ) : (
-                                                        <img src={emptyProfilePhoto} alt="profile-pic" />
-                                                    )}
-                                                    <p>{item.username}</p>
-                                                </div>
-                                            ),
-                                        )
+                                        this.state.searchResult2.map((item: GroupType, index: number) => (
+                                            <div key={index} className="items-group">
+                                                {item.photo ? (
+                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                ) : (
+                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                )}
+                                                <p>{item.title}</p>
+                                            </div>
+                                        ))
                                     ) : (
                                         <p className="not-found">No groups found</p>
                                     )}
                                     <label>Users</label>
                                     {this.state.searchResult.length !== 0 ? (
-                                        this.state.searchResult.map(
-                                            (item: { username: string; photo: any }, index: number) => (
-                                                <div key={index} className="items-user">
-                                                    {item.photo ? (
-                                                        <img src {...item.photo} alt="profile-pic" />
-                                                    ) : (
-                                                        <img src={emptyProfilePhoto} alt="profile-pic" />
-                                                    )}
-                                                    <p>{item.username}</p>
-                                                </div>
-                                            ),
-                                        )
+                                        this.state.searchResult.map((item: UserData, index: number) => (
+                                            <div key={index} className="items-user">
+                                                {item.photo ? (
+                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                ) : (
+                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                )}
+                                                <p>{item.username}</p>
+                                            </div>
+                                        ))
                                     ) : (
                                         <p className="not-found">No user founds</p>
                                     )}
@@ -215,41 +211,37 @@ class Headers extends React.Component<any, any> {
                                 <React.Fragment>
                                     <label>Groups</label>
                                     {this.state.searchResult2.length !== 0 ? (
-                                        this.state.searchResult2.map(
-                                            (item: { username: string; photo: any }, index: number) => (
-                                                <div key={index} className="items-group">
-                                                    {item.photo ? (
-                                                        <img src {...item.photo} alt="profile-pic" />
-                                                    ) : (
-                                                        <img src={emptyProfilePhoto} alt="profile-pic" />
-                                                    )}
-                                                    <p>{item.username}</p>
-                                                </div>
-                                            ),
-                                        )
+                                        this.state.searchResult2.map((item: GroupType, index: number) => (
+                                            <div key={index} className="items-group">
+                                                {item.photo ? (
+                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                ) : (
+                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                )}
+                                                <p>{item.title}</p>
+                                            </div>
+                                        ))
                                     ) : (
                                         <p className="not-found">No groups found</p>
                                     )}
-                                    <label>Users</label>
+                                    <label style={{ marginTop: '12px' }}>Users</label>
                                     {this.state.searchResult.length !== 0 ? (
-                                        this.state.searchResult.map(
-                                            (item: { username: string; photo: any }, index: number) => (
-                                                <div
-                                                    onClick={() =>
-                                                        window.location.replace(RoutePath.profileDetail(item.username))
-                                                    }
-                                                    key={index}
-                                                    className="items-user"
-                                                >
-                                                    {item.photo ? (
-                                                        <img src {...item.photo} alt="profile-pic" />
-                                                    ) : (
-                                                        <img src={emptyProfilePhoto} alt="profile-pic" />
-                                                    )}
-                                                    <p>{item.username}</p>
-                                                </div>
-                                            ),
-                                        )
+                                        this.state.searchResult.map((item: UserData, index: number) => (
+                                            <div
+                                                onClick={() =>
+                                                    window.location.replace(RoutePath.profileDetail(item.username))
+                                                }
+                                                key={index}
+                                                className="items-user"
+                                            >
+                                                {item.photo ? (
+                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                ) : (
+                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                )}
+                                                <p>{item.username}</p>
+                                            </div>
+                                        ))
                                     ) : (
                                         <p className="not-found">No user founds</p>
                                     )}

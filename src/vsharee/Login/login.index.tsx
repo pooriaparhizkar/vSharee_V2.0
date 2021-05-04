@@ -15,6 +15,7 @@ import { VshareeLanguage } from '../vsharee.lang';
 import { APIPath, RoutePath } from '../../data';
 import { emailValidation, passwordValidation, usernameValidation } from '../../scripts/validation';
 import { AST } from 'eslint';
+import { getMyGroups } from '../vsharee.script';
 
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [username, setUsername] = useState<string | undefined>(undefined);
@@ -42,9 +43,20 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                     setSubmitLoading(false);
                     if (responseValidator(res.status) && res.data) {
                         authToken.set(res.data);
-                        props.dispatch(setAuth(AuthStatus.isValid));
-                        props.dispatch(setUserData(res.data.user));
-                        history.push(RoutePath.dashboard);
+
+                        get<UserData[]>(APIPath.user.myInfo).then((res) => {
+                            if (responseValidator(res.status) && res.data) {
+                                props.dispatch(setUserData(res.data[0]));
+                                props.dispatch(setAuth(AuthStatus.isValid));
+                            } else {
+                                authToken.remove();
+                                props.dispatch(setAuth(AuthStatus.isInValid));
+                            }
+                        });
+                        getMyGroups(props.dispatch);
+                        // props.dispatch(setAuth(AuthStatus.isValid));
+                        // history.push(RoutePath.dashboard);
+
                     } else {
                         setIsError('all');
                         toast.error(LANG.incorrectData);

@@ -1,6 +1,6 @@
 import { VshareeLanguage } from '../vsharee/vsharee.lang';
 import { __AuthStatus } from './register';
-import { UserData } from './index';
+import { GroupType, UserData } from './index';
 
 export interface __ReduxAction<T> {
     type: string;
@@ -12,4 +12,5 @@ export interface __ReduxState {
     language: typeof VshareeLanguage;
     authStatus: __AuthStatus;
     isEdit: boolean;
+    myGroups: GroupType[] | undefined;
 }
