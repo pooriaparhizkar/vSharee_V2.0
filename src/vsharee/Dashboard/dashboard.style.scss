@@ -9,32 +9,42 @@
   position: relative;
   background-color: #0c0b10;
 
-  .leftcolumn {
 
+  .my-column {
 
-display: flex;
+    display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
+    max-height: calc(100vh - 90px);
     min-height: calc(100vh - 90px);
-    @include vsharee-md{
-    max-width: 306px;
+    @include vsharee-md {
+      @include vsharee-size(max-width, 356px, 206px);
+      @include vsharee-size(min-width, 356px, 206px);
     }
     flex: 1;
-
-    padding: 24px;
+    padding: 22px 16px;
 
     h3 {
+      padding: 18px 18px 0;
       font-size: 21px;
       font-weight: 500;
       color: #ffffff;
     }
 
+    .spacer {
+      min-height: 18px;
+    }
+  }
 
-
-
-
-
+  .my-column-left {
+    max-height: unset;
+    min-height: unset;
+    overflow: auto;
+    display: none;
+    @include vsharee-md {
+      display: contents;
+    }
   }
 
   .centercolumn {

@@ -3,8 +3,12 @@ export interface __Tokens {
     expire_date: string;
     refresh: string;
 }
+
+export interface __UserData {
+    username: string;
+}
 export enum __AuthStatus {
-    valid = 'valid',
-    pending = 'pending',
-    inValid = 'inValid',
+    isValid = 'valid',
+    isPending = 'pending',
+    isInValid = 'inValid',
 }
