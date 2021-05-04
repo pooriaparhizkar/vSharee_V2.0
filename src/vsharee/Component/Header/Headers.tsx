@@ -6,10 +6,10 @@ import './Header.scss';
 import TextField from '@material-ui/core/TextField';
 import { Dropdown } from 'react-bootstrap';
 import { authToken } from '../../../scripts/storage';
-import { setAuth, setIsEdit, USER_DATA } from '../../../redux/actions';
+import { setAuth, setIsEdit, setUserData, USER_DATA } from '../../../redux/actions';
 import { AuthStatus, GroupType, ReduxState, UserData } from '../../../interface';
 import { connect } from 'react-redux';
-import { APIPath, RoutePath } from '../../../data';
+import { APIPath, navigationAnim, RoutePath } from '../../../data';
 import { Link, useHistory } from 'react-router-dom';
 import CreateGroupModal from '../createGroupModal/createGroupModal.index';
 import { get, responseValidator } from '../../../scripts/api';
@@ -50,8 +50,12 @@ class Headers extends React.Component<any, any> {
     };
 
     logoutHandler(item: any) {
-        authToken.remove();
-        item.dispatch(setAuth(AuthStatus.isInValid));
+        document.body.classList.add(navigationAnim);
+        setTimeout(() => {
+            document.body.classList.remove(navigationAnim);
+            authToken.remove();
+            item.dispatch(setAuth(AuthStatus.isInValid));
+        }, 500);
     }
     profileSettingHandler(item: any) {
         item.dispatch(setIsEdit(true));

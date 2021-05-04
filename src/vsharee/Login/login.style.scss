@@ -19,6 +19,10 @@
   }
 
   .box {
+     animation: vsharee-fade-in 0.5s ease-in-out forwards;
+  @include die {
+    animation: vsharee-fade-out 0.5s ease-in-out forwards;
+  }
     @include vsharee-size(max-width, 1000px, 600px);
     @include vsharee-size(max-height, 666px, 512px);
     width: 100%;
@@ -39,6 +43,16 @@
       flex-direction: column;
       @include vsharee-lg {
         display: flex;
+      }
+
+      span {
+        flex: 1;
+      }
+
+      .copy-right {
+        cursor: pointer;
+        margin-bottom: 12px;
+        font-size: 14px;
       }
 
       img {
@@ -83,7 +97,7 @@
         flex-direction: column;
         height: 100%;
         width: 100%;
-       @include vsharee-size(padding,40px,20px);
+        @include vsharee-size(padding, 40px, 20px);
 
         h1 {
           width: 100%;
@@ -205,6 +219,7 @@
           a {
             color: #ff0d1d;
             margin-left: 8px;
+            cursor: pointer;
           }
         }
       }

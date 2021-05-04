@@ -6,8 +6,8 @@ import RedBox from '../../assets/images/RedBox.png';
 import googleLogo from '../../assets/images/google.svg';
 import { post, responseValidator } from '../../scripts/api';
 import background from 'assets/images/login-background.jpg';
-import { Link } from 'react-router-dom';
-import { APIPath, RoutePath } from '../../data';
+import { Link, useHistory } from 'react-router-dom';
+import { APIPath, navigationAnim, RoutePath } from '../../data';
 import { emailValidation, passwordValidation, usernameValidation } from '../../scripts/validation';
 import { toast } from 'react-toastify';
 import ReactTooltip from 'react-tooltip';
@@ -22,6 +22,7 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
     const [isVerify, setIsVerify] = useState<boolean>(false);
     const [isError, setIsError] = useState<'email' | 'password' | 'rePassword' | 'username' | undefined>(undefined);
     const LANG = props.text.Signup;
+    const history = useHistory();
     function submitHandler() {
         if (email && username && password2 && password) {
             if (!usernameValidation(username)) {
@@ -46,8 +47,13 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                 };
                 post<any>(APIPath.user.signup, body).then((res) => {
                     setSubmitLoading(false);
-                    if (responseValidator(res.status)) setIsVerify(true);
-                    else {
+                    if (responseValidator(res.status)) {
+                        document.body.classList.add(navigationAnim);
+                        setTimeout(() => {
+                            document.body.classList.remove(navigationAnim);
+                            setIsVerify(true);
+                        }, 500);
+                    } else {
                         if (res.data.username) {
                             toast.error(res.data.username[0]);
                             setIsError('username');
@@ -66,14 +72,24 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
             submitHandler();
         }
     }
+    function goToSignup() {
+        document.body.classList.add(navigationAnim);
+        setTimeout(() => {
+            document.body.classList.remove(navigationAnim);
+            history.push(RoutePath.login);
+        }, 500);
+    }
     return (
         <div className="vsharee-signup-page">
             <img className="background" src={background} alt="background" />
             <div className="box">
                 <div className="redbox">
+                    <span />
                     <img alt="background" src={RedBox} />
                     <h1 className="welcome-Back">{LANG.welcomeBack}</h1>
                     <h1 className="sign-in-to-continue">{LANG.welcomeBackText}</h1>
+                    <span />
+                    <Link to={RoutePath.landing}>copyright vSharee.ir</Link>
                 </div>
                 <div className="blackbox">
                     <div className="context">
@@ -156,7 +172,9 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
 
                                 <div className="new-acc">
                                     <h4>{LANG.haveAccount}</h4>
-                                    <Link to={RoutePath.login}>{LANG.signin}</Link>
+                                    <a style={{ cursor: 'pointer' }} onClick={goToSignup}>
+                                        {LANG.signin}
+                                    </a>
                                 </div>
                             </React.Fragment>
                         ) : (
@@ -164,7 +182,9 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                 <i className="material-icons">mark_email_read</i>
                                 <h2>{LANG.emailSent}</h2>
                                 <p>{LANG.activeEmailText}</p>
-                                <Link to={RoutePath.login}>Back to login</Link>
+                                <a style={{ cursor: 'pointer' }} onClick={goToSignup}>
+                                    Back to login
+                                </a>
                             </div>
                         )}
                     </div>
