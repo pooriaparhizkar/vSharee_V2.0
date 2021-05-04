@@ -34,7 +34,8 @@ class Profiles extends React.Component<any, any> {
             hideunfollowbtn:false,
             showlist:false,
             list:[{'name':'asdasd'},{'name':'asdasd'},{'name':'asdasd'},{'name':'asdasd'},{'name':'asdasd'}],
-            title:''
+            title:'',
+            name:''
             
         };
         this.profileSettingHandler = this.profileSettingHandler.bind('ss');
@@ -68,14 +69,14 @@ class Profiles extends React.Component<any, any> {
                 this.setState({ Emptystate: true });
             }
         });
-        get<any>(APIPath.profile.follower).then((res) => {
+        get<any>(APIPath.profile.follower,{user:loc[4]}).then((res) => {
             console.log(res);
             if (responseValidator(res.status)) {
                 this.setState({ followerCount: res.data.followers_count, followerList: res.data.result });
             }
         });
-        get<any>(APIPath.profile.following).then((res) => {
-            console.log(res.data.followings_count);
+        get<any>(APIPath.profile.following,{user:loc[4]}).then((res) => {
+            console.log(res.data);
             if (responseValidator(res.status)) {
                 this.setState({ followingCount: res.data.followings_count, followingList: res.data.result });
             }
@@ -104,7 +105,8 @@ class Profiles extends React.Component<any, any> {
             this.setState({
                 showlist:true,
                  list:this.state.followerList,
-                title:VshareeLanguage.Profile.body.followerlist
+                title:VshareeLanguage.Profile.body.followerlist,
+                name:'who_follows'
             })
          }
 
@@ -114,10 +116,17 @@ class Profiles extends React.Component<any, any> {
               this.setState({
             showlist:true,
             list:this.state.followingList,
-            title:VshareeLanguage.Profile.body.followinglist
+            title:VshareeLanguage.Profile.body.followinglist,
+            name:'who_followed'
         })
         }
       
+    }
+    checkwich=(list: any)=>{
+        if(this.state.name==='who_follows')
+        return list.who_follows
+        else
+        return list.who_is_followed
     }
     render() {
         return (
@@ -130,7 +139,7 @@ class Profiles extends React.Component<any, any> {
   <div key={i} className="item-list-modal-context">
       <img src={TestImg} alt=""></img>
       <div className='namebox'>
-             <h6>{list.name}</h6>
+             <h6 onClick={()=> window.location.replace(RoutePath.profileDetail(this.checkwich(list)))}>{this.checkwich(list)}</h6>
       </div>
    
   </div>
