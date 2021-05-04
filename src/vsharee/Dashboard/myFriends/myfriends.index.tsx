@@ -46,7 +46,7 @@ const MyFriendsList: React.FC<
                                 ))}
                         </React.Fragment>
                     ) : (
-                        <DashboardEmptyState info="You have no friends" />
+                        <DashboardEmptyState info="You have no friend" />
                     )
                 ) : (
                     <React.Fragment>

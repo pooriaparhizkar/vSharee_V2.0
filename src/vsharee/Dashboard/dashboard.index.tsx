@@ -19,8 +19,8 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
     const [view, setView] = useState<'myGroups' | 'topGroups' | 'myFriends'>('myGroups');
     const [offline, setOffline] = useState<UserData[] | undefined>(undefined);
     const [online, setOnline] = useState<UserData[] | undefined>(undefined);
-    const [myGroup, setMyGroup] = useState<GroupType[] | undefined>(undefined);
     const [topGroup, setTopGroup] = useState<GroupType[] | undefined>(undefined);
+
     useEffect(() => {
         get<UserData[]>(APIPath.user.offline).then((res) => {
             if (responseValidator(res.status) && res.data) {
@@ -33,13 +33,6 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
         get<UserData[]>(APIPath.user.online).then((result) => {
             if (responseValidator(result.status) && result.data) {
                 setOnline(result.data);
-            } else {
-                toast.error('Something went wrong ');
-            }
-        });
-        get<GroupType[]>(APIPath.groups.my).then((result) => {
-            if (responseValidator(result.status) && result.data) {
-                setMyGroup(result.data);
             } else {
                 toast.error('Something went wrong ');
             }
@@ -69,7 +62,7 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
                 </FormControl>
 
                 <div style={{ padding: 0 }} className=" my-column my-column-left ">
-                    <MyGroupsList data={myGroup} />
+                    <MyGroupsList data={props.myGroups} />
                     <span className="spacer" />
                     <TopGroupsList data={topGroup} />
                 </div>
@@ -77,7 +70,7 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
                     {view === 'myFriends' ? (
                         <MyFriendsList online={online} offline={offline} />
                     ) : view === 'myGroups' ? (
-                        <MyGroupsList data={myGroup} />
+                        <MyGroupsList data={props.myGroups} />
                     ) : (
                         <TopGroupsList data={topGroup} />
                     )}
@@ -112,6 +105,7 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
 const mapStateToProps = (state: ReduxState) => ({
     text: state.language,
     isEdit: state.isEdit,
+    myGroups: state.myGroups,
 });
 
 const connector = connect(mapStateToProps);

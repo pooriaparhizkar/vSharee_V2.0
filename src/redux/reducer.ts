@@ -1,4 +1,4 @@
-import { AUTH_STATUS, IS_EDIT, SYSTEM_LANG, USER_DATA } from './actions';
+import { AUTH_STATUS, IS_EDIT, MY_GROUPS, SYSTEM_LANG, USER_DATA } from './actions';
 import { AuthStatus, ReduxAction, ReduxState } from 'interface';
 import { VshareeLanguage } from '../vsharee/vsharee.lang';
 
@@ -7,6 +7,7 @@ export const initial_state: ReduxState = {
     language: VshareeLanguage,
     authStatus: AuthStatus.isPending,
     isEdit: false,
+    myGroups: undefined,
 };
 
 function reducer(state: ReduxState = initial_state, action: ReduxAction<any>): ReduxState {
@@ -19,6 +20,8 @@ function reducer(state: ReduxState = initial_state, action: ReduxAction<any>): R
             return { ...state, authStatus: action.payload };
         case IS_EDIT:
             return { ...state, isEdit: action.payload };
+        case MY_GROUPS:
+            return { ...state, myGroups: action.payload };
         default:
             return state;
     }

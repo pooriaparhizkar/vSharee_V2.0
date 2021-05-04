@@ -15,3 +15,7 @@ export { AUTH_STATUS, setAuth };
 const IS_EDIT = 'IS_EDIT';
 const setIsEdit = (payload: any): ReduxAction<any> => ({ type: IS_EDIT, payload: payload });
 export { IS_EDIT, setIsEdit };
+
+const MY_GROUPS = 'MY_GROUPS';
+const setMyGroups = (payload: any): ReduxAction<any> => ({ type: MY_GROUPS, payload: payload });
+export { MY_GROUPS, setMyGroups };
