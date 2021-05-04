@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { AuthStatus, ReduxState, Tokens } from 'interface';
+import { AuthStatus, ReduxState, Tokens, UserData } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import background from 'assets/images/login-background.jpg';
 import RedBox from 'assets/images/RedBox.png';
 import './login.style.scss';
 import googleLogo from 'assets/images/google.svg';
 import { Link, useHistory } from 'react-router-dom';
-import { post, responseValidator } from '../../scripts/api';
+import { get, post, responseValidator } from '../../scripts/api';
 import { toast } from 'react-toastify';
 import { Spinner } from 'react-bootstrap';
 import { authToken } from '../../scripts/storage';
-import { setAuth } from '../../redux/actions';
+import { setAuth, setUserData } from '../../redux/actions';
 import { VshareeLanguage } from '../vsharee.lang';
 import { APIPath, RoutePath } from '../../data';
 import { emailValidation, passwordValidation, usernameValidation } from '../../scripts/validation';
@@ -43,9 +43,18 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                     setSubmitLoading(false);
                     if (responseValidator(res.status) && res.data) {
                         authToken.set(res.data);
+                        get<UserData[]>(APIPath.user.myInfo).then((res) => {
+                            if (responseValidator(res.status) && res.data) {
+                                props.dispatch(setUserData(res.data[0]));
+                                props.dispatch(setAuth(AuthStatus.isValid));
+                            } else {
+                                authToken.remove();
+                                props.dispatch(setAuth(AuthStatus.isInValid));
+                            }
+                        });
                         getMyGroups(props.dispatch);
-                        props.dispatch(setAuth(AuthStatus.isValid));
-                        history.push(RoutePath.dashboard);
+                        // props.dispatch(setAuth(AuthStatus.isValid));
+                        // history.push(RoutePath.dashboard);
                     } else {
                         setIsError('all');
                         toast.error(LANG.incorrectData);

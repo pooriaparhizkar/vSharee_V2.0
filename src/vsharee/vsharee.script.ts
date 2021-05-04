@@ -18,7 +18,7 @@ export const getMyGroups = (dispatch: Dispatch<AnyAction>) => {
             if (responseValidator(result.status) && result.data) {
                 dispatch(setMyGroups(result.data));
             } else {
-                toast.error('Something went wrong ');
+                // toast.error('Something went wrong ');
             }
         });
     }
