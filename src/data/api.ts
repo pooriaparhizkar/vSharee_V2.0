@@ -16,6 +16,8 @@ export const __APIPath = {
     },
     profile:{
         userdata:'/user/find/username/',
-        usergroup:'/group/user_groups/'
+        usergroup:'/group/user_groups/',
+        follower:'/user/relations/followers/',
+        following:'/user/relations/followings/'
     }
 };

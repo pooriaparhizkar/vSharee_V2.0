@@ -21,7 +21,11 @@ class Profiles extends React.Component<any, any> {
         this.state = {
             resdata:{},
             usergroup:[],
-            Emptystate:true
+            Emptystate:true,
+            followingCount:'',
+            followingList:[],
+            followerCount:'',
+            followerList:[]
         };
     }
    
@@ -44,6 +48,20 @@ class Profiles extends React.Component<any, any> {
                     this.setState({Emptystate:true });
                  }
              });
+             get<any>(APIPath.profile.follower).then((res) => {
+         console.log(res)
+                if (responseValidator(res.status)) {
+                 this.setState({followerCount:res.data.followers_count,followerList:res.data.result})
+                }
+              
+            });  
+            get<any>(APIPath.profile.following).then((res) => {
+                console.log(res.data.followings_count)
+                       if (responseValidator(res.status)) {
+                        this.setState({followingCount:res.data.followings_count,followingList:res.data.result})
+                       }
+                     
+                   });
     }
     render() {
         return (
@@ -60,6 +78,12 @@ class Profiles extends React.Component<any, any> {
                                 <div className="text-description">
                                     <h1>{this.state.resdata.username}</h1>
                                     <h6>{this.state.resdata.firstname} {this.state.resdata.lastname} </h6>
+                                    <div className='realation-box'>
+                                      <h6> {this.state.followerCount} Follower &nbsp;</h6>  
+                      
+                                      <h6> {this.state.followingCount} Following</h6>  
+                                    </div>
+                                    
                                     <h6>
                                     {this.state.resdata.bio}
                                     </h6>

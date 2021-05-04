@@ -284,10 +284,10 @@ class Headers extends React.Component<any, any> {
 
                         <Dropdown.Menu>
                             <Dropdown.Item>
-                                <Link to={RoutePath.profile} className="dropdowm-item">
+                                <div onClick={()=>window.location.replace(RoutePath.profileDetail(this.props.userData.username))} className="dropdowm-item">
                                     <i className="material-icons">account_circle</i>
                                     <h6>{HeaderLang.body.profile}</h6>
-                                </Link>
+                                </div>
                             </Dropdown.Item>
                             <Dropdown.Item>
                                 <div
