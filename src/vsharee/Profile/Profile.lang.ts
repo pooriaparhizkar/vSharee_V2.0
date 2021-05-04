@@ -4,6 +4,7 @@ export const Profilelang = {
         follow:'Follow',
         share:'Share',
         publicGroup:'Public Groups',
-        mayknow:'People you may know'
+        mayknow:'People you may know',
+        setting:'Setting'
     },
 };

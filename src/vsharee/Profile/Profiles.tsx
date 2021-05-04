@@ -25,7 +25,8 @@ class Profiles extends React.Component<any, any> {
             followingCount:'',
             followingList:[],
             followerCount:'',
-            followerList:[]
+            followerList:[],
+            hidefollowbtn:false
         };
     }
    
@@ -33,6 +34,10 @@ class Profiles extends React.Component<any, any> {
         const location = window.location.href
         console.log(window.location.href)
         const loc = location.split('prfoiles/')
+        if(this.props.userData.username===loc[1]){
+this.setState({hidefollowbtn:true})
+        }
+        
         get<any>(APIPath.profile.userdata, { search: loc[1] }).then((res) => {
           console.log(res)
             if (responseValidator(res.status)) {
@@ -91,7 +96,14 @@ class Profiles extends React.Component<any, any> {
                             </div>
                             <div className="col-md-5 col-xs-12 div-item-description">
                                 <div className="followdiv">
-                                    <Button className="followbtn">{VshareeLanguage.Profile.body.follow}</Button>
+                                    <Button hidden={this.state.hidefollowbtn} className="followbtn">{VshareeLanguage.Profile.body.follow}</Button>
+                                    <Button hidden={!this.state.hidefollowbtn} className="settingbtn">
+                                      
+                                    <i className="material-icons-outlined">
+settings
+</i>
+<h1>{VshareeLanguage.Profile.body.setting}</h1>
+                                    </Button>
                                     <Button className="sharebtn">
                                         <h1>{VshareeLanguage.Profile.body.share}</h1>
 

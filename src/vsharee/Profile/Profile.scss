@@ -76,6 +76,24 @@ border-color: transparent;
     margin-right: 10px;
     font-size: 14px;
 }
+.settingbtn{
+    width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+border-color: transparent;
+    height: 34px;
+    background-color: $redfollow;
+    border-radius: 6px;
+    color:$white;
+    margin-right: 10px;
+    font-size: 14px;
+    h1{
+        font-size: 14px;
+        padding-left: 5px;
+        padding-top: 5px;
+    }
+}
 .sharebtn{
     position: relative;
     margin-right: 10px;
