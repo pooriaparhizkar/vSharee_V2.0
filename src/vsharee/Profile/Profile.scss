@@ -1,322 +1,363 @@
 @import '../../utilities/references/index';
 
-.main-div-profile{
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
+.main-div-profile {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
     margin-bottom: .5rem;
-   // font-size: unset;
-}
-min-height: calc(100vh - 90px);
-    background-color: $primary;
-    .description-row{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: $white;
-        margin-top: 30px;
-        .div-item-img{
-           
-            img{
-                //margin-right: 20px;
-                margin-left: 20px;
-                    object-fit: cover;
-                  width: 160px;
-                  height: 160px;
-                  border-radius: 100%;
-                  
-                  
-              }
-        }
-        .div-item-description{
-            // position: relative;
-            display: flex;
-            align-items: center;
-          
-            padding: 10px;
-   
-        .text-description{
-          margin-left: 20px;
-            // position: absolute;
-            // left: 250px;
-           
-            // margin-top: 20px;
-h1{
-    font-size: 60px;
-    font-weight: bold;
-}
-h6{
-   font-size: 14px;
-   color:$lightgray; 
-}
-        }
-        .realation-box{
-            display: flex;
-            flex-direction: row;
-            h6{
-                cursor: pointer;
-            }
-        }
-        .followdiv{
-            display: flex;
-            flex-direction: row;
-            border-right-style: solid;
-            border-color: $lightborder;
-.followbtn{
-    width: 110px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-border-color: transparent;
-    height: 34px;
-    background-color: $redfollow;
-    border-radius: 6px;
-    color:$white;
-    margin-right: 10px;
-    font-size: 14px;
-}
-.unfollowbtn{
-    width: 110px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-border-color: transparent;
-    height: 34px;
-    background-color: $gray;
-    border-radius: 6px;
-    color:$white;
-    margin-right: 10px;
-    font-size: 14px;
-}
-.settingbtn{
-    width: 110px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-border-color: transparent;
-    height: 34px;
-    background-color: $redfollow;
-    border-radius: 6px;
-    color:$white;
-    margin-right: 10px;
-    font-size: 14px;
-    h1{
-        font-size: 14px;
-        padding-left: 5px;
-        padding-top: 5px;
-    }
-}
-.sharebtn{
-    position: relative;
-    margin-right: 10px;
-    width: 110px;
-border-color: transparent;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    flex-direction: row;
-    color:$white;
-    background-color: $lightblue;
-    text-align: center;
-    
-h1{
-    font-size: 14px;
-    padding-right: 24px;
-    padding-top: 9px;
-}
+    // font-size: unset;
+  }
 
-    .shareicondiv{
+  min-height: calc(100vh - 90px);
+  background-color: $primary;
+
+  .description-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    margin-top: 30px;
+
+
+    .div-item-description {
+      justify-content: center;
+      @include vsharee-md {
+        justify-content: unset;
+      }
+
+      > img {
+        //margin-right: 20px;
+        margin-left: 20px;
+        object-fit: cover;
+        width: 160px;
+        height: 160px;
+        border-radius: 100%;
+
+
+      }
+
+      // position: relative;
+      display: flex;
+      align-items: center;
+
+      padding: 10px;
+
+      .text-description {
+        margin-left: 20px;
+        // position: absolute;
+        // left: 250px;
+
+        // margin-top: 20px;
+        h1 {
+          font-size: 60px;
+          font-weight: bold;
+        }
+
+        h6 {
+          font-size: 14px;
+          color: $lightgray;
+        }
+      }
+
+      .realation-box {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        border-top-right-radius:6px;
-        border-bottom-right-radius: 6px;
-        width: 28px;
-            position: absolute;
-            right: 0;
-background-color: $bluedb;
-        height: 34px;
-        i{
+        flex-direction: row;
+
+        h6 {
+          cursor: pointer;
+
+          &:hover {
+            color: white;
+          }
+        }
+      }
+
+      .followdiv {
+        display: flex;
+        flex-direction: row;
+        border-right-style: solid;
+        border-color: $lightborder;
+
+        .followbtn {
+          width: 110px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-color: transparent;
+          height: 34px;
+          background-color: $redfollow;
+          border-radius: 6px;
+          color: $white;
+          margin-right: 10px;
+          font-size: 14px;
+        }
+
+        .unfollowbtn {
+          width: 110px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-color: transparent;
+          height: 34px;
+          background-color: $gray;
+          border-radius: 6px;
+          color: $white;
+          margin-right: 10px;
+          font-size: 14px;
+        }
+
+        .settingbtn {
+          width: 110px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-color: transparent;
+          height: 34px;
+          background-color: $redfollow;
+          border-radius: 6px;
+          color: $white;
+          margin-right: 10px;
+          font-size: 14px;
+
+          h1 {
             font-size: 14px;
-            color: $white;
-        
+            padding-left: 5px;
+            padding-top: 5px;
+          }
         }
 
-    }
-    
-  
-}
-        }
-        .socialmediadiv{
-            padding-right: 10px;
-            padding-left: 10px;
-            display: flex;
-            flex-direction: row;
-            border-right-style: solid;
-            border-color: $lightborder;
-            height: 34px;
-            .spotifydiv{
-                width: 34px;
-                border-radius: 3px;
-                height: 34px;
-                background-color: #273238;
-                margin-right: 10px;
-.spotifybtn{
-    width: 100%;
+        .sharebtn {
+          position: relative;
+          margin-right: 10px;
+          width: 110px;
+          border-color: transparent;
+          height: 34px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+          flex-direction: row;
+          color: $white;
+          background-color: $lightblue;
+          text-align: center;
 
-    height: 100%;
-}
-            }
+          h1 {
+            font-size: 14px;
+            padding-right: 24px;
+            padding-top: 9px;
+          }
 
-.imdbbtn{
-    width: 34px;
-border-radius: 3px;
-    height: 34px;
-}
-        }
-        .messagediv{
-            border-radius: 3px;
-            margin-left: 10px;
-            width: 34px;
+          .shareicondiv {
             display: flex;
             align-items: center;
             justify-content: center;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+            width: 28px;
+            position: absolute;
+            right: 0;
+            background-color: $bluedb;
             height: 34px;
-            background-color: $white;
 
-.messagebtn{
-    width: 19px;
+            i {
+              font-size: 14px;
+              color: $white;
 
-    height: 19px;
-}
+            }
+
+          }
+
+
         }
+      }
+
+      .socialmediadiv {
+        padding-right: 10px;
+        padding-left: 10px;
+        display: flex;
+        flex-direction: row;
+        border-right-style: solid;
+        border-color: $lightborder;
+        height: 34px;
+
+        .spotifydiv {
+          width: 34px;
+          border-radius: 3px;
+          height: 34px;
+          background-color: #273238;
+          margin-right: 10px;
+
+          .spotifybtn {
+            width: 100%;
+
+            height: 100%;
+          }
         }
+
+        .imdbbtn {
+          width: 34px;
+          border-radius: 3px;
+          height: 34px;
+        }
+      }
+
+      .messagediv {
+        border-radius: 3px;
+        margin-left: 10px;
+        width: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 34px;
+        background-color: $white;
+
+        .messagebtn {
+          width: 19px;
+
+          height: 19px;
+        }
+      }
     }
-.line{
-    
+  }
+
+  .line {
+
 
     height: 1px;
-  
+
     margin: 45px 98px 35px 100px;
-  
+
     border: solid 1px #979797;
-}
+  }
 
-.group-row
-{
-    .div-item-group-title{
-h1{
-    padding-left: 10px;
-    font-size: 21px;
-color: $white;
-    font-weight: 500;
-}
-    }
-    .div_emprystate{
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        background-color: $gray1A;
-        height: 210px;
-        flex-direction: column;
-        img{
-            width: 128px;
-        }
-        h1{
-            color: $grayLight;
-        }
-    }
-    .div-item-group{
-        background-color: $gray1A;
-        height: 210px;
-        overflow-y: auto;
-    
-        .div-item-group-detail{
-            display: flex;
-           flex-direction: row;
-            padding: 8px;
-            padding-left: 10px;
-            img{
-               object-fit: cover;
-                width: 46px;
-border-radius: 100%;
-                height: 46px;
-                margin-left: 10px;
-            }
-            h1{
-                font-size: 16px;
-color: $white;
-                font-weight: 500;
-                padding-left: 10px;
-                padding-top: 10px;
-            }
-            h5{
-                font-size: 14px;
-                color: $white;
-                font-weight: 500;
-                margin-left: 10px;
-                padding-top: 15px;
-            }
-            h6{
-                font-size: 10px;
-                color: $white;
-                font-weight: 500;
-                margin-left: 10px;
-                padding-top: 18px;
-            }
-        }
+  .group-row {
+    .div-item-group-title {
+      h1 {
+        padding-left: 10px;
+        font-size: 21px;
+        color: $white;
+        font-weight: 500;
+      }
     }
 
-}
-}
-.mayknow-row
-{
-    margin-top: 50px;
-    .div-item-mayknow-title{
-h1{
-    padding-left: 10px;
-    font-size: 21px;
-color: $white;
-    font-weight: 500;
-}
+    .div_emprystate {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      background-color: $gray1A;
+      height: 210px;
+      flex-direction: column;
+
+      img {
+        width: 128px;
+      }
+
+      h1 {
+        color: $grayLight;
+      }
     }
-    .div-item-mayknow-detail{
+
+    .div-item-group {
+      background-color: $gray1A;
+      height: 210px;
+      overflow-y: auto;
+
+      .div-item-group-detail {
         display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        justify-content: center;
-        align-items: center;
-        .div-item-mayknow-detail-col{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        img{
-           object-fit: cover;
-            width: 158px;
-            height: 158px;
-        border-radius: 100%; 
+        flex-direction: row;
+        padding: 8px;
+        padding-left: 10px;
+
+        img {
+          object-fit: cover;
+          width: 46px;
+          border-radius: 100%;
+          height: 46px;
+          margin-left: 10px;
         }
-       h1{
+
+        h1 {
+          font-size: 16px;
+          color: $white;
+          font-weight: 500;
+          padding-left: 10px;
+          padding-top: 10px;
+        }
+
+        h5 {
+          font-size: 14px;
+          color: $white;
+          font-weight: 500;
+          margin-left: 10px;
+          padding-top: 15px;
+        }
+
+        h6 {
+          font-size: 10px;
+          color: $white;
+          font-weight: 500;
+          margin-left: 10px;
+          padding-top: 18px;
+        }
+      }
+    }
+
+  }
+}
+
+.mayknow-row {
+  margin-top: 50px;
+
+  .div-item-mayknow-title {
+    h1 {
+      padding-left: 10px;
+      font-size: 21px;
+      color: $white;
+      font-weight: 500;
+    }
+  }
+
+  .div-item-mayknow-detail {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: center;
+    align-items: center;
+
+    .div-item-mayknow-detail-col {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      img {
+        object-fit: cover;
+        width: 158px;
+        height: 158px;
+        border-radius: 100%;
+      }
+
+      h1 {
         font-size: 16px;
-color: $white;
+        color: $white;
         font-weight: 500;
         padding-top: 16px;
-       }
+      }
     }
+  }
 }
-}
-.modal-content{
+
+.vsharee-follower-list-modal {
+  .modal-content {
     background-color: $black2;
   }
-.my-container {
+
+  .my-container {
 
     width: 100%;
     height: 100%;
@@ -326,39 +367,53 @@ color: $white;
     display: flex;
     align-items: center;
     justify-content: center;
+
     .context {
-        @include vsharee-size(width, 75%, 96%);
-        h1 {
-            @include vsharee-size(font-size, 32px, 24px);
-            font-weight: bold;
-            color: #ffffff;
-            text-align: center;
+      @include vsharee-size(width, 75%, 96%);
+
+      h1 {
+        @include vsharee-size(font-size, 32px, 24px);
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+      }
+
+      .item-list-modal-context {
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+        border-bottom-style: solid;
+        border-bottom-color: rgba($white, 0.2);
+        border-bottom-width: 1px;
+        cursor: pointer;
+        align-items: center;
+        padding: 12px 12px;
+
+        &:hover {
+          background-color: $black;
+        }
+
+        img {
+          object-fit: cover;
+          width: 46px;
+          border-radius: 100%;
+          height: 46px;
+
+        }
+
+        .namebox {
+          display: flex;
+          align-items: center;
+          justify-items: center;
+          margin-left: 10px;
+
+          h6 {
+            color: $white;
+            font-size: 20px;
           }
-          .item-list-modal-context{
-                   display: flex;
-                  flex-direction: row;
-                  margin-top: 10px;
-                  border-bottom-style: solid;
-                  border-bottom-color: rgba($white,0.2);
-                  border-bottom-width: 1px;
-              img{
-                object-fit: cover;
-                width: 46px;
-border-radius: 100%;
-                height: 46px;
-             margin-bottom: 10px;
-              }
-              .namebox{
-                  display: flex;
-                  align-items: center;
-                  justify-items: center;
-                  margin-left: 10px;
-                h6{
-                    color:$white;
-                    font-size: 20px;
-                }
-              }
-             
-          }
-    }  
+        }
+
+      }
+    }
+  }
 }

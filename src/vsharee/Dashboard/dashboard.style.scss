@@ -4,7 +4,6 @@
   width: 100%;
   min-height: calc(100vh - 90px);
   display: flex;
-  z-index: -1;
 
 animation: vsharee-fade-in 0.5s ease-in-out forwards;
   @include die {
