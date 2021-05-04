@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { AuthStatus, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './editProfile.style.scss';
@@ -20,6 +20,8 @@ import { setAuth, setIsEdit } from '../../../redux/actions';
 const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const LANG = props.text.components.CreateGroupModal;
     const [privacy, setPrivacy] = useState<string>('public');
+    const [firstname, setfirstname] = useState<string | undefined>(props.userData?.firstname);
+    const [lastname, setlastname] = useState<string | undefined>(props.userData?.lastname);
     return (
         <div className="vsharee-edit-profile-component">
             <Card variant="outlined">
@@ -30,10 +32,10 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
                     </div>
                 </div>
                 <div className="my-row">
-                    <TextField label={'First name'} id="outlined-basic" variant="outlined" />
-                    <TextField label={'Last name'} id="outlined-basic" variant="outlined" />
+                    <TextField  label={'First name'} id="outlined-basic " value={firstname} onChange={(e)=>setfirstname(e.target.value)} variant="outlined" />
+                    <TextField label={'Last name'} id="outlined-basic " value={lastname} onChange={(e)=>setlastname(e.target.value)} variant="outlined" />
                 </div>
-                <TextField rows={4} multiline={true} label={'bio'} id="outlined-basic" variant="outlined" />
+                <TextField rows={4} multiline={true} label={'bio'} id="outlined-basic bio" variant="outlined"/>
                 <div className="my-radio">
                     <FormControl component="fieldset">
                         <FormLabel component="legend">{LANG.privacyTitle}</FormLabel>
@@ -58,8 +60,13 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
     );
 };
 
+
 const mapStateToProps = (state: ReduxState) => ({
+    // direction: state.direction,
     text: state.language,
+    isAuth: state.authStatus,
+    userData: state.userData,
+    //language: state.language,
 });
 
 const connector = connect(mapStateToProps);
