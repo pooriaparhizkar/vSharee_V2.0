@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AuthStatus, ReduxState } from 'interface';
+import { AuthStatus, ReduxState, Tokens } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import background from 'assets/images/login-background.jpg';
 import RedBox from 'assets/images/RedBox.png';
@@ -14,6 +14,7 @@ import { setAuth } from '../../redux/actions';
 import { VshareeLanguage } from '../vsharee.lang';
 import { APIPath, RoutePath } from '../../data';
 import { emailValidation, passwordValidation, usernameValidation } from '../../scripts/validation';
+import { AST } from 'eslint';
 
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [username, setUsername] = useState<string | undefined>(undefined);
@@ -37,10 +38,10 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                     username,
                     password,
                 };
-                post<any>(APIPath.user.login, body).then((res) => {
+                post<Tokens>(APIPath.user.login, body).then((res) => {
                     setSubmitLoading(false);
-                    if (responseValidator(res.status)) {
-                        authToken.set(res.data.access_token);
+                    if (responseValidator(res.status) && res.data) {
+                        authToken.set(res.data);
                         props.dispatch(setAuth(AuthStatus.isValid));
                         history.push(RoutePath.dashboard);
                     } else {

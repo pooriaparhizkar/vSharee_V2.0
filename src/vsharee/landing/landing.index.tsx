@@ -60,7 +60,7 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
                                 <span>6.5</span>
                                 <h4>Action | Adventure | sci-fi</h4>
                             </div>
-                            <button>
+                            <button onClick={() => history.push(RoutePath.login)}>
                                 <i className="material-icons">play_arrow</i>
                                 <h3 onClick={() => history.push(RoutePath.login)}>Watch Now</h3>
                             </button>

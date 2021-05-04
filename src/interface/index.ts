@@ -9,6 +9,7 @@ export interface Pagination<D> extends __Pagination<D> {}
 export interface Tokens extends __Tokens {}
 export interface ReduxAction<T> extends __ReduxAction<T> {}
 export interface ReduxState extends __ReduxState {}
+export interface UserData extends __UserData {}
 export interface WorkSpace extends __WorkSpace {}
 export interface GroupType extends __GroupType {}
 export interface UserData extends __UserData {}
