@@ -1,11 +1,14 @@
 import { Response } from 'interface';
 import { authToken } from './storage';
-import ENV from '../env.json';
 
+
+const ENV = {
+    api: 'https://api.vsharee.ir',
+};
 function generateHeader(object: any = {}): any {
     const header: { [k: string]: any } = {};
     if (authToken.get()) {
-        header['Authorization'] = 'jwt ' + authToken.get()?.access;
+        header['Authorization'] = 'Bearer ' + authToken.get()?.access_token;
     }
     for (const key of Object.keys(object)) {
         header[key] = object[key];
@@ -164,7 +167,7 @@ export function upload<R>(URL: string, formData: any, onProgress: (progress: num
             onProgress(e.loaded);
         });
         request.open('post', ENV.api + URL);
-        request.setRequestHeader('Authorization', 'jwt ' + authToken.get()?.access);
+        request.setRequestHeader('Authorization', 'jwt ' + authToken.get()?.access_token);
         request.timeout = 45000;
         request.send(formData);
     });

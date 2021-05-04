@@ -1,0 +1,106 @@
+@import 'src/utilities/references/index';
+
+.vsharee-dashboard-my-groups {
+  background-color: $black2;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  min-height: 350px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 350px;
+
+  .index {
+    margin-top: 12px;
+    padding-top: 10px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+        flex-direction: column;
+    @include vsharee-scroll-shadow;
+
+    .items-top {
+      padding: 6px 18px;
+      transition: all 0.2s;
+
+      &:first-child {
+        margin-top: 0 !important;
+      }
+
+      cursor: pointer;
+
+
+
+     
+
+            &:hover {
+              background-color: $black;
+
+              .items-top-right {
+                p {
+                  color: #ffffff;
+                }
+
+              }
+            }
+
+            margin-top: 12px;
+            display: flex;
+
+
+            .items-top-left {
+              position: relative;
+
+              width: 100%;
+              height: 100%;
+              max-width: 38px;
+              max-height: 38px;
+
+              border-radius: 8px;
+              display: flex;
+
+
+              img {
+                width: 100%;
+                height: 100%;
+                max-width: 38px;
+                max-height: 38px;
+                min-width: 38px;
+                min-height: 38px;
+
+                border-radius: 8px;
+                object-fit: cover;
+
+
+              }
+            }
+
+            .items-top-right {
+              margin-left: 10px;
+              display: flex;
+              align-items: center;
+
+              p {
+                font-size: 16px;
+                font-weight: 500;
+                color: $gray99;
+              }
+               i{
+                  margin-left: 6px;
+                  color: $red;
+                 font-size: 20px;
+                }
+            }
+
+          }
+        }
+
+
+      }
+
+
+    
+  
+
+  

@@ -1,0 +1,304 @@
+@import 'src/utilities/references/index';
+
+.vsharee-signup-page {
+
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    position: absolute;
+  }
+
+  .box {
+    animation: vsharee-fade-in 0.5s ease-in-out forwards;
+  @include die {
+    animation: vsharee-fade-out 0.5s ease-in-out forwards;
+  }
+    @include vsharee-size(max-width, 1000px, 600px);
+    @include vsharee-size(max-height, 666px, 564px);
+    // max-height: 666px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+
+    .redbox {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      position: relative;
+
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      @include vsharee-lg {
+        display: flex;
+      }
+
+      span {
+        flex: 1;
+      }
+
+      a {
+        margin-bottom: 12px;
+        font-size: 14px;
+      }
+
+      img {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      color: #ffffff;
+
+      .welcome-Back {
+        font-weight: bold;
+        font-size: 50px;
+      }
+
+
+      .sign-in-to-continue {
+        font-size: 25px;
+      }
+    }
+
+    .blackbox {
+      .email-verify {
+        margin-top: -52px;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        height: fit-content;
+        color: $white;
+        flex-direction: column;
+
+        i {
+          font-size: 50px;
+        }
+
+        h2 {
+          @include vsharee-size(font-size, 32px, 24px);
+          margin-top: 12px;
+          text-align: center;
+          width: 100%;
+        }
+
+        p {
+          width: 100%;
+          text-align: center;
+          font-size: 14px;
+          margin: 12px 0;
+          color: $gray99;
+        }
+
+        a {
+          text-decoration: underline;
+          margin-top: 6px;
+          font-size: 16px;
+        }
+
+      }
+
+      @include vsharee-size(margin, 100px, 5px);
+      @include vsharee-lg {
+        margin: 0;
+      }
+      flex: 1;
+      height: 100%;
+      background-color: black;
+      border-radius: 20px;
+      @include vsharee-lg {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      width: 100%;
+
+
+      .context {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        @include vsharee-size(padding, 40px, 20px);
+
+        h1 {
+          width: 100%;
+          text-align: left;
+          font-size: 38px;
+          font-weight: bold;
+          color: #ffffff;
+          max-width: 450px;
+          @include vsharee-size(font-size, 40px, 26px);
+          margin-bottom: 40px;
+        }
+
+        input {
+          &.error {
+            animation: vsharee-shake 1s;
+            border: red solid 2px;
+          }
+
+          display: flex;
+          align-items: center;
+          margin-bottom: 22px;
+          //  padding: 19px 301px 18px 45px;
+          outline: none;
+          @include vsharee-size(min-height, 48px, 42px);
+
+          max-width: 450px;
+          width: 100%;
+          // width: 451px;
+          border-radius: 27.5px;
+          padding-left: 44px;
+          font-size: 14px;
+          border: solid 1px #ffffff;
+          background-color: #f0f0f0;
+          color: $black2;
+
+          &::placeholder {
+            color: #a0a0a0;
+          }
+
+        }
+
+        .password-input {
+          max-width: 450px;
+          width: 100%;
+          // width: fit-content;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 22px;
+
+          input {
+            width: 100%;
+            margin-bottom: 0;
+          }
+
+          i {
+            position: absolute;
+            right: 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            color: gray;
+            cursor: default;
+          }
+        }
+
+        .continue {
+          @include vsharee-size(min-height, 48px, 42px);
+
+          max-width: 451px;
+          width: 100%;
+          @include vsharee-size(margin-top, 16px, 12px);
+          border-radius: 28px;
+          background-color: #ff0d1d;
+          display: flex;
+          position: relative;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+
+          span {
+            color: white;
+            height: fit-content;
+            font-size: 14px;
+            font-weight: 500;
+            width: 100%;
+            text-align: center;
+          }
+
+          i {
+            color: white;
+            position: absolute;
+            right: 6px;
+            font-size: 45px;
+          }
+
+          &.disable {
+            background-color: $gray99;
+            cursor: not-allowed;
+          }
+        }
+
+        .rectangle {
+          @include vsharee-size(min-height, 48px, 42px);
+          max-width: 451px;
+          width: 100%;
+          margin-top: 20px;
+          border-radius: 28px;
+          background-image: linear-gradient(to left, #67e4fe, #35abd3 48%);
+          display: flex;
+          align-items: center;
+          justify-content: left;
+          cursor: pointer;
+          position: relative;
+
+          img {
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            right: 18px;
+            //top: 0;
+          }
+
+          p {
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #ffffff;
+            margin-left: 28px;
+          }
+
+        }
+
+        h3 {
+          @include vsharee-size(margin-top, 20px, 14px);
+          font-size: 13px;
+          color: #8b8b8b;
+        }
+
+        .new-acc {
+          @include vsharee-size(margin-top, 20px, 14px);
+          font-size: 13px;
+          display: flex;
+
+          h4 {
+            color: #8b8b8b;
+            font-size: 14px;
+          }
+
+          a {
+            color: #ff0d1d;
+            margin-left: 8px;
+
+          }
+        }
+      }
+
+
+    }
+
+  }
+
+}
