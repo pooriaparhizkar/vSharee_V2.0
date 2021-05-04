@@ -8,6 +8,8 @@ import Message from '../../assets/images/profile/message.svg';
 import { Dropdown, Button } from 'react-bootstrap';
 
 import { VshareeLanguage } from '../vsharee.lang';
+import { ReduxState } from '../../interface';
+import { connect } from 'react-redux';
 class Profiles extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -187,4 +189,13 @@ class Profiles extends React.Component<any, any> {
         );
     }
 }
-export default Profiles;
+
+const mapStateToProps = (state: ReduxState) => ({
+    // direction: state.direction,
+    isAuth: state.authStatus,
+    userData: state.userData,
+    //language: state.language,
+});
+
+const connector = connect(mapStateToProps);
+export default connector(Profiles);

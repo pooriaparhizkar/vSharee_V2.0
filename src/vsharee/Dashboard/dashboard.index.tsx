@@ -13,6 +13,7 @@ import MyFriendsList from './myFriends/myfriends.index';
 import { get, responseValidator } from '../../scripts/api';
 import { APIPath } from '../../data';
 import { toast } from 'react-toastify';
+import { Console } from 'inspector';
 
 const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [view, setView] = useState<'myGroups' | 'topGroups' | 'myFriends'>('myGroups');
