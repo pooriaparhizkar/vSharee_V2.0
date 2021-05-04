@@ -20,6 +20,7 @@ export const __APIPath = {
         follower: '/user/relations/followers/',
         following: '/user/relations/followings/',
         followUser:'/user/relations/follow/',
-        unfollowUser:'/user/followers/unfollow/'
+        unfollowUser:'/user/followers/unfollow/',
+        konwfollow:'/user/followings/find/'
     },
 };

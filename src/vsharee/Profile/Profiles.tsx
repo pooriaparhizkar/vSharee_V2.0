@@ -51,7 +51,16 @@ class Profiles extends React.Component<any, any> {
         if (this.props.userData.username === loc[4]) {
             this.setState({ hidefollowbtn: true, hideunfollowbtn: true, hidesetting: false });
         } else {
-            this.setState({ hidefollowbtn: false, hideunfollowbtn: false, hidesetting: true });
+            get<any>(APIPath.profile.konwfollow+loc[4]).then((res) => {
+                console.log(res);
+                if (responseValidator(res.status)) {
+                    this.setState({ hidefollowbtn: true, hideunfollowbtn: false, hidesetting: true });
+                }
+                else{
+                    this.setState({ hidefollowbtn: false, hideunfollowbtn: true, hidesetting: true });
+                }
+            });
+            
         }
 
         get<any>(APIPath.profile.userdata, { search: loc[4] }).then((res) => {
@@ -82,12 +91,12 @@ class Profiles extends React.Component<any, any> {
     }
     followuser = () => {
         post<any>(APIPath.profile.followUser + '?user_id=' + this.state.resdata.username, {
-            who_is_followed: '',
+            who_is_followed:this.state.resdata.username ,
             who_follows: '',
         }).then((res) => {
             console.log(res);
             if (responseValidator(res.status)) {
-                this.setState({ followerCount: this.state.followerCount + 1 });
+                this.setState({ followerCount: this.state.followerCount + 1 ,hidefollowbtn: true, hideunfollowbtn: false});
             }
         });
     };
@@ -95,7 +104,7 @@ class Profiles extends React.Component<any, any> {
         del<any>(APIPath.profile.unfollowUser + this.state.resdata.username, {}).then((res) => {
             console.log(res);
             if (responseValidator(res.status)) {
-                this.setState({ followerCount: this.state.followerCount - 1 });
+                this.setState({ followerCount: this.state.followerCount - 1 ,hidefollowbtn: false, hideunfollowbtn: true});
             }
         });
     };
