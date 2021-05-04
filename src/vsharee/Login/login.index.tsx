@@ -43,6 +43,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                     setSubmitLoading(false);
                     if (responseValidator(res.status) && res.data) {
                         authToken.set(res.data);
+
                         get<UserData[]>(APIPath.user.myInfo).then((res) => {
                             if (responseValidator(res.status) && res.data) {
                                 document.body.classList.add(navigationAnim);
@@ -59,6 +60,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                         getMyGroups(props.dispatch);
                         // props.dispatch(setAuth(AuthStatus.isValid));
                         // history.push(RoutePath.dashboard);
+
                     } else {
                         setIsError('all');
                         toast.error(LANG.incorrectData);
