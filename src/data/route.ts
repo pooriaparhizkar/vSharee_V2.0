@@ -6,4 +6,5 @@ export const __RoutePath = {
     signup: '/signup',
     dashboard: '/dashboard',
     verify: '/email-verified',
+    landing: '/',
 };

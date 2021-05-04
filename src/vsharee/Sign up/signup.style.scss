@@ -19,9 +19,13 @@
   }
 
   .box {
+    animation: vsharee-fade-in 0.5s ease-in-out forwards;
+  @include die {
+    animation: vsharee-fade-out 0.5s ease-in-out forwards;
+  }
     @include vsharee-size(max-width, 1000px, 600px);
     @include vsharee-size(max-height, 666px, 564px);
-   // max-height: 666px;
+    // max-height: 666px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -40,6 +44,15 @@
       flex-direction: column;
       @include vsharee-lg {
         display: flex;
+      }
+
+      span {
+        flex: 1;
+      }
+
+      a {
+        margin-bottom: 12px;
+        font-size: 14px;
       }
 
       img {
@@ -109,9 +122,9 @@
       height: 100%;
       background-color: black;
       border-radius: 20px;
-       @include vsharee-lg{
-     border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
+      @include vsharee-lg {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
       }
 
       width: 100%;
@@ -132,7 +145,7 @@
           font-size: 38px;
           font-weight: bold;
           color: #ffffff;
-              max-width: 450px;
+          max-width: 450px;
           @include vsharee-size(font-size, 40px, 26px);
           margin-bottom: 40px;
         }
@@ -148,7 +161,7 @@
           margin-bottom: 22px;
           //  padding: 19px 301px 18px 45px;
           outline: none;
-             @include vsharee-size(min-height, 48px, 42px);
+          @include vsharee-size(min-height, 48px, 42px);
 
           max-width: 450px;
           width: 100%;
@@ -197,7 +210,7 @@
 
           max-width: 451px;
           width: 100%;
-         @include vsharee-size(margin-top, 16px, 12px);
+          @include vsharee-size(margin-top, 16px, 12px);
           border-radius: 28px;
           background-color: #ff0d1d;
           display: flex;
@@ -229,7 +242,7 @@
         }
 
         .rectangle {
-             @include vsharee-size(min-height, 48px, 42px);
+          @include vsharee-size(min-height, 48px, 42px);
           max-width: 451px;
           width: 100%;
           margin-top: 20px;
@@ -260,7 +273,7 @@
         }
 
         h3 {
-           @include vsharee-size(margin-top, 20px, 14px);
+          @include vsharee-size(margin-top, 20px, 14px);
           font-size: 13px;
           color: #8b8b8b;
         }

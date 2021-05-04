@@ -81,3 +81,9 @@
   background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
   background-attachment: local, local, scroll, scroll;
 }
+
+@mixin die {
+    @at-root body.navigation-die & {
+        @content
+    }
+}
