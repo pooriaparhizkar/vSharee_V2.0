@@ -57,6 +57,9 @@ h6{
         .realation-box{
             display: flex;
             flex-direction: row;
+            h6{
+                cursor: pointer;
+            }
         }
         .followdiv{
             display: flex;
@@ -71,6 +74,19 @@ h6{
 border-color: transparent;
     height: 34px;
     background-color: $redfollow;
+    border-radius: 6px;
+    color:$white;
+    margin-right: 10px;
+    font-size: 14px;
+}
+.unfollowbtn{
+    width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+border-color: transparent;
+    height: 34px;
+    background-color: $gray;
     border-radius: 6px;
     color:$white;
     margin-right: 10px;
@@ -296,4 +312,46 @@ color: $white;
        }
     }
 }
+}
+.my-container {
+
+    width: 100%;
+    height: 100%;
+    background-color: $black2;
+    padding: 32px 0;
+    max-width: 632px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .context {
+        @include vsharee-size(width, 75%, 96%);
+        h1 {
+            @include vsharee-size(font-size, 32px, 24px);
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+          }
+          .item-list-modal-context{
+                   display: flex;
+                  flex-direction: row;
+              img{
+                object-fit: cover;
+                width: 120px;
+                height: 120px;
+            border-radius: 100%; 
+             
+              }
+              .namebox{
+                  display: flex;
+                  align-items: center;
+                  justify-items: center;
+                  margin-left: 10px;
+                h6{
+                    color:$white;
+                    font-size: 20px;
+                }
+              }
+             
+          }
+    }  
 }

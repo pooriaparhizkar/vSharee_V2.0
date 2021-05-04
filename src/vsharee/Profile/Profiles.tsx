@@ -13,10 +13,11 @@ import { connect } from 'react-redux';
 import { APIPath, RoutePath } from '../../data';
 import { Link, useHistory } from 'react-router-dom';
 import EmptyPic from '../../assets/images/emptystate.png';
-import { get, responseValidator } from '../../scripts/api';
+import { get, responseValidator,post,del } from '../../scripts/api';
 import { setAuth, setIsEdit } from '../../redux/actions';
 import { authToken } from '../../scripts/storage';
-
+import { toast } from 'react-toastify';
+import { Modal } from 'react-bootstrap';
 class Profiles extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -29,6 +30,12 @@ class Profiles extends React.Component<any, any> {
             followerCount: '',
             followerList: [],
             hidefollowbtn: false,
+            hidesetting:false,
+            hideunfollowbtn:false,
+            showlist:false,
+            list:[{'name':'asdasd'},{'name':'asdasd'},{'name':'asdasd'},{'name':'asdasd'},{'name':'asdasd'}],
+            title:''
+            
         };
         this.profileSettingHandler = this.profileSettingHandler.bind('ss');
     }
@@ -40,8 +47,12 @@ class Profiles extends React.Component<any, any> {
     componentDidMount() {
         const location = window.location.href;
         const loc = location.split('/');
+      
         if (this.props.userData.username === loc[4]) {
-            this.setState({ hidefollowbtn: true });
+            this.setState({ hidefollowbtn: true , hideunfollowbtn:true,hidesetting:false });
+        }
+        else{
+            this.setState({ hidefollowbtn: false , hideunfollowbtn:false,hidesetting:true });
         }
 
         get<any>(APIPath.profile.userdata, { search: loc[4] }).then((res) => {
@@ -70,10 +81,66 @@ class Profiles extends React.Component<any, any> {
             }
         });
     }
+    followuser=()=>{
+        
+        post<any>(APIPath.profile.followUser+"?user_id="+this.state.resdata.username,{"who_is_followed":"","who_follows":""}).then((res) => {
+            console.log(res);
+            if (responseValidator(res.status)) {
+           
+                this.setState({ followerCount: this.state.followerCount+1 });
+            }
+        });
+    }
+    unfollowuser=()=>{
+        del<any>(APIPath.profile.unfollowUser+this.state.resdata.username,{}).then((res) => {
+            console.log(res);
+            if (responseValidator(res.status)) {
+                this.setState({ followerCount: this.state.followerCount-1 });
+            }
+        });
+    }
+    openfollowerlist=()=>{
+        if(this.state.followerCount!==0){
+            this.setState({
+                showlist:true,
+                 list:this.state.followerList,
+                title:VshareeLanguage.Profile.body.followerlist
+            })
+         }
 
+    }
+    openfollowinglist=()=>{
+        if(this.state.followingCount!==0){
+              this.setState({
+            showlist:true,
+            list:this.state.followingList,
+            title:VshareeLanguage.Profile.body.followinglist
+        })
+        }
+      
+    }
     render() {
         return (
             <React.Fragment>
+                  <Modal className="vsharee-create-group-modal" show={this.state.showlist} onHide={()=>this.setState({showlist:false})}>
+            <div className="my-container">
+                <div className="context">
+                    <h1>{this.state.title}</h1>
+                    {this.state.list.map((list: any, i: any) => (
+  <div key={i} className="item-list-modal-context">
+      <img src={TestImg} alt=""></img>
+      <div className='namebox'>
+             <h6>{list.name}</h6>
+      </div>
+   
+  </div>
+                    ))}
+               
+         
+                </div>
+            </div>
+        </Modal>
+   
                 <div className="row main-div-profile">
                     <div className="col main-div-profile">
                         <div className="row description-row">
@@ -88,22 +155,25 @@ class Profiles extends React.Component<any, any> {
                                         {this.state.resdata.firstname} {this.state.resdata.lastname}{' '}
                                     </h6>
                                     <div className="realation-box">
-                                        <h6> {this.state.followerCount} Follower &nbsp;</h6>
+                                        <h6 onClick={this.openfollowerlist}> {this.state.followerCount} Follower &nbsp;</h6>
 
-                                        <h6> {this.state.followingCount} Following</h6>
+                                        <h6 onClick={this.openfollowinglist}> {this.state.followingCount} Following</h6>
                                     </div>
 
-                                    <h6>{this.state.resdata.bio}</h6>
+                                    <h6 >{this.state.resdata.bio}</h6>
                                 </div>
                             </div>
                             <div className="col-md-5 col-xs-12 div-item-description">
                                 <div className="followdiv">
-                                    <Button hidden={this.state.hidefollowbtn} className="followbtn">
+                                    <Button hidden={this.state.hidefollowbtn} onClick={this.followuser} className="followbtn">
                                         {VshareeLanguage.Profile.body.follow}
+                                    </Button>
+                                    <Button hidden={this.state.hideunfollowbtn} onClick={this.unfollowuser} className="unfollowbtn">
+                                        {VshareeLanguage.Profile.body.unfollow}
                                     </Button>
                                     <Button
                                         onClick={() => this.profileSettingHandler(this.props.store)}
-                                        hidden={!this.state.hidefollowbtn}
+                                        hidden={this.state.hidesetting}
                                         className="settingbtn"
                                     >
                                         <i className="material-icons-outlined">settings</i>
