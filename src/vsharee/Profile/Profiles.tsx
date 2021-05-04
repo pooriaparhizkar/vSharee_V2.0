@@ -11,25 +11,57 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { VshareeLanguage } from '../vsharee.lang';
 import { ReduxState } from '../../interface';
 import { connect } from 'react-redux';
+import { APIPath, RoutePath } from '../../data';
+import { Link, useHistory } from 'react-router-dom';
+import EmptyPic from '../../assets/images/emptystate.png'
+import { get, responseValidator } from '../../scripts/api';
 class Profiles extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
-        this.state = {};
+        this.state = {
+            resdata:{},
+            usergroup:[],
+            Emptystate:true
+        };
+    }
+   
+    componentDidMount(){
+        const location = window.location.href
+        console.log(window.location.href)
+        const loc = location.split('prfoiles/')
+        get<any>(APIPath.profile.userdata, { search: loc[1] }).then((res) => {
+          console.log(res)
+            if (responseValidator(res.status)) {
+                this.setState({ resdata: res.data[0] });
+            }
+        });
+        get<any>(APIPath.profile.usergroup, { user_id: loc[1] }).then((res) => {
+         
+                 if (responseValidator(res.status)) {
+                     this.setState({ usergroup: res.data,Emptystate:false });
+                 }
+                 else{
+                    this.setState({Emptystate:true });
+                 }
+             });
     }
     render() {
         return (
-            <React.Fragment>
+            <React.Fragment >
                 <div className="row main-div-profile">
-                    <div className="col">
+                    <div className="col main-div-profile">
                         <div className="row description-row">
                             <div className="col-md-1 "></div>
-                            <div className="col-md-6 col-xs-12 div-item-description">
-                                <img src={TestImg} alt=""></img>
+                            <div className="col-md-2 col-xs-2 div-item-img" >
+ <img src={TestImg} alt=""></img>
+                            </div>
+                            <div className="col-md-4 col-xs-10 div-item-description">
+                               
                                 <div className="text-description">
-                                    <h1>Afrojack</h1>
+                                    <h1>{this.state.resdata.username}</h1>
+                                    <h6>{this.state.resdata.firstname} {this.state.resdata.lastname} </h6>
                                     <h6>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industrys standard dummy text ever since the 1500s.
+                                    {this.state.resdata.bio}
                                     </h6>
                                 </div>
                             </div>
@@ -65,13 +97,14 @@ class Profiles extends React.Component<any, any> {
                                 <h1>{VshareeLanguage.Profile.body.publicGroup}</h1>
                             </div>
                             <div className="col-md-1 "></div>
-                            <div className="col-md-10 col-xs-12 div-item-group">
+                            <div className="col-md-10 col-xs-12 div-item-group" hidden={this.state.Emptystate}>
                                 <div className="row ">
-                                    <div className="col-md-6 col-xs-12">
+                                {this.state.usergroup.map((list: any,i :any) => (
+     <div key={i} className="col-md-6 col-xs-12">
                                         <div className="row">
                                             <div className="col-6 div-item-group-detail">
                                                 <img src={TestImg} alt=""></img>
-                                                <h1>Jordan Lopez</h1>
+                                                <h1>{list.the_group}</h1>
                                             </div>
                                             <div className="col-6 div-item-group-detail">
                                                 <h5>129</h5>
@@ -79,72 +112,18 @@ class Profiles extends React.Component<any, any> {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-6 col-xs-12">
-                                        <div className="row">
-                                            <div className="col-6 div-item-group-detail">
-                                                <img src={TestImg} alt=""></img>
-                                                <h1>Jordan Lopez</h1>
-                                            </div>
-                                            <div className="col-6 div-item-group-detail">
-                                                <h5>129</h5>
-                                                <h6>members</h6>
-                                            </div>
-                                        </div>
-                                    </div>
+                                ))}
+                                 
 
-                                    <div className="col-md-6 col-xs-12">
-                                        <div className="row">
-                                            <div className="col-6 div-item-group-detail">
-                                                <img src={TestImg} alt=""></img>
-                                                <h1>Jordan Lopez</h1>
-                                            </div>
-                                            <div className="col-6 div-item-group-detail">
-                                                <h5>129</h5>
-                                                <h6>members</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-6 col-xs-12">
-                                        <div className="row">
-                                            <div className="col-6 div-item-group-detail">
-                                                <img src={TestImg} alt=""></img>
-                                                <h1>Jordan Lopez</h1>
-                                            </div>
-                                            <div className="col-6 div-item-group-detail">
-                                                <h5>129</h5>
-                                                <h6>members</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-6 col-xs-12">
-                                        <div className="row">
-                                            <div className="col-6 div-item-group-detail">
-                                                <img src={TestImg} alt=""></img>
-                                                <h1>Jordan Lopez</h1>
-                                            </div>
-                                            <div className="col-6 div-item-group-detail">
-                                                <h5>129</h5>
-                                                <h6>members</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-6 col-xs-12">
-                                        <div className="row">
-                                            <div className="col-6 div-item-group-detail">
-                                                <img src={TestImg} alt=""></img>
-                                                <h1>Jordan Lopez</h1>
-                                            </div>
-                                            <div className="col-6 div-item-group-detail">
-                                                <h5>129</h5>
-                                                <h6>members</h6>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
+                            <div className="col-md-10 col-xs-12 div_emprystate" hidden={!this.state.Emptystate}>
+                                            <div className=" div_emprystate">
+                                                <img src={EmptyPic}></img>
+                                                <h1>No Group Found</h1>
+                                            </div>
+                                          
+                                        </div>
                             <div className="col-md-1 "></div>
                         </div>
 

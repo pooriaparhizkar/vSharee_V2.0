@@ -11,7 +11,7 @@ p {
     margin-bottom: .5rem;
    // font-size: unset;
 }
-    height: 105vh;
+min-height: calc(100vh - 90px);
     background-color: $primary;
     .description-row{
         display: flex;
@@ -19,22 +19,26 @@ p {
         justify-content: center;
         color: $white;
         margin-top: 30px;
-  
+        .div-item-img{
+           
+            img{
+                //margin-right: 20px;
+                margin-left: 20px;
+                    object-fit: cover;
+                  width: 160px;
+                  height: 160px;
+                  border-radius: 100%;
+                  
+                  
+              }
+        }
         .div-item-description{
             // position: relative;
             display: flex;
             align-items: center;
-            justify-content: center;
+          
             padding: 10px;
-        img{
-          //margin-right: 20px;
-              object-fit: cover;
-            width: 180px;
-            height: 180px;
-            border-radius: 100%;
-            
-            
-        }
+   
         .text-description{
           margin-left: 20px;
             // position: absolute;
@@ -42,7 +46,7 @@ p {
            
             // margin-top: 20px;
 h1{
-    font-size: 64px;
+    font-size: 60px;
     font-weight: bold;
 }
 h6{
@@ -176,10 +180,26 @@ color: $white;
     font-weight: 500;
 }
     }
+    .div_emprystate{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        background-color: $gray1A;
+        height: 210px;
+        flex-direction: column;
+        img{
+            width: 128px;
+        }
+        h1{
+            color: $grayLight;
+        }
+    }
     .div-item-group{
         background-color: $gray1A;
         height: 210px;
         overflow-y: auto;
+    
         .div-item-group-detail{
             display: flex;
            flex-direction: row;
