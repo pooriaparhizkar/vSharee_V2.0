@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ReduxState, UserData} from 'interface';
+import {NotificationType, ReduxState, UserData} from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './notification.style.scss';
 import {get, responseValidator} from "../../scripts/api";
@@ -16,6 +16,9 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
             if (responseValidator(res.status) && res.data) {
                 setNotification(res.data);
                 console.log(res.data)
+                // if (NotificationType.Follow == res.data){
+                //
+                // }
 
             } else {
                 toast.error('Something went wrong ');

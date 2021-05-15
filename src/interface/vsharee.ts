@@ -28,3 +28,10 @@ export enum __Roles {
     Report = 4,
     Form = 3,
 }
+export enum __NotificationType {
+    Follow = 1,
+    test2 = 2,
+    test3 = 4,
+    Form = 3,
+}
+
