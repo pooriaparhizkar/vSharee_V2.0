@@ -12,10 +12,11 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
     const [notification, setNotification] = useState<UserData[] | undefined>(undefined);
 
     useEffect(() => {
-            get<UserData[]>(APIPath.notification.index).then((res) => {
+            get<any>(APIPath.notification.index).then((res) => {
             if (responseValidator(res.status) && res.data) {
                 setNotification(res.data);
                 console.log(res.data)
+
             } else {
                 toast.error('Something went wrong ');
             }
