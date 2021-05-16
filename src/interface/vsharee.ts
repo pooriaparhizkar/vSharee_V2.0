@@ -29,9 +29,10 @@ export enum __Roles {
     Form = 3,
 }
 export enum __NotificationType {
-    Follow = 1,
-    test2 = 2,
-    test3 = 4,
-    Form = 3,
+    FollowRequestNumber = 1,
+    GroupRequestnumber = 2,
+    FollowReqyestState = 3,
+    GroupReqyestState = 4,
+    FollowReqyestStatus = 5,
 }
 
