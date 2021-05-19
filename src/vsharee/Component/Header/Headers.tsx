@@ -135,7 +135,7 @@ class Headers extends React.Component<any, any> {
                                     {this.state.searchResult2.length !== 0 ? (
                                         this.state.searchResult2.map((item: GroupType, index: number) => (
                                             <div key={index} className="items-group">
-                                                {item.photo ? (
+                                                {item.photo_path ? (
                                                     <img src={emptyProfilePhoto} alt="profile-pic" />
                                                 ) : (
                                                     <img src={emptyProfilePhoto} alt="profile-pic" />
@@ -217,7 +217,7 @@ class Headers extends React.Component<any, any> {
                                     {this.state.searchResult2.length !== 0 ? (
                                         this.state.searchResult2.map((item: GroupType, index: number) => (
                                             <div key={index} className="items-group">
-                                                {item.photo ? (
+                                                {item.photo_path ? (
                                                     <img src={emptyProfilePhoto} alt="profile-pic" />
                                                 ) : (
                                                     <img src={emptyProfilePhoto} alt="profile-pic" />

@@ -20,7 +20,7 @@ const TopGroupsList: React.FC<ConnectedProps<typeof connector> & { data?: GroupT
                                 <div className="items-bottom-left">
                                     <i className="material-icons-outlined star">star</i>
 
-                                    <img src={fakePic} alt="fakePic" />
+                                    <img src={item.photo_path} alt="fakePic" />
                                 </div>
                                 <div className="items-bottom-right">
                                     <p>{item.title}</p>
