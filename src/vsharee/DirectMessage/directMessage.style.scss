@@ -1,0 +1,249 @@
+@import 'src/utilities/references/index';
+
+.vsharee-directmassage-page {
+
+
+  width: 100%;
+  min-height: calc(100vh - 90px);
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+
+  .my-container {
+    flex: 1;
+
+    display: flex;
+
+
+    .friend-list {
+      background-color: $black2;
+      width: 100%;
+      max-width: 250px;
+
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+      border-radius: 5px;
+
+
+      .search {
+        margin-bottom: 20px;
+
+
+      }
+
+      .context {
+
+        flex: 1;
+        overflow-y: auto;
+
+        .items {
+          padding: 8px;
+          cursor: pointer;
+          &:hover {
+            background-color: $black;
+
+          }
+
+          &.online {
+            .left-items {
+
+
+              .circle {
+                display: block;
+              }
+            }
+          }
+
+          display: flex;
+          margin-top: 10px;
+
+          .left-items {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            max-width: 38px;
+            max-height: 38px;
+            min-width: 38px;
+            min-height: 38px;
+            position: relative;
+
+
+            img {
+              width: 100%;
+              height: 100%;
+              max-width: 38px;
+              max-height: 38px;
+              min-width: 38px;
+              min-height: 38px;
+              border-radius: 100%;
+              object-fit: cover;
+            }
+
+            .circle {
+              width: 100%;
+              height: 100%;
+              max-width: 6px;
+              max-height: 6px;
+              min-width: 6px;
+              min-height: 6px;
+              border-radius: 100%;
+              background-color: #00b944;
+              position: absolute;
+              left: 0;
+              top: 0;
+              display: none;
+
+            }
+
+
+          }
+
+          .right-items {
+            align-items: center;
+            display: flex;
+
+            p {
+              margin-left: 10px;
+
+              font-size: 14px;
+              color: #ffffff;
+            }
+
+            span {
+              margin-left: 10px;
+
+              font-size: 12px;
+              font-weight: 300;
+              color: #656369;
+              display: none;
+            }
+
+          }
+
+
+        }
+
+        .items-online {
+          margin-top: 15px;
+          display: flex;
+
+          .left-items {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            max-width: 38px;
+            max-height: 38px;
+            min-width: 38px;
+            min-height: 38px;
+            display: flex;
+            position: relative;
+
+
+            img {
+              width: 100%;
+              height: 100%;
+              max-width: 38px;
+              max-height: 38px;
+              min-width: 38px;
+              min-height: 38px;
+              border-radius: 100%;
+              object-fit: cover;
+              flex: 1;
+            }
+
+
+          }
+
+          .right-items {
+            align-items: center;
+            display: flex;
+
+            p {
+              margin-left: 10px;
+
+              font-size: 14px;
+              color: #ffffff;
+            }
+
+            span {
+              margin-left: 10px;
+
+              font-size: 12px;
+              font-weight: 300;
+              color: #656369;
+              display: none;
+            }
+
+          }
+
+
+        }
+
+
+      }
+
+
+    }
+
+    .chat-box {
+      margin-left: 24px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+
+      .top-chat {
+        background-color: #16151a;
+        max-height: 100px;
+        height: 100%;
+        overflow-y: auto;
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 5px;
+
+      }
+
+      .center-chat {
+        background-color: #16151a;
+        flex: 1;
+        overflow-y: auto;
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 5px;
+
+
+      }
+
+      .bottom-chat {
+        border-radius: 5px;
+        background-color: black;
+        overflow-y: auto;
+        width: 100%;
+
+        .icon {
+          position: relative;
+          background-color: #16151a;
+          display: flex;
+
+          .material-icons {
+            color: #7a7a7a;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+          }
+        }
+
+      }
+
+    }
+
+
+  }
+
+}
