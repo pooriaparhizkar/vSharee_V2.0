@@ -27,10 +27,6 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                         <Route path={RoutePath.login} component={Login} />
                         <Route path={RoutePath.signup} component={Signup} />
                         <Route path={RoutePath.verify} component={Verify} />
-                        <Route path={RoutePath.group(':id')}>
-                            <Header store={store} />
-                            <Group />
-                        </Route>
                         <Route path="*">
                             <Redirect to="#" />
                             <Landing />
@@ -50,6 +46,7 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                             <Route path={RoutePath.profileDetail(':username')}>
                                 <Profile store={store} />
                             </Route>
+
                             <Route path={RoutePath.group(':id')}>
                                 <Group />
                             </Route>
