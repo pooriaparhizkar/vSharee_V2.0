@@ -16,6 +16,15 @@ import 'firebase/analytics'
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
+export const login=()=>{
+  firebase.analytics().logEvent('LoginEvent')
+}
+export const signup=()=>{
+  firebase.analytics().logEvent('SignupEvent')
+}
+export const creategroup=()=>{
+  firebase.analytics().logEvent('creategroup')
+}
 
 ReactDOM.render(
     <React.StrictMode>

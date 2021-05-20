@@ -10,6 +10,9 @@ export const __APIPath = {
         myInfo: '/user/information/',
         detail: (username: string) => `/user/${username}/information`,
     },
+    forgetPass:{
+forget:'/user/auth/password-reset/'
+    },
     groups: {
         index: '/group/',
         top: '/group/top-groups/',

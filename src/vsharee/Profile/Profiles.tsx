@@ -38,6 +38,7 @@ class Profiles extends React.Component<any, any> {
             list: [{ name: 'asdasd' }, { name: 'asdasd' }, { name: 'asdasd' }, { name: 'asdasd' }, { name: 'asdasd' }],
             title: '',
             name: '',
+            hidegroups:false
         };
         this.profileSettingHandler = this.profileSettingHandler.bind('ss');
     }
@@ -91,9 +92,27 @@ class Profiles extends React.Component<any, any> {
         get<any>(APIPath.profile.edit_profile(loc[4])).then((res) => {
             console.log(res.data);
             if (responseValidator(res.status)) {
+
                 this.setState({
+<<<<<<< HEAD
+                    photourl:res.data.photo_url
+                })
+                if (this.props.userData.username === loc[4]) {
+                    if(res.data.is_private){
+                        this.setState({
+                            hidegroups:true
+                        })
+                    }
+                    else{
+                        this.setState({
+                            hidegroups:false
+                        })
+                    }
+                }
+=======
                     photourl: res.data.photo_url,
                 });
+>>>>>>> d54ab96cadfb385bfbd7d401851a5eb05985c56f
                 // this.setState({ followingCount: res.data.followings_count, followingList: res.data.result });
             }
             // else{
@@ -155,6 +174,10 @@ class Profiles extends React.Component<any, any> {
         if (this.state.name === 'who_follows') return list.who_follows;
         else return list.who_is_followed;
     };
+<<<<<<< HEAD
+  
+
+=======
     upload_photo = (e: any) => {
         const file = e.target.files[0];
         console.log(file);
@@ -195,6 +218,7 @@ class Profiles extends React.Component<any, any> {
         }
     };
 
+>>>>>>> d54ab96cadfb385bfbd7d401851a5eb05985c56f
     render() {
         return (
             <React.Fragment>
@@ -230,19 +254,10 @@ class Profiles extends React.Component<any, any> {
                             <div className="col-md-1 "></div>
 
                             <div className="col-md-7 col-xs-12 div-item-description">
-                                <img
-                                    onError={() => this.setState({ photourl: Logo })}
-                                    src={this.state.photourl}
-                                    alt=""
-                                    id="photoprofile"
-                                    onClick={this.openinp}
-                                />
-                                <input
-                                    type="file"
-                                    style={{ display: 'none' }}
-                                    id="photoinp"
-                                    onChange={this.upload_photo}
-                                ></input>
+
+                                <img onError={()=>this.setState({photourl:Logo})} src={this.state.photourl} alt="" id='photoprofile' />
+                              
+
                                 <div className="text-description">
                                     <h1>{this.state.resdata.username}</h1>
                                     <h6>
@@ -337,6 +352,12 @@ class Profiles extends React.Component<any, any> {
                                     <h1>No Group Found</h1>
                                 </div>
                             </div>
+                            {/* <div className="col-md-10 col-xs-12 div_emprystate" hidden={!this.state.hidegroups}>
+                                <div className=" div_emprystate">
+                                    <img src={EmptyPic}></img>
+                                    <h1>this account is private</h1>
+                                </div>
+                            </div> */}
                             <div className="col-md-1 "></div>
                         </div>
 

@@ -12,7 +12,7 @@ import { emailValidation, passwordValidation, usernameValidation } from '../../s
 import { toast } from 'react-toastify';
 import ReactTooltip from 'react-tooltip';
 import { Spinner } from 'react-bootstrap';
-
+import {signup} from '../../index'
 const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [email, setEmail] = useState<string | undefined>(undefined);
     const [username, setUsername] = useState<string | undefined>(undefined);
@@ -59,6 +59,7 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
             post<any>(APIPath.user.signup, body).then((res) => {
                 setSubmitLoading(false);
                 if (responseValidator(res.status)) {
+                    signup()
                     document.body.classList.add(navigationAnim);
                     setTimeout(() => {
                         document.body.classList.remove(navigationAnim);

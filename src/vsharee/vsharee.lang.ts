@@ -1,6 +1,7 @@
 import { Profilelang } from './Profile/Profile.lang';
 import { LoginLang } from './Login/login.lang';
 import { SignupLang } from './Sign up/signup.lang';
+import { forgetLang } from './Forgetpassword/Forgetpassword.lang';
 import { VshareeComponentLanguage } from './Component/component.lang';
 
 export const VshareeLanguage = {
@@ -8,4 +9,5 @@ export const VshareeLanguage = {
     Profile: Profilelang,
     Login: LoginLang,
     Signup: SignupLang,
+    Forget:forgetLang
 };
