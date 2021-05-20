@@ -18,13 +18,13 @@ import {
     TextField,
 } from '@material-ui/core';
 import fakeImage from '../../../assets/images/profile/fakeimage.jpg';
-import { post, responseValidator } from '../../../scripts/api';
+import { get, post, responseValidator } from '../../../scripts/api';
 import { APIPath } from '../../../data';
 import { toast } from 'react-toastify';
 import { getMyGroups } from '../../vsharee.script';
 import { Simulate } from 'react-dom/test-utils';
 import WhiteSpinner from '../../../utilities/whiteSpinner/whiteSpinner.index';
-import {creategroup} from '../../../index'
+import { creategroup } from '../../../index';
 const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupModalProps> = function (
     props: ConnectedProps<typeof connector> & CreateGroupModalProps,
 ) {
@@ -35,12 +35,16 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
     const [name, setName] = useState<string | undefined>(undefined);
     const [description, setDescription] = useState<string | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(false);
+    const [imagePrivew, setImagePreview] = useState<any>();
+    const [imageFile, setImageFile] = useState<any>();
     const fileRef = useRef<any>();
     function resetValue() {
         setId(undefined);
         setName(undefined);
         setDescription(undefined);
         setPrivacy('public');
+        setImageFile(undefined);
+        setImagePreview(undefined);
     }
     function submitHandler() {
         setLoading(true);
@@ -55,11 +59,14 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
         post<any>(APIPath.groups.index, body).then((res) => {
             setLoading(false);
             if (responseValidator(res.status)) {
-                creategroup()
-                toast.success('Your group successfully created');
-                getMyGroups(props.dispatch);
-                props.onClose();
-                resetValue();
+                if (id && imagePrivew) postPhoto(id);
+                if (!imagePrivew) {
+                    creategroup();
+                    toast.success('Your group successfully created');
+                    getMyGroups(props.dispatch);
+                    props.onClose();
+                    resetValue();
+                }
             } else {
                 if (res.data.groupid) toast.error(res.data.groupid[0]);
                 else if (res.data.title) toast.error(res.data.title[0]);
@@ -68,38 +75,43 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
             }
         });
     }
-
-    function photoHandler(e: any) {
-        post<any>('/group/upload-photo/?groupid=test', { photo: true }).then((res) => {
+    function postPhoto(groupID: string) {
+        post<any>(APIPath.groups.uploadPhoto(groupID), {}).then((res) => {
             const response = res.data;
             console.log(response);
-            const file_upload = e.target.files[0];
+            const file_upload = imageFile;
             const fd = new FormData();
 
             fd.append('key', response.upload_photo.fields.key);
-            //  fd.append('acl', 'public-read');
-            //fd.append('Content-Type', file.type);
             fd.append('AWSAccessKeyId', response.upload_photo.fields.AWSAccessKeyId);
             fd.append('policy', response.upload_photo.fields.policy);
             fd.append('signature', response.upload_photo.fields.signature);
-
             fd.append('file', file_upload);
 
             const xhr = new XMLHttpRequest();
-
-            // xhr.upload.addEventListener("progress", uploadProgress, false);
-            // xhr.addEventListener("load", uploadComplete, false);
-            // xhr.addEventListener("error", uploadFailed, false);
-            // xhr.addEventListener("abort", uploadCanceled, false);
-
-            xhr.open(
-                'POST',
-                'https://vsharee.ir:9000/vshare-group-images/test?AWSAccessKeyId=minio&Signature=8j0x7VSFTbzaitPcq0T4la0WoB0%3D&Expires=1621164500',
-                true,
-            ); //MUST BE LAST LINE BEFORE YOU SEND
-
+            xhr.onload = function () {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    if (responseValidator(xhr.status)) {
+                        get(APIPath.groups.getPhoto(groupID)).then((res) => {
+                            if (responseValidator(res.status)) {
+                                creategroup();
+                                toast.success('Your group successfully created');
+                                getMyGroups(props.dispatch);
+                                props.onClose();
+                                resetValue();
+                            } else toast.error('Something went wrong in uploading photo');
+                        });
+                    } else toast.error('Something went wrong in uploading photo');
+                } else toast.error('Something went wrong in uploading photo');
+            };
+            xhr.open('POST', response.upload_photo.url, true); //MUST BE LAST LINE BEFORE YOU SEND
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
             xhr.send(fd);
         });
+    }
+    function photoHandler(e: any) {
+        setImagePreview(URL.createObjectURL(e.target.files[0]));
+        setImageFile(e.target.files[0]);
     }
 
     return (
@@ -117,11 +129,17 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
                             onChange={(e) => photoHandler(e)}
                             className="input"
                         />
-                        <i className="material-icons">photo_camera</i>
-                        <p>{LANG.upload}</p>
-                        <div className="icon-plus">
-                            <i className="material-icons">add</i>
-                        </div>
+                        {!imagePrivew ? (
+                            <React.Fragment>
+                                <i className="material-icons">photo_camera</i>
+                                <p>{LANG.upload}</p>
+                                <div className="icon-plus">
+                                    <i className="material-icons">add</i>
+                                </div>
+                            </React.Fragment>
+                        ) : (
+                            <img src={imagePrivew} alt="image-preview" />
+                        )}
                     </div>
                     <div className="my-input">
                         <TextField

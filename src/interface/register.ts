@@ -1,3 +1,6 @@
+import Logo from '../assets/images/landing/logo.png';
+import React from 'react';
+
 export interface __Tokens {
     access_token: string;
     refresh_token: string;
@@ -5,7 +8,7 @@ export interface __Tokens {
 }
 
 export interface __UserData {
-    bio:string;
+    bio: string;
     email: string;
     firstname: string;
     groups: any[];
@@ -19,6 +22,7 @@ export interface __UserData {
     lastname: string;
     password: string;
     photo: boolean;
+    photo_path: string;
     user_permissions: any[];
     username: string;
 }

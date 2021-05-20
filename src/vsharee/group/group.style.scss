@@ -1,6 +1,10 @@
 @import "src/utilities/references/index";
 
 .vsharee-group-page {
+    animation: vsharee-fade-in 0.5s ease-in-out forwards;
+  @include die {
+    animation: vsharee-fade-out 0.5s ease-in-out forwards;
+  }
   width: 100%;
   min-height: calc(100vh - 90px);
   display: flex;

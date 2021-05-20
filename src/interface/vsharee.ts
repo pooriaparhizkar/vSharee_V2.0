@@ -14,11 +14,12 @@ export interface __GroupType {
     id: number;
     invite_only: boolean;
     members: string[];
-    photo_path: true;
+    photo_path: string;
     privacy: number;
     since: string;
     status: number;
     title: string;
+    photo: boolean;
     video_hash: string;
 }
 
