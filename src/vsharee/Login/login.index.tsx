@@ -16,62 +16,62 @@ import { APIPath, navigationAnim, RoutePath } from '../../data';
 import { emailValidation, passwordValidation, usernameValidation } from '../../scripts/validation';
 import { AST } from 'eslint';
 import { getMyGroups } from '../vsharee.script';
+import ReactTooltip from 'react-tooltip';
 
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [username, setUsername] = useState<string | undefined>(undefined);
     const [password, setPassword] = useState<string | undefined>(undefined);
     const [submitLoading, setSubmitLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<'password' | 'username' | 'all' | undefined>(undefined);
+    const [isUserCorrect, setIsUserCorrect] = useState<boolean | undefined>(undefined);
+    const [isPasswordCorrect, setIspasswordCorrect] = useState<boolean | undefined>(undefined);
+    const [eyeClicked, setEyeClicked] = useState<boolean>(false);
     const LANG = VshareeLanguage.Login;
     const history = useHistory();
 
     function submitHandler() {
-        if (username && password) {
-            if (!passwordValidation(password)) {
-                toast.error(LANG.incorrectPassword);
-                setIsError('password');
-            } else if (!usernameValidation(username) && !emailValidation(username)) {
-                toast.error(LANG.incorrectUsername);
-                setIsError('username');
-            } else {
-                setSubmitLoading(true);
-                const body = {
-                    username,
-                    password,
-                };
-                post<Tokens>(APIPath.user.login, body).then((res) => {
-                    setSubmitLoading(false);
-                    if (responseValidator(res.status) && res.data) {
-                        authToken.set(res.data);
+        if (
+            username &&
+            password &&
+            passwordValidation(password) &&
+            (usernameValidation(username) || emailValidation(username))
+        ) {
+            setSubmitLoading(true);
+            const body = {
+                username,
+                password,
+            };
+            post<Tokens>(APIPath.user.login, body).then((res) => {
+                setSubmitLoading(false);
+                if (responseValidator(res.status) && res.data) {
+                    authToken.set(res.data);
 
-                        get<UserData[]>(APIPath.user.myInfo).then((res) => {
-                            if (responseValidator(res.status) && res.data) {
-                                document.body.classList.add(navigationAnim);
-                                setTimeout(() => {
-                                    document.body.classList.remove(navigationAnim);
-                                    props.dispatch(setUserData(res.data![0]));
-                                    props.dispatch(setAuth(AuthStatus.isValid));
-                                }, 500);
-                            } else {
-                                authToken.remove();
-                                props.dispatch(setAuth(AuthStatus.isInValid));
-                            }
-                        });
-                        getMyGroups(props.dispatch);
-                        // props.dispatch(setAuth(AuthStatus.isValid));
-                        // history.push(RoutePath.dashboard);
-
-                    } else {
-                        setIsError('all');
-                        toast.error(LANG.incorrectData);
-                        // res.data.non_field_errors.map((item: string) => {
-                        //     toast.error(item);
-                        // });
-                        authToken.remove();
-                        props.dispatch(setAuth(AuthStatus.isInValid));
-                    }
-                });
-            }
+                    get<UserData[]>(APIPath.user.myInfo).then((res) => {
+                        if (responseValidator(res.status) && res.data) {
+                            document.body.classList.add(navigationAnim);
+                            setTimeout(() => {
+                                document.body.classList.remove(navigationAnim);
+                                props.dispatch(setUserData(res.data![0]));
+                                props.dispatch(setAuth(AuthStatus.isValid));
+                            }, 500);
+                        } else {
+                            authToken.remove();
+                            props.dispatch(setAuth(AuthStatus.isInValid));
+                        }
+                    });
+                    getMyGroups(props.dispatch);
+                    // props.dispatch(setAuth(AuthStatus.isValid));
+                    // history.push(RoutePath.dashboard);
+                } else {
+                    setIsError('all');
+                    toast.error(LANG.incorrectData);
+                    // res.data.non_field_errors.map((item: string) => {
+                    //     toast.error(item);
+                    // });
+                    authToken.remove();
+                    props.dispatch(setAuth(AuthStatus.isInValid));
+                }
+            });
         }
     }
 
@@ -80,6 +80,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
             submitHandler();
         }
     }
+
     function backHandler() {
         document.body.classList.add(navigationAnim);
         setTimeout(() => {
@@ -87,6 +88,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
             history.push(RoutePath.landing);
         }, 500);
     }
+
     function goToSignup() {
         document.body.classList.add(navigationAnim);
         setTimeout(() => {
@@ -94,6 +96,25 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
             history.push(RoutePath.signup);
         }, 500);
     }
+
+    function changeUsernameHandler(e: any) {
+        if (isError === 'username' || isError === 'all') setIsError(undefined);
+        setUsername(e.target.value);
+        if (e.target.value) {
+            if (usernameValidation(e.target.value) || emailValidation(e.target.value)) setIsUserCorrect(true);
+            else setIsUserCorrect(false);
+        } else setIsUserCorrect(undefined);
+    }
+
+    function changePasswordHandler(e: any) {
+        if (isError === 'password' || isError === 'all') setIsError(undefined);
+        setPassword(e.target.value);
+        if (e.target.value) {
+            if (passwordValidation(e.target.value)) setIspasswordCorrect(true);
+            else setIspasswordCorrect(false);
+        } else setIspasswordCorrect(undefined);
+    }
+
     return (
         <div className="vsharee-login-page">
             <img className="background" src={background} alt="background" />
@@ -111,27 +132,83 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                 <div className="blackbox">
                     <div className="context">
                         <h1 className="signin">{LANG.signin}</h1>
-                        <input
-                            value={username}
-                            onChange={(e) => {
-                                if (isError === 'username' || isError === 'all') setIsError(undefined);
-                                setUsername(e.target.value);
-                            }}
-                            placeholder={LANG.emailAddressPH}
-                            className={isError === 'username' || isError === 'all' ? 'error' : ''}
-                        />
-                        <input
-                            type="password"
-                            onKeyUp={enterHandler}
-                            value={password}
-                            onChange={(e) => {
-                                if (isError === 'password' || isError === 'all') setIsError(undefined);
-                                setPassword(e.target.value);
-                            }}
-                            placeholder={LANG.password}
-                            className={isError === 'password' || isError === 'all' ? 'error' : ''}
-                        />
-                        <div onClick={submitHandler} className={`continue ${!username! || !password ? 'disable' : ''}`}>
+                        <div className="my-inputs">
+                            <input
+                                value={username}
+                                onChange={changeUsernameHandler}
+                                placeholder={LANG.emailAddressPH}
+                                className={isError === 'username' || isError === 'all' ? 'error' : ''}
+                            />
+                            {isUserCorrect === true ? (
+                                <i className="material-icons success">check_circle</i>
+                            ) : (
+                                isUserCorrect === false && (
+                                    <i
+                                        onMouseEnter={() => ReactTooltip.rebuild()}
+                                        data-tip
+                                        data-for="error"
+                                        className="material-icons error"
+                                    >
+                                        cancel
+                                    </i>
+                                )
+                            )}
+                        </div>
+                        {!isUserCorrect && (
+                            <ReactTooltip id="error" place="right" type="error" effect="solid">
+                                <p>{LANG.incorrectUsername}</p>
+                            </ReactTooltip>
+                        )}
+                        <div className="my-inputs">
+                            <input
+                                type={eyeClicked ? 'text' : 'password'}
+                                onKeyUp={enterHandler}
+                                value={password}
+                                onChange={changePasswordHandler}
+                                placeholder={LANG.password}
+                                className={isError === 'password' || isError === 'all' ? 'error' : ''}
+                            />
+                            <i
+                                style={{ right: !password || password?.length === 0 ? '10px' : '40px' }}
+                                onClick={() => setEyeClicked(!eyeClicked)}
+                                className="material-icons eye"
+                            >
+                                {eyeClicked ? 'visibility_off' : 'visibility'}
+                            </i>
+                            {isPasswordCorrect === true ? (
+                                <i className="material-icons success">check_circle</i>
+                            ) : (
+                                isPasswordCorrect === false && (
+                                    <i
+                                        onMouseEnter={() => ReactTooltip.rebuild()}
+                                        data-tip
+                                        data-for="error"
+                                        className="material-icons error"
+                                    >
+                                        cancel
+                                    </i>
+                                )
+                            )}
+                        </div>
+                        {!isPasswordCorrect && (
+                            <ReactTooltip id="error" place="right" type="error" effect="solid">
+                                <p>{LANG.incorrectPassword}</p>
+                            </ReactTooltip>
+                        )}
+                        <button
+                            onClick={submitHandler}
+                            disabled={submitLoading}
+                            className={`continue ${
+                                !(
+                                    username &&
+                                    password &&
+                                    passwordValidation(password) &&
+                                    (usernameValidation(username) || emailValidation(username))
+                                )
+                                    ? 'disable'
+                                    : ''
+                            }`}
+                        >
                             {!submitLoading ? (
                                 <React.Fragment>
                                     <span>{LANG.continue}</span>
@@ -140,7 +217,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                             ) : (
                                 <Spinner animation="border" variant="light" />
                             )}
-                        </div>
+                        </button>
 
                         <h3 className="social">{LANG.connectWithSocialMedia} </h3>
                         <div className="rectangle">
