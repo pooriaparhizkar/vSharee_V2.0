@@ -20,9 +20,9 @@
 
   .box {
     animation: vsharee-fade-in 0.5s ease-in-out forwards;
-  @include die {
-    animation: vsharee-fade-out 0.5s ease-in-out forwards;
-  }
+    @include die {
+      animation: vsharee-fade-out 0.5s ease-in-out forwards;
+    }
     @include vsharee-size(max-width, 1000px, 600px);
     @include vsharee-size(max-height, 666px, 564px);
     // max-height: 666px;
@@ -153,7 +153,7 @@
         input {
           &.error {
             animation: vsharee-shake 1s;
-            border: red solid 2px;
+            border: $error solid 2px;
           }
 
           display: flex;
@@ -179,6 +179,42 @@
 
         }
 
+        .my-inputs {
+          position: relative;
+          width: 100%;
+          max-width: 450px;
+
+          i {
+            position: absolute;
+            right: 14px;
+            color: gray;
+            top: 13px;
+            font-size: 20px;
+            cursor: default;
+
+            &.cfi-loader {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              -webkit-animation: vsharee-spin 4s linear infinite;
+              -moz-animation: vsharee-spin 4s linear infinite;
+              animation: vsharee-spin 4s linear infinite;
+            }
+
+            &.success {
+              font-size: 24px;
+              top: 10px;
+              color: $success;
+            }
+
+            &.error {
+              font-size: 24px;
+              top: 10px;
+              color: $error;
+            }
+          }
+        }
+
         .password-input {
           max-width: 450px;
           width: 100%;
@@ -194,20 +230,64 @@
             margin-bottom: 0;
           }
 
-          i {
+          .material-icons {
             position: absolute;
-            right: 10px;
+
             height: 100%;
             display: flex;
             align-items: center;
             color: gray;
             cursor: default;
           }
+
+          .info {
+            right: 10px;
+          }
+
+          .check {
+            color: $success;
+          }
+
+          .cross {
+            color: $error;
+          }
+
+          .eye {
+            right: 40px;
+            cursor: pointer;
+            transition: color 0.3s;
+
+            &:hover {
+              color: black;
+            }
+          }
+
+          .eye2 {
+            right: 40px;
+            cursor: pointer;
+            transition: color 0.3s;
+
+            &:hover {
+              color: black;
+            }
+          }
+
+          .error {
+            position: absolute;
+            right: 10px;
+            color: $error;
+          }
+           .success {
+            position: absolute;
+            right: 10px;
+            color: $success;
+          }
         }
 
         .continue {
           @include vsharee-size(min-height, 48px, 42px);
-
+          outline: none;
+          border: none;
           max-width: 451px;
           width: 100%;
           @include vsharee-size(margin-top, 16px, 12px);

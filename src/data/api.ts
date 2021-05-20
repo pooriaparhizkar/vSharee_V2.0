@@ -8,6 +8,7 @@ export const __APIPath = {
         offline: '/user/relations/offline-followings/',
         online: '/user/relations/online-followings/',
         myInfo: '/user/information/',
+        detail: (username: string) => `/user/${username}/information`,
     },
     groups: {
         index: '/group/',

@@ -1,8 +1,8 @@
 export const SignupLang = {
     welcomeBack: 'Welcome Back',
     welcomeBackText: 'Sign up to continue access pages',
-    incorrectUsername: 'Your username is not in a correct format',
-    incorrectEmail: 'Your email address is not in a correct format',
+    incorrectUsername: 'Your username is not in the correct format',
+    incorrectEmail: 'Your email address is not in the correct format',
     incorrectPassword: 'Your password is not secure',
     incorrectConfirmPassword: 'Your passwords is not same',
     signup: 'Sign Up',
