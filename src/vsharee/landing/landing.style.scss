@@ -1,6 +1,10 @@
 @import "src/utilities/references/index";
 
 .vsharee-landing-page {
+   animation: vsharee-fade-in 0.5s ease-in-out forwards;
+  @include die {
+    animation: vsharee-fade-out 0.5s ease-in-out forwards;
+  }
   position: relative;
   background-color: $primary;
   z-index: 0;
@@ -514,7 +518,7 @@
         height: 100%;
         // overflow: hidden;
 
-        video {
+        iframe {
           object-fit: cover;
           width: 100%;
           height: 100%;

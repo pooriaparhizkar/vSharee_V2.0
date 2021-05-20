@@ -1,4 +1,4 @@
-export const VerifyLang = {
+export const setnewpassLang = {
     body: {
         successful:'Your email confirmed successfully',
         error:'something went wrong',

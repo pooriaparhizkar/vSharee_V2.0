@@ -6,21 +6,21 @@ import './topGroups.style.scss';
 import DashboardEmptyState from '../emptyState/emptyState.index';
 import DashboardItemsSkeleton from '../skeleton/dashboard.skeleton';
 
-const TopGroupsList: React.FC<ConnectedProps<typeof connector> & { data?: GroupType[] }> = function (
-    props: ConnectedProps<typeof connector> & { data?: GroupType[] },
+const TopGroupsList: React.FC<ConnectedProps<typeof connector> & { data?: GroupType[] | any }> = function (
+    props: ConnectedProps<typeof connector> & { data?: GroupType[] | any },
 ) {
     return (
         <div className="vsharee-dashboard-top-groups">
             <h3>Top Groups</h3>
             <div className="my-container">
                 {props.data ? (
-                    props.data.length !== 0 ? (
+                    !props.data.info ? (
                         props.data.map((item: any, index: any) => (
                             <div key={index} className="items-bottom">
                                 <div className="items-bottom-left">
                                     <i className="material-icons-outlined star">star</i>
 
-                                    <img src={fakePic} alt="fakePic" />
+                                    <img src={item.photo_path} alt="fakePic" />
                                 </div>
                                 <div className="items-bottom-right">
                                     <p>{item.title}</p>

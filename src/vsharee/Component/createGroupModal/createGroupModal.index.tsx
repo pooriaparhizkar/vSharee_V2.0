@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './createGroupModal.style.scss';
@@ -24,6 +24,7 @@ import { toast } from 'react-toastify';
 import { getMyGroups } from '../../vsharee.script';
 import { Simulate } from 'react-dom/test-utils';
 import WhiteSpinner from '../../../utilities/whiteSpinner/whiteSpinner.index';
+import {creategroup} from '../../../index'
 const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupModalProps> = function (
     props: ConnectedProps<typeof connector> & CreateGroupModalProps,
 ) {
@@ -34,6 +35,7 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
     const [name, setName] = useState<string | undefined>(undefined);
     const [description, setDescription] = useState<string | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(false);
+    const fileRef = useRef<any>();
     function resetValue() {
         setId(undefined);
         setName(undefined);
@@ -53,6 +55,7 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
         post<any>(APIPath.groups.index, body).then((res) => {
             setLoading(false);
             if (responseValidator(res.status)) {
+                creategroup()
                 toast.success('Your group successfully created');
                 getMyGroups(props.dispatch);
                 props.onClose();
@@ -66,13 +69,54 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
         });
     }
 
+    function photoHandler(e: any) {
+        post<any>('/group/upload-photo/?groupid=test', { photo: true }).then((res) => {
+            const response = res.data;
+            console.log(response);
+            const file_upload = e.target.files[0];
+            const fd = new FormData();
+
+            fd.append('key', response.upload_photo.fields.key);
+            //  fd.append('acl', 'public-read');
+            //fd.append('Content-Type', file.type);
+            fd.append('AWSAccessKeyId', response.upload_photo.fields.AWSAccessKeyId);
+            fd.append('policy', response.upload_photo.fields.policy);
+            fd.append('signature', response.upload_photo.fields.signature);
+
+            fd.append('file', file_upload);
+
+            const xhr = new XMLHttpRequest();
+
+            // xhr.upload.addEventListener("progress", uploadProgress, false);
+            // xhr.addEventListener("load", uploadComplete, false);
+            // xhr.addEventListener("error", uploadFailed, false);
+            // xhr.addEventListener("abort", uploadCanceled, false);
+
+            xhr.open(
+                'POST',
+                'https://vsharee.ir:9000/vshare-group-images/test?AWSAccessKeyId=minio&Signature=8j0x7VSFTbzaitPcq0T4la0WoB0%3D&Expires=1621164500',
+                true,
+            ); //MUST BE LAST LINE BEFORE YOU SEND
+
+            xhr.send(fd);
+        });
+    }
+
     return (
         <Modal className="vsharee-create-group-modal" show={props.show} onHide={props.onClose}>
             <div className="my-container">
                 <div className="context">
                     <h1>{LANG.title}</h1>
                     <h5>{LANG.descriptionHeader}</h5>
-                    <div className="image-uploader">
+                    <div onClick={() => fileRef.current.click()} className="image-uploader">
+                        <input
+                            style={{ display: 'none' }}
+                            type="file"
+                            accept="image/*"
+                            ref={fileRef}
+                            onChange={(e) => photoHandler(e)}
+                            className="input"
+                        />
                         <i className="material-icons">photo_camera</i>
                         <p>{LANG.upload}</p>
                         <div className="icon-plus">

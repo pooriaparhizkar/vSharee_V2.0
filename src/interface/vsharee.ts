@@ -14,7 +14,7 @@ export interface __GroupType {
     id: number;
     invite_only: boolean;
     members: string[];
-    photo: true;
+    photo_path: true;
     privacy: number;
     since: string;
     status: number;

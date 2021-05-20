@@ -9,7 +9,7 @@ import movie1Pic from 'assets/images/landing/tenet.jpg';
 import movie2Pic from 'assets/images/landing/johnwick.jpg';
 import moviePreview from 'assets/images/landing/tenetHeader.jpg';
 import { Link, useHistory } from 'react-router-dom';
-import { RoutePath } from '../../data';
+import { navigationAnim, RoutePath } from '../../data';
 import redBackground from 'assets/images/landing/red-background.svg';
 const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
     const sliderRef = useRef<Slider | null>(null);
@@ -22,6 +22,15 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
         slidesToScroll: 1,
         variableWidth: true,
     };
+
+    function goToLoginHandler() {
+        document.body.classList.add(navigationAnim);
+        setTimeout(() => {
+            document.body.classList.remove(navigationAnim);
+            history.push(RoutePath.login);
+        }, 500);
+    }
+
     return (
         <div className="vsharee-landing-page">
             <div className="header">
@@ -40,9 +49,9 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
                     <div className="items">
                         <i className="material-icons">search</i>
                     </div>
-                    <Link to={RoutePath.login} className="items">
+                    <div onClick={goToLoginHandler} className="items">
                         <i className="material-icons">person</i>
-                    </Link>
+                    </div>
                 </div>
             </div>
             <div className="slider-top">
@@ -60,9 +69,9 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
                                 <span>6.5</span>
                                 <h4>Action | Adventure | sci-fi</h4>
                             </div>
-                            <button onClick={() => history.push(RoutePath.login)}>
+                            <button onClick={goToLoginHandler}>
                                 <i className="material-icons">play_arrow</i>
-                                <h3 onClick={() => history.push(RoutePath.login)}>Watch Now</h3>
+                                <h3>Watch Now</h3>
                             </button>
                         </div>
                     </div>
@@ -223,13 +232,7 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
             <div className="online">
                 <div className="left">
                     <div className="video">
-                        <video
-                            controls
-                            src={
-                                'https://imdb-video.media-imdb.com/vi1504821529/1434659607842-pgv4ql-1598916742145.mp4?Expires=1616803257&Signature=peeZNhumTT4fbOAUxWex8du6lP~B42vICPq45NZpiZBsqZUjQrLv93ZgdpuaZcaWhxCPDmDBKb85zrAG-r2i6r98CFTBLz2l6sXKxsbizqv~Gkh11BCEy-bKmtRybso-u024VEgmXgJ~a9F1AclKXz459SOt~W1DlDirh7RLPFR0OuC8noLG-9edJOxNEGEbNFvUvXLqkvjhd7IEfpDRibfHP9nI4FIqZ26A5n0Hu28-yO5R3Vf~0jGIu5Jgr5OmMRmPgo08ixvxzNTTrF860FGTFq1kL2XPlcHucY5S2~qf1Yy5QmiJ9q9nS9x-mwiZL6yMc0AtbI14ErULf86m0w__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA'
-                            }
-                            poster={moviePreview}
-                        />
+                        <iframe src="https://www.youtube.com/embed/OaqeH9_yQBw" />
 
                         <div className="shadow" />
                     </div>

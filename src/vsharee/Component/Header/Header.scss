@@ -6,7 +6,12 @@
   display: flex;
   flex-direction: row;
   outline: none !important;
-
+  position: relative;
+  z-index: 100;
+animation: vsharee-fade-in 0.5s ease-in-out forwards;
+  @include die {
+    animation: vsharee-fade-out 0.5s ease-in-out forwards;
+  }
   .btn:focus {
     box-shadow: none !important;
   }
