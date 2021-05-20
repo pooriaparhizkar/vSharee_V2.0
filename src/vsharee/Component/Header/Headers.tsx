@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import VshareeLogo from '../../../assets/images/profile/vshareeLogo.png';
 import './Header.scss';
 import TextField from '@material-ui/core/TextField';
-import { Dropdown } from 'react-bootstrap';
+import { Accordion, Dropdown } from 'react-bootstrap';
 import { authToken } from '../../../scripts/storage';
 import { setAuth, setIsEdit, setUserData, USER_DATA } from '../../../redux/actions';
 import { AuthStatus, GroupType, ReduxState, UserData } from '../../../interface';
@@ -16,6 +16,8 @@ import { get, responseValidator } from '../../../scripts/api';
 import { Button, CircularProgress } from '@material-ui/core';
 import emptyProfilePhoto from '../../../assets/images/fakeimage.svg';
 import EditProfile from '../editProfile/editProfile.index';
+import WhiteSpinner from '../../../utilities/whiteSpinner/whiteSpinner.index';
+import Logo from '../../../assets/images/landing/logo.png';
 
 class Headers extends React.Component<any, any> {
     searchResultRef: React.RefObject<HTMLDivElement>;
@@ -135,10 +137,17 @@ class Headers extends React.Component<any, any> {
                                     {this.state.searchResult2.length !== 0 ? (
                                         this.state.searchResult2.map((item: GroupType, index: number) => (
                                             <div key={index} className="items-group">
-                                                {item.photo_path ? (
-                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                {item.photo ? (
+                                                    <img src={item.photo_path} alt="fakePic" />
                                                 ) : (
-                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                    <h2
+                                                        style={{
+                                                            backgroundColor:
+                                                                '#' + Math.floor(Math.random() * 16777215).toString(16),
+                                                        }}
+                                                    >
+                                                        {item.title.charAt(0).toUpperCase()}
+                                                    </h2>
                                                 )}
                                                 <p>{item.title}</p>
                                             </div>
@@ -150,11 +159,7 @@ class Headers extends React.Component<any, any> {
                                     {this.state.searchResult.length !== 0 ? (
                                         this.state.searchResult.map((item: UserData, index: number) => (
                                             <div key={index} className="items-user">
-                                                {item.photo ? (
-                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
-                                                ) : (
-                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
-                                                )}
+                                                <img src={item.photo ? item.photo_path : Logo} alt="gp-photo" />
                                                 <p>{item.username}</p>
                                             </div>
                                         ))
@@ -217,10 +222,17 @@ class Headers extends React.Component<any, any> {
                                     {this.state.searchResult2.length !== 0 ? (
                                         this.state.searchResult2.map((item: GroupType, index: number) => (
                                             <div key={index} className="items-group">
-                                                {item.photo_path ? (
-                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                {item.photo ? (
+                                                    <img src={item.photo_path} alt="fakePic" />
                                                 ) : (
-                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
+                                                    <h2
+                                                        style={{
+                                                            backgroundColor:
+                                                                '#' + Math.floor(Math.random() * 16777215).toString(16),
+                                                        }}
+                                                    >
+                                                        {item.title.charAt(0).toUpperCase()}
+                                                    </h2>
                                                 )}
                                                 <p>{item.title}</p>
                                             </div>
@@ -238,11 +250,7 @@ class Headers extends React.Component<any, any> {
                                                 key={index}
                                                 className="items-user"
                                             >
-                                                {item.photo ? (
-                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
-                                                ) : (
-                                                    <img src={emptyProfilePhoto} alt="profile-pic" />
-                                                )}
+                                                <img src={item.photo ? item.photo_path : Logo} alt="gp-photo" />
                                                 <p>{item.username}</p>
                                             </div>
                                         ))
@@ -278,7 +286,10 @@ class Headers extends React.Component<any, any> {
                 <div className="col-4 user-main-div" hidden={!this.state.hiddentextField} onClick={this.clickOnOthers}>
                     <Dropdown className="dropdownClasss">
                         <Dropdown.Toggle variant="none" className="dropdownToggleClasss">
-                            <i className="material-icons">account_circle</i>
+                            <img
+                                src={this.props.userData.photo ? this.props.userData.photo_path : Logo}
+                                alt="gp-photo"
+                            />
                             <h6 className="d-none d-md-block">{this.props.userData && this.props.userData.username}</h6>
                         </Dropdown.Toggle>
 
@@ -311,7 +322,9 @@ class Headers extends React.Component<any, any> {
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <i onClick={()=>window.location.replace(RoutePath.directMessage)} className="material-icons ">mail</i>
+                    <i onClick={() => window.location.replace(RoutePath.directMessage)} className="material-icons ">
+                        mail
+                    </i>
 
                     <i className="material-icons paddingi">notifications</i>
                 </div>

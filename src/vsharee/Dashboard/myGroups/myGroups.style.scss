@@ -30,10 +30,6 @@
 
       cursor: pointer;
 
-
-
-     
-
             &:hover {
               background-color: $black;
 
@@ -68,11 +64,17 @@
                 max-height: 38px;
                 min-width: 38px;
                 min-height: 38px;
-
                 border-radius: 8px;
                 object-fit: cover;
-
-
+              }
+              h2{
+                width: 38px;
+                height: 38px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                  border-radius: 8px;
+                font-size: 32px;
               }
             }
 
