@@ -5,7 +5,7 @@ import background from 'assets/images/login-background.jpg';
 import RedBox from 'assets/images/RedBox.png';
 import './Setnewpass.scss';
 import googleLogo from 'assets/images/google.svg';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { get, post, responseValidator } from '../../scripts/api';
 import { toast } from 'react-toastify';
 import { Spinner } from 'react-bootstrap';
@@ -30,26 +30,23 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
     const [eyeClicked, setEyeClicked] = useState<boolean>(false);
     const LANG = VshareeLanguage.Newpass;
     const history = useHistory();
-
+    const { uidb, token } = useParams<any>();
     function submitHandler() {
-        if (
-            repassword &&
-            password &&
-            passwordValidation(password) 
-        ) {
+        if (repassword && password && passwordValidation(password)) {
             setSubmitLoading(true);
             const body = {
-                username,
-                password,
+                new_password1: password,
+                new_password2: repassword,
+                uid: uidb,
+                token,
             };
-            post<Tokens>(APIPath.user.login, body).then((res) => {
+            post<any>(`/auth/password/reset/confirm/${uidb}/${token}/`, body).then((res) => {
                 setSubmitLoading(false);
                 if (responseValidator(res.status) && res.data) {
                     authToken.set(res.data);
 
                     get<UserData[]>(APIPath.user.myInfo).then((res) => {
                         if (responseValidator(res.status) && res.data) {
-                     
                             document.body.classList.add(navigationAnim);
                             setTimeout(() => {
                                 document.body.classList.remove(navigationAnim);
@@ -91,8 +88,6 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
         }, 500);
     }
 
-  
-
     function changePasswordHandler(e: any) {
         if (isError === 'password' || isError === 'all') setIsError(undefined);
         setPassword(e.target.value);
@@ -105,7 +100,7 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
         if (isError === 'password' || isError === 'all') setIsError(undefined);
         setrePassword(e.target.value);
         if (e.target.value) {
-            if (repassword===password) setIsrepasswordCorrect(true);
+            if (repassword === password) setIsrepasswordCorrect(true);
             else setIsrepasswordCorrect(false);
         } else setIsrepasswordCorrect(undefined);
     }
@@ -156,7 +151,6 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
                                     </i>
                                 )
                             )}
-                            
                         </div>
                         {!isPasswordCorrect && (
                             <ReactTooltip id="error" place="right" type="error" effect="solid">
@@ -193,27 +187,17 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
                                     </i>
                                 )
                             )}
-                           
                         </div>
                         {!isrePasswordCorrect && (
                             <ReactTooltip id="error1" place="right" type="error" effect="solid">
                                 <p>{LANG.incorrectPassword}</p>
                             </ReactTooltip>
                         )}
-                        
+
                         <button
                             onClick={submitHandler}
                             disabled={submitLoading}
-                            className={`continue ${
-                                !(
-                                 
-                                    password &&
-                                    passwordValidation(password) 
-                                  
-                                )
-                                    ? 'disable'
-                                    : ''
-                            }`}
+                            className={`continue ${!(password && passwordValidation(password)) ? 'disable' : ''}`}
                         >
                             {!submitLoading ? (
                                 <React.Fragment>
@@ -224,8 +208,6 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
                                 <Spinner animation="border" variant="light" />
                             )}
                         </button>
-
-                      
                     </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@ import { emailValidation, passwordValidation, usernameValidation } from '../../s
 import { AST } from 'eslint';
 import { getMyGroups } from '../vsharee.script';
 import ReactTooltip from 'react-tooltip';
-import {login} from '../../index'
+import { login } from '../../index';
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [username, setUsername] = useState<string | undefined>(undefined);
     const [password, setPassword] = useState<string | undefined>(undefined);
@@ -48,7 +48,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
 
                     get<UserData[]>(APIPath.user.myInfo).then((res) => {
                         if (responseValidator(res.status) && res.data) {
-                            login()
+                            login();
                             document.body.classList.add(navigationAnim);
                             setTimeout(() => {
                                 document.body.classList.remove(navigationAnim);
@@ -114,6 +114,14 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
             if (passwordValidation(e.target.value)) setIspasswordCorrect(true);
             else setIspasswordCorrect(false);
         } else setIspasswordCorrect(undefined);
+    }
+
+    function forgotPasswordHandler() {
+        document.body.classList.add(navigationAnim);
+        setTimeout(() => {
+            document.body.classList.remove(navigationAnim);
+            history.push(RoutePath.forget);
+        }, 500);
     }
 
     return (
@@ -190,14 +198,16 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                                     </i>
                                 )
                             )}
-                             <h3 className="forget" onClick={()=>history.push(RoutePath.forget)} >{LANG.forgetpass} </h3>
+                            <h3 className="forget" onClick={forgotPasswordHandler}>
+                                {LANG.forgetpass}{' '}
+                            </h3>
                         </div>
                         {!isPasswordCorrect && (
                             <ReactTooltip id="error" place="right" type="error" effect="solid">
                                 <p>{LANG.incorrectPassword}</p>
                             </ReactTooltip>
                         )}
-                        
+
                         <button
                             onClick={submitHandler}
                             disabled={submitLoading}
