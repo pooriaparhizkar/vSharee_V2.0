@@ -6,6 +6,9 @@ export const __RoutePath = {
     signup: '/signup',
     dashboard: '/dashboard',
     verify: '/email-verified',
+    group: (id: routeParam) => `/group/${id}`,
     landing: '/',
     directMessage:'/directMessage',
+    forget:'/forgetpassword'
+
 };

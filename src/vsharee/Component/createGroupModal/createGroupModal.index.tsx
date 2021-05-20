@@ -24,6 +24,7 @@ import { toast } from 'react-toastify';
 import { getMyGroups } from '../../vsharee.script';
 import { Simulate } from 'react-dom/test-utils';
 import WhiteSpinner from '../../../utilities/whiteSpinner/whiteSpinner.index';
+import {creategroup} from '../../../index'
 const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupModalProps> = function (
     props: ConnectedProps<typeof connector> & CreateGroupModalProps,
 ) {
@@ -54,6 +55,7 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
         post<any>(APIPath.groups.index, body).then((res) => {
             setLoading(false);
             if (responseValidator(res.status)) {
+                creategroup()
                 toast.success('Your group successfully created');
                 getMyGroups(props.dispatch);
                 props.onClose();

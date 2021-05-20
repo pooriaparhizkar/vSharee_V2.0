@@ -19,10 +19,10 @@
   }
 
   .box {
-     animation: vsharee-fade-in 0.5s ease-in-out forwards;
-  @include die {
-    animation: vsharee-fade-out 0.5s ease-in-out forwards;
-  }
+    animation: vsharee-fade-in 0.5s ease-in-out forwards;
+    @include die {
+      animation: vsharee-fade-out 0.5s ease-in-out forwards;
+    }
     @include vsharee-size(max-width, 1000px, 600px);
     @include vsharee-size(max-height, 666px, 512px);
     width: 100%;
@@ -135,7 +135,55 @@
           }
         }
 
+        .my-inputs {
+          position: relative;
+          width: 100%;
+          max-width: 450px;
+h3{
+  text-align: right;
+  margin-top: -10px;
+  cursor: pointer;
+  &:hover {
+    color: white;
+  } 
+}
+          i {
+            position: absolute;
+            right: 14px;
+            color: gray;
+            top: 10px;
+            font-size: 24px;
+            cursor: default;
+
+            &.eye {
+              right: 40px;
+              cursor: pointer;
+              transition: color 0.3s;
+
+              &:hover {
+                color: black;
+              }
+            }
+
+
+            &.success {
+              font-size: 24px;
+              top: 10px;
+              color: $success;
+            }
+
+            &.error {
+              font-size: 24px;
+              top: 10px;
+              color: $error;
+            }
+          }
+        }
+
         .continue {
+          outline: none;
+          border: none;
+
           &.disable {
             background-color: $gray99;
             cursor: not-allowed;

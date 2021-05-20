@@ -8,6 +8,10 @@ export const __APIPath = {
         offline: '/user/relations/offline-followings/',
         online: '/user/relations/online-followings/',
         myInfo: '/user/information/',
+        detail: (username: string) => `/user/${username}/information`,
+    },
+    forgetPass:{
+forget:'/user/auth/password-reset/'
     },
     groups: {
         index: '/group/',
@@ -22,5 +26,7 @@ export const __APIPath = {
         followUser: '/user/relations/follow/',
         unfollowUser: '/user/followers/unfollow/',
         konwfollow: '/user/followings/find/',
+        upload_photo: (username: string) =>`/user/${username}/edit-profile/upload-photo/`,
+        edit_profile:(username: string) =>`/user/${username}/edit-profile/`
     },
 };

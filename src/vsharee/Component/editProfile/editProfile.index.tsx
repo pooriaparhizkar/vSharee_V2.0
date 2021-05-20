@@ -3,6 +3,7 @@ import { AuthStatus, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './editProfile.style.scss';
 import { Modal } from 'react-bootstrap';
+import { get, responseValidator, post, del, put } from '../../../scripts/api';
 import {
     Button,
     Card,
@@ -15,14 +16,109 @@ import {
     Select,
     TextField,
 } from '@material-ui/core';
+import Logo from '../../../assets/images/landing/logo.png'
 import fakeImage from '../../../assets/images/profile/fakeimage.jpg';
 import { setAuth, setIsEdit } from '../../../redux/actions';
+import { APIPath, RoutePath } from '../../../data';
 const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const LANG = props.text.components.CreateGroupModal;
-    const [privacy, setPrivacy] = useState<string>('public');
+    const [privacy, setPrivacy] = useState<string>('false');
     const [firstname, setfirstname] = useState<string | undefined>(props.userData?.firstname);
     const [lastname, setlastname] = useState<string | undefined>(props.userData?.lastname);
     const [bio, setbio] = useState<string | undefined>(props.userData?.bio);
+    const [photourl,setphotourl] = useState<string | undefined>();
+    const [resdata,setresdata] = useState<any>();
+    useEffect(() => {
+        const location = window.location.href;
+        const loc = location.split('/');
+   get_photo()
+        get<any>(APIPath.profile.userdata, { search: loc[4] }).then((res) => {
+            console.log(res);
+            if (responseValidator(res.status)) {
+               setresdata(res.data[0]);
+            }
+        });
+   
+      },[]);
+      function openinp(){
+        const location = window.location.href;
+        const loc = location.split('/');
+
+        if (props.userData?.username === loc[4]) {
+             document.getElementById('photoinp')?.click()  
+        }
+     
+    }
+    function get_photo(){
+        const location = window.location.href;
+        const loc = location.split('/');
+        get<any>(APIPath.profile.edit_profile(loc[4])).then((res) => {
+            console.log(res.data);
+            if (responseValidator(res.status)) {
+                setphotourl(res.data.photo_url)
+                if(res.data.is_private)
+              setPrivacy("true")
+              else
+              setPrivacy("false")
+                // this.setState({ followingCount: res.data.followings_count, followingList: res.data.result });
+            }
+            // else{
+            //     this.setState({
+            //         photourl:Logo
+            //     }) 
+            // }
+        });
+    }
+function upload_photo(e:any){
+    const file= e.target.files[0]
+    console.log(file)
+    post<any>(APIPath.profile.upload_photo(resdata.username),{}).then((res) => {
+       
+        if (responseValidator(res.status) && res.data) {
+          
+                    const fd = new FormData();
+
+
+                    fd.append('key', res.data.upload_photo.fields.key);
+                    //  fd.append('acl', 'public-read');
+                    //fd.append('Content-Type', file.type);
+                    fd.append('AWSAccessKeyId', res.data.upload_photo.fields.AWSAccessKeyId);
+                    fd.append('policy', res.data.upload_photo.fields.policy)
+                    fd.append('signature', res.data.upload_photo.fields.signature);
+
+                    fd.append("file", file);
+
+                    const xhr = new XMLHttpRequest();
+                
+                    // xhr.upload.addEventListener("progress", uploadProgress, false);
+                    // xhr.addEventListener("load", uploadComplete, false);
+                    // xhr.addEventListener("error", uploadFailed, false);
+                    // xhr.addEventListener("abort", uploadCanceled, false);
+
+                    xhr.open('POST', res.data.upload_photo.url, true); //MUST BE LAST LINE BEFORE YOU SEND
+xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+                    xhr.send(fd);
+                    setTimeout(()=>get_photo(), 3000);               
+
+          console.log(xhr)
+        } 
+    });
+}
+function editprofile(){
+    const body={
+        "firstname": firstname,
+        "lastname": lastname,
+        "bio": bio,
+        "is_private": privacy
+    }
+  
+    put<any>(APIPath.profile.edit_profile(resdata.username),body).then((res) => {
+        console.log(res);
+        if (responseValidator(res.status)) {
+            window.location.replace(RoutePath.profileDetail(resdata.username))
+        }
+    });
+}
     return (
         <Modal
             className="vsharee-edit-profile-modal"
@@ -32,9 +128,10 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
             <div className="vsharee-edit-profile-component">
                 <Card variant="outlined">
                     <div className="image-uploader">
-                        <img src={fakeImage} alt="profile-photo" />
+                        <img onError={()=>setphotourl(Logo)} src={photourl}  alt="profile-photo"  onClick={openinp}/>
+                        <input type='file' style={{display:'none'}} id='photoinp' onChange={upload_photo}></input>
                         <div className="icon">
-                            <i className="material-icons">edit</i>
+                            <i className="material-icons" onClick={openinp}>edit</i>
                         </div>
                     </div>
                     <div className="my-row">
@@ -58,9 +155,9 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
                         <FormControl component="fieldset">
                             <FormLabel component="legend">{LANG.privacyTitle}</FormLabel>
                             <RadioGroup value={privacy} onChange={(e) => setPrivacy(e.target.value)}>
-                                <FormControlLabel value="public" control={<Radio />} label={LANG.public} />
+                                <FormControlLabel value="false" control={<Radio />} label={LANG.public} />
                                 <p className="detail">{LANG.publicDescription}</p>
-                                <FormControlLabel value="private" control={<Radio />} label={LANG.private} />
+                                <FormControlLabel value="true" control={<Radio />} label={LANG.private} />
                                 <p className="detail">{LANG.privateDescription}</p>
                             </RadioGroup>
                         </FormControl>
@@ -69,7 +166,7 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
                         <Button onClick={() => props.dispatch(setIsEdit(false))} variant="contained" color="default">
                             Cancel
                         </Button>
-                        <Button variant="contained" color="primary">
+                        <Button variant="contained" color="primary" onClick={editprofile}>
                             Edit
                         </Button>
                     </div>

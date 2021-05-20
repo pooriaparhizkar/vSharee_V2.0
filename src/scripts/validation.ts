@@ -14,7 +14,7 @@ export function urlValidation(value: string) {
 }
 
 export function usernameValidation(value: string) {
-    const re = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/i;
+    const re = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{2,20}$/i;
     return re.test(value);
 }
 
