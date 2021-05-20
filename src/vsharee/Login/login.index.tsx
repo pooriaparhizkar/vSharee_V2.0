@@ -17,7 +17,7 @@ import { emailValidation, passwordValidation, usernameValidation } from '../../s
 import { AST } from 'eslint';
 import { getMyGroups } from '../vsharee.script';
 import ReactTooltip from 'react-tooltip';
-
+import {login} from '../../index'
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [username, setUsername] = useState<string | undefined>(undefined);
     const [password, setPassword] = useState<string | undefined>(undefined);
@@ -48,6 +48,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
 
                     get<UserData[]>(APIPath.user.myInfo).then((res) => {
                         if (responseValidator(res.status) && res.data) {
+                            login()
                             document.body.classList.add(navigationAnim);
                             setTimeout(() => {
                                 document.body.classList.remove(navigationAnim);
