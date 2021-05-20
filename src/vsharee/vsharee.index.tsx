@@ -18,7 +18,7 @@ import DirectMessage from "./DirectMessage/directMessage.index";
 import Forget from './Forgetpassword/Forgetpassword'
 
 import Group from './group/group.index';
-
+import SetnewPass from './Forgetpassword/Setnewpass'
 const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     useEffect(() => {
         vShareeInitialize(props.dispatch);
@@ -30,14 +30,15 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
 
                     <Switch>
 
-                        <Route path={RoutePath.login} component={Login}/>
-                        <Route path={RoutePath.signup} component={Signup}/>
-                        <Route path={RoutePath.verify} component={Verify}/>
-
-
-                        <Route path={RoutePath.forget}>
-                            <Forget/>
-                        </Route>
+                        <Route path={RoutePath.login} component={Login} />
+                        <Route path={RoutePath.signup} component={Signup} />
+                        <Route path={RoutePath.verify} component={Verify} />
+                         <Route path={RoutePath.forget}>
+                                <Forget />
+                            </Route>
+                            <Route path={RoutePath.setnew}>
+                                <SetnewPass />
+                            </Route>
 
                         <Route path="*">
                             <Redirect to="#"/>
