@@ -311,7 +311,7 @@ class Headers extends React.Component<any, any> {
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <i className="material-icons ">mail</i>
+                    <i onClick={()=>window.location.replace(RoutePath.directMessage)} className="material-icons ">mail</i>
 
                     <i className="material-icons paddingi">notifications</i>
                 </div>
