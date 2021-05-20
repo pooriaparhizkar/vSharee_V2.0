@@ -7,4 +7,5 @@ export const __RoutePath = {
     dashboard: '/dashboard',
     verify: '/email-verified',
     landing: '/',
+    directMessage:'/directMessage',
 };

@@ -13,6 +13,7 @@ import { vShareeInitialize } from './vsharee.script';
 import store from '../redux/store';
 import Dashboard from './Dashboard/dashboard.index';
 import Login from './Login/login.index';
+import DirectMessage from "./DirectMessage/directMessage.index";
 
 const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     useEffect(() => {
@@ -22,10 +23,18 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
         <Router>
             <Switch>
                 {props.isAuth === AuthStatus.isInValid && (
+
                     <Switch>
+
                         <Route path={RoutePath.login} component={Login} />
                         <Route path={RoutePath.signup} component={Signup} />
                         <Route path={RoutePath.verify} component={Verify} />
+
+                         <Route path={RoutePath.directMessage}>
+                             <Header store={store} />
+
+                                <DirectMessage />
+                         </Route>
                         <Route path="*">
                             <Redirect to="#" />
                             <Landing />
@@ -42,6 +51,11 @@ const Vsharee: React.FC<ConnectedProps<typeof connector>> = function (props: Con
                             <Route path={RoutePath.dashboard}>
                                 <Dashboard />
                             </Route>
+
+
+
+
+
                             <Route path={RoutePath.profileDetail(':username')}>
                                 <Profile store={store} />
                             </Route>
