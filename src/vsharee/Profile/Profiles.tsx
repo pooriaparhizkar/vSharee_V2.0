@@ -94,7 +94,7 @@ class Profiles extends React.Component<any, any> {
             if (responseValidator(res.status)) {
 
                 this.setState({
-<<<<<<< HEAD
+
                     photourl:res.data.photo_url
                 })
                 if (this.props.userData.username === loc[4]) {
@@ -109,10 +109,7 @@ class Profiles extends React.Component<any, any> {
                         })
                     }
                 }
-=======
-                    photourl: res.data.photo_url,
-                });
->>>>>>> d54ab96cadfb385bfbd7d401851a5eb05985c56f
+
                 // this.setState({ followingCount: res.data.followings_count, followingList: res.data.result });
             }
             // else{
@@ -174,51 +171,6 @@ class Profiles extends React.Component<any, any> {
         if (this.state.name === 'who_follows') return list.who_follows;
         else return list.who_is_followed;
     };
-<<<<<<< HEAD
-  
-
-=======
-    upload_photo = (e: any) => {
-        const file = e.target.files[0];
-        console.log(file);
-        post<any>(APIPath.profile.upload_photo(this.state.resdata.username), {}).then((res) => {
-            if (responseValidator(res.status) && res.data) {
-                const fd = new FormData();
-
-                fd.append('key', res.data.upload_photo.fields.key);
-                //  fd.append('acl', 'public-read');
-                //fd.append('Content-Type', file.type);
-                fd.append('AWSAccessKeyId', res.data.upload_photo.fields.AWSAccessKeyId);
-                fd.append('policy', res.data.upload_photo.fields.policy);
-                fd.append('signature', res.data.upload_photo.fields.signature);
-
-                fd.append('file', file);
-
-                const xhr = new XMLHttpRequest();
-
-                // xhr.upload.addEventListener("progress", uploadProgress, false);
-                // xhr.addEventListener("load", uploadComplete, false);
-                // xhr.addEventListener("error", uploadFailed, false);
-                // xhr.addEventListener("abort", uploadCanceled, false);
-
-                xhr.open('POST', res.data.upload_photo.url, true); //MUST BE LAST LINE BEFORE YOU SEND
-                xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-                xhr.send(fd);
-
-                console.log(res.data);
-            }
-        });
-    };
-    openinp = () => {
-        const location = window.location.href;
-        const loc = location.split('/');
-
-        if (this.props.userData.username === loc[4]) {
-            document.getElementById('photoinp')?.click();
-        }
-    };
-
->>>>>>> d54ab96cadfb385bfbd7d401851a5eb05985c56f
     render() {
         return (
             <React.Fragment>
