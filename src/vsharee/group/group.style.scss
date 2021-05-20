@@ -51,6 +51,9 @@
 
         .info {
           display: flex;
+          @media (max-width: 1450px) {
+            flex-direction: column;
+          }
 
           .context {
             max-width: 800px;
@@ -264,6 +267,7 @@
             height: 100%;
             align-items: center;
             justify-content: center;
+
             label {
               font-size: 18px;
               color: $gray;
@@ -271,13 +275,14 @@
             }
 
             p {
-               max-width: 196px;
+              max-width: 196px;
               font-size: 14px;
               font-weight: 300;
               text-align: center;
               color: $grayDark;
             }
-            img{
+
+            img {
               margin-top: 18px;
               width: 100px;
               height: 100px;
@@ -285,24 +290,27 @@
             }
           }
         }
-        .send{
-            width: 100%;
-            position: relative;
-            .emoji{
-              position: absolute;
-              right: 10px;
-              height: 100%;
-              display: flex;
-              align-items: flex-end;
-              top: -18px;
-              color: $gray99;
-              transition: color 0.3s;
-              cursor: pointer;
-              &:hover{
-                color: white;
-              }
+
+        .send {
+          width: 100%;
+          position: relative;
+
+          .emoji {
+            position: absolute;
+            right: 10px;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            top: -18px;
+            color: $gray99;
+            transition: color 0.3s;
+            cursor: pointer;
+
+            &:hover {
+              color: white;
             }
           }
+        }
       }
 
 
