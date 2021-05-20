@@ -5,6 +5,7 @@ import TestImg from '../../assets/images/profile/fakeimage.jpg';
 import Spotify from '../../assets/images/profile/spotify.png';
 import Imdb from '../../assets/images/profile/imdb.png';
 import Message from '../../assets/images/profile/message.svg';
+import Logo from '../../assets/images/landing/logo.png'
 import { Dropdown, Button } from 'react-bootstrap';
 
 import { VshareeLanguage } from '../vsharee.lang';
@@ -88,6 +89,20 @@ class Profiles extends React.Component<any, any> {
                 this.setState({ followingCount: res.data.followings_count, followingList: res.data.result });
             }
         });
+        get<any>(APIPath.profile.edit_profile(loc[4])).then((res) => {
+            console.log(res.data);
+            if (responseValidator(res.status)) {
+                this.setState({
+                    photourl:res.data.photo_url
+                })
+                // this.setState({ followingCount: res.data.followings_count, followingList: res.data.result });
+            }
+            // else{
+            //     this.setState({
+            //         photourl:Logo
+            //     }) 
+            // }
+        });
     }
     followuser = () => {
         post<any>(APIPath.profile.followUser + '?user_id=' + this.state.resdata.username, {
@@ -138,9 +153,42 @@ class Profiles extends React.Component<any, any> {
         post<any>(APIPath.profile.upload_photo(this.state.resdata.username),{}).then((res) => {
            
             if (responseValidator(res.status) && res.data) {
+              
+                        const fd = new FormData();
+
+
+                        fd.append('key', res.data.upload_photo.fields.key);
+                        //  fd.append('acl', 'public-read');
+                        //fd.append('Content-Type', file.type);
+                        fd.append('AWSAccessKeyId', res.data.upload_photo.fields.AWSAccessKeyId);
+                        fd.append('policy', res.data.upload_photo.fields.policy)
+                        fd.append('signature', res.data.upload_photo.fields.signature);
+
+                        fd.append("file", file);
+
+                        const xhr = new XMLHttpRequest();
+                    
+                        // xhr.upload.addEventListener("progress", uploadProgress, false);
+                        // xhr.addEventListener("load", uploadComplete, false);
+                        // xhr.addEventListener("error", uploadFailed, false);
+                        // xhr.addEventListener("abort", uploadCanceled, false);
+
+                        xhr.open('POST', res.data.upload_photo.url, true); //MUST BE LAST LINE BEFORE YOU SEND
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+                        xhr.send(fd);
+
               console.log(res.data)
             } 
         });
+    }
+    openinp=()=>{
+        const location = window.location.href;
+        const loc = location.split('/');
+
+        if (this.props.userData.username === loc[4]) {
+             document.getElementById('photoinp')?.click()  
+        }
+     
     }
     render() {
         return (
@@ -177,7 +225,7 @@ class Profiles extends React.Component<any, any> {
                             <div className="col-md-1 "></div>
 
                             <div className="col-md-7 col-xs-12 div-item-description">
-                                <img src={TestImg} alt="" onClick={()=>document.getElementById('photoinp')?.click()}/>
+                                <img onError={()=>this.setState({photourl:Logo})} src={this.state.photourl} alt="" id='photoprofile' onClick={this.openinp}/>
                                 <input type='file' style={{display:'none'}} id='photoinp' onChange={this.upload_photo}></input>
                                 <div className="text-description">
                                     <h1>{this.state.resdata.username}</h1>
