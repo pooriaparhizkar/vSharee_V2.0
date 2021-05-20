@@ -22,7 +22,7 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
             <div className="my-container">
                 <div className="friend-list">
                     <div className="search">
-                        <TextField id="outlined-basic" label="Outlined" variant="outlined"/>
+                        <TextField id="outlined-basic" label="Search" variant="outlined"/>
 
                     </div>
                     <div className="context">
@@ -37,6 +37,96 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
 
 
                         </div>
+                        <div className="items online">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                                <i className="material-icons-outlined circle">circle</i>
+                            </div>
+                            <div className="right-items">
+                                <p>username</p>
+                                <span>watching movie</span>
+                            </div>
+
+
+                        </div>
+                        <div className="items">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                            </div>
+                            <div className="right-items">
+                                <p>username</p>
+                                <span>watching movie</span>
+                            </div>
+
+
+                        </div>
+                        <div className="items online">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                                <i className="material-icons-outlined circle">circle</i>
+                            </div>
+                            <div className="right-items">
+                                <p>username</p>
+                                <span>watching movie</span>
+                            </div>
+
+
+                        </div>
+                        <div className="items">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                            </div>
+                            <div className="right-items">
+                                <p>username</p>
+                                <span>watching movie</span>
+                            </div>
+
+
+                        </div>
+                        <div className="items online">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                                <i className="material-icons-outlined circle">circle</i>
+                            </div>
+                            <div className="right-items">
+                                <p>username</p>
+                                <span>watching movie</span>
+                            </div>
+
+
+                        </div>
+                        <div className="items">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                            </div>
+                            <div className="right-items">
+                                <p>username</p>
+                                <span>watching movie</span>
+                            </div>
+
+
+                        </div>
+                        <div className="items online">
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                                <i className="material-icons-outlined circle">circle</i>
+                            </div>
+                            <div className="right-items">
+                                <p>username</p>
+                                <span>watching movie</span>
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
                     </div>
 
                 </div>
@@ -50,13 +140,19 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
                     </div>
 
                     <div className="bottom-chat">
-                         <div className="my-input">
-                            <TextField id="outlined-basic" variant="outlined"/>
+                        <div className="my-input">
+
+
+                            <div className="icon">
+                                <TextField id="outlined-basic-" label={""} placeholder={"send message ..."} variant="outlined"/>
+                                 <span className="material-icons ">
+                                     send
+                                </span>
+
+                            </div>
+
                         </div>
                     </div>
-
-
-
 
 
                 </div>
