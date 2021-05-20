@@ -1,6 +1,6 @@
 export const VerifyLang = {
     body: {
-        successful:'Your email confirm successfuly',
+        successful:'Your email confirmed successfully',
         error:'something went wrong',
         login:'Login',
         goto:'Go to'
