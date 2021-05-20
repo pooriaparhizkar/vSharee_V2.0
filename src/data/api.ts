@@ -22,5 +22,6 @@ export const __APIPath = {
         followUser: '/user/relations/follow/',
         unfollowUser: '/user/followers/unfollow/',
         konwfollow: '/user/followings/find/',
+        upload_photo: (username: string) =>' /user/${username}/edit-profile/upload-photo/',
     },
 };

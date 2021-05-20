@@ -132,6 +132,16 @@ class Profiles extends React.Component<any, any> {
         if (this.state.name === 'who_follows') return list.who_follows;
         else return list.who_is_followed;
     };
+    upload_photo=(e:any)=>{
+        const file= e.target.files[0]
+        console.log(file)
+        post<any>(APIPath.profile.upload_photo(this.state.resdata.username),{}).then((res) => {
+           
+            if (responseValidator(res.status) && res.data) {
+              console.log(res.data)
+            } 
+        });
+    }
     render() {
         return (
             <React.Fragment>
@@ -167,7 +177,8 @@ class Profiles extends React.Component<any, any> {
                             <div className="col-md-1 "></div>
 
                             <div className="col-md-7 col-xs-12 div-item-description">
-                                <img src={TestImg} alt="" />
+                                <img src={TestImg} alt="" onClick={()=>document.getElementById('photoinp')?.click()}/>
+                                <input type='file' style={{display:'none'}} id='photoinp' onChange={this.upload_photo}></input>
                                 <div className="text-description">
                                     <h1>{this.state.resdata.username}</h1>
                                     <h6>
