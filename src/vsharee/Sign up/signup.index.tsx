@@ -35,7 +35,20 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
     const history = useHistory();
 
     function submitHandler() {
-        if (email && username && password2 && password) {
+        if (
+            email &&
+            username &&
+            password2 &&
+            password &&
+            usernameValidation(username) &&
+            emailValidation(email) &&
+            passwordValidation(password) &&
+            password === password2 &&
+            freeEmail &&
+            freeUser &&
+            !searchEmailLoading &&
+            !searchUserLoading
+        ) {
             setSubmitLoading(true);
             const body = {
                 username,
@@ -314,8 +327,24 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                 )}
                                 <button
                                     onClick={submitHandler}
+                                    disabled={submitLoading}
                                     className={`continue ${
-                                        !email || !username! || !password || !password2 ? 'disable' : ''
+                                        !(
+                                            email &&
+                                            username &&
+                                            password2 &&
+                                            password &&
+                                            usernameValidation(username) &&
+                                            emailValidation(email) &&
+                                            passwordValidation(password) &&
+                                            password == password2 &&
+                                            freeEmail &&
+                                            freeUser &&
+                                            !searchEmailLoading &&
+                                            !searchUserLoading
+                                        )
+                                            ? 'disable'
+                                            : ''
                                     }`}
                                 >
                                     {!submitLoading ? (
