@@ -232,13 +232,7 @@ const Landing: React.FC<ConnectedProps<typeof connector>> = function () {
             <div className="online">
                 <div className="left">
                     <div className="video">
-                        <video
-                            controls
-                            src={
-                                'https://imdb-video.media-imdb.com/vi1504821529/1434659607842-pgv4ql-1598916742145.mp4?Expires=1616803257&Signature=peeZNhumTT4fbOAUxWex8du6lP~B42vICPq45NZpiZBsqZUjQrLv93ZgdpuaZcaWhxCPDmDBKb85zrAG-r2i6r98CFTBLz2l6sXKxsbizqv~Gkh11BCEy-bKmtRybso-u024VEgmXgJ~a9F1AclKXz459SOt~W1DlDirh7RLPFR0OuC8noLG-9edJOxNEGEbNFvUvXLqkvjhd7IEfpDRibfHP9nI4FIqZ26A5n0Hu28-yO5R3Vf~0jGIu5Jgr5OmMRmPgo08ixvxzNTTrF860FGTFq1kL2XPlcHucY5S2~qf1Yy5QmiJ9q9nS9x-mwiZL6yMc0AtbI14ErULf86m0w__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA'
-                            }
-                            poster={moviePreview}
-                        />
+                        <iframe src="https://www.youtube.com/embed/OaqeH9_yQBw" />
 
                         <div className="shadow" />
                     </div>

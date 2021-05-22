@@ -21,6 +21,24 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
     const [online, setOnline] = useState<UserData[] | undefined>(undefined);
     const [topGroup, setTopGroup] = useState<GroupType[] | undefined>(undefined);
 
+      useEffect(() => {
+            get<any>("/notifications/").then((res) => {
+            if (responseValidator(res.status) && res.data) {
+
+                console.log(res.data)
+                // if (NotificationType.Follow == res.data){
+                //
+                // }
+
+            } else {
+                toast.error('Something went wrong ');
+            }
+        });
+
+    }, []);
+
+
+
     useEffect(() => {
         get<UserData[]>(APIPath.user.offline).then((res) => {
             if (responseValidator(res.status) && res.data) {

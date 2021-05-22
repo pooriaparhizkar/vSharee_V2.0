@@ -7,7 +7,7 @@ import DashboardEmptyState from '../emptyState/emptyState.index';
 import DashboardItemsSkeleton from '../skeleton/dashboard.skeleton';
 import { Link } from 'react-router-dom';
 import { RoutePath } from '../../../data';
-
+import Logo from 'assets/images/landing/logo.png';
 const MyFriendsList: React.FC<
     ConnectedProps<typeof connector> & { online?: UserData[]; offline?: UserData[] }
 > = function (props: ConnectedProps<typeof connector> & { online?: UserData[]; offline?: UserData[] }) {
@@ -22,7 +22,7 @@ const MyFriendsList: React.FC<
                                 props.online.map((item: any, index: any) => (
                                     <div key={index} className="items online">
                                         <div className="left-items">
-                                            <img src={fakePic} alt="fakePic" />
+                                            <img src={item.photo ? item.photo_path : Logo} alt="gp-photo" />
                                             <i className="material-icons-outlined circle">circle</i>
                                         </div>
                                         <div className="right-items">
@@ -35,7 +35,7 @@ const MyFriendsList: React.FC<
                                 props.offline.map((item: any, index: any) => (
                                     <Link to={RoutePath.profileDetail(item.username)} key={index} className="items">
                                         <div className="left-items">
-                                            <img src={fakePic} alt="fakePic" />
+                                            <img src={item.photo ? item.photo_path : Logo} alt="gp-photo" />
                                             <i className="material-icons-outlined circle">circle</i>
                                         </div>
                                         <div className="right-items">

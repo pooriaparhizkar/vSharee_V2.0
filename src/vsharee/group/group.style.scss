@@ -1,0 +1,326 @@
+@import "src/utilities/references/index";
+
+.vsharee-group-page {
+    animation: vsharee-fade-in 0.5s ease-in-out forwards;
+  @include die {
+    animation: vsharee-fade-out 0.5s ease-in-out forwards;
+  }
+  width: 100%;
+  min-height: calc(100vh - 90px);
+  display: flex;
+
+  .my-container {
+    padding: 24px;
+    display: flex;
+    width: 100%;
+
+    .left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin-right: 27px;
+
+      .video-player {
+        border-radius: 10px;
+        flex: 1;
+        // background-color: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 32px;
+
+        iframe {
+          border-radius: 10px;
+          width: 100%;
+          height: 100%;
+          outline: none;
+          border: none;
+
+        }
+
+
+      }
+
+      .detail {
+        min-height: 300px;
+        max-height: 300px;
+        height: 100%;
+
+        h3 {
+          font-size: 24px;
+          font-weight: bold;
+          color: white;
+          margin-bottom: 32px;
+        }
+
+        .info {
+          display: flex;
+          @media (max-width: 1450px) {
+            flex-direction: column;
+          }
+
+          .context {
+            max-width: 800px;
+            display: flex;
+            border-right: solid 4px $black2;
+            padding-right: 24px;
+
+            img {
+              min-width: 56px;
+              max-width: 56px;
+              min-height: 56px;
+              max-height: 56px;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: 100%;
+            }
+
+            .index {
+              margin-left: 24px;
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+
+              .gp-name {
+                width: 100%;
+                display: flex;
+                margin-bottom: 4px;
+
+                h4 {
+                  font-size: 22px;
+                  font-weight: 500;
+                  color: white;
+                }
+
+                span {
+                  flex: 1;
+                }
+
+                label {
+                  font-size: 16px;
+                  font-weight: 300;
+                  color: $gray;
+                }
+              }
+
+              span {
+                font-size: 16px;
+                font-weight: 300;
+                color: $gray;
+              }
+
+              .description {
+                margin-top: 18px;
+                padding-top: 18px;
+                border-top: solid 1px $gray97;
+                flex: 1;
+
+
+                //  @include vsharee-scroll-shadow;
+
+                //&::-webkit-scrollbar {
+                //  display: none;
+                //}
+                //
+                //-ms-overflow-style: none;
+                //scrollbar-width: none;
+
+                p {
+                  max-height: 140px;
+                  overflow-y: auto;
+                  font-size: 16px;
+                  color: $gray77;
+                }
+              }
+            }
+          }
+
+          .gp-controller {
+            flex: 1;
+            padding-left: 24px;
+            padding-bottom: 24px;
+
+            h4 {
+              font-size: 21px;
+              color: white;
+            }
+
+            .context {
+              width: 100%;
+              height: 100%;
+
+              .empty-state {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                color: $gray;
+
+                i {
+                  font-size: 72px;
+                  margin-bottom: 16px;
+                }
+
+                p {
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .right {
+      @include vsharee-size(min-width, 350px, 250px);
+      @include vsharee-size(max-width, 350px, 250px);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      > div {
+        background-color: $black2;
+        padding: 18px 10px 24px 18px;
+        border-radius: 10px;
+      }
+
+      .member {
+        overflow-y: hidden;
+        max-height: 286px;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+
+        h3 {
+          font-size: 21px;
+          font-weight: 500;
+          color: white;
+          margin-bottom: 30px;
+        }
+
+        .context {
+          flex: 1;
+          overflow-y: auto;
+          margin-top: -18px;
+
+          .items {
+            display: flex;
+            margin-top: 18px;
+
+            img {
+              min-width: 42px;
+              min-height: 42px;
+              max-width: 42px;
+              max-height: 42px;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: 100%;
+              margin-right: 16px;
+            }
+
+            .info {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+
+              p {
+                font-size: 14px;
+                color: white;
+                margin-bottom: 2px;
+              }
+
+              label {
+                color: $gray;
+                font-size: 12px;
+                font-weight: 300;
+              }
+            }
+          }
+        }
+      }
+
+      .chat {
+        flex: 1;
+        overflow-y: hidden;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        h3 {
+          font-size: 21px;
+          font-weight: 500;
+          color: white;
+          margin-bottom: 30px;
+        }
+
+        .context {
+          flex: 1;
+          overflow-y: auto;
+          margin-top: -18px;
+
+          .empty-state {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+
+            label {
+              font-size: 18px;
+              color: $gray;
+              text-align: center;
+            }
+
+            p {
+              max-width: 196px;
+              font-size: 14px;
+              font-weight: 300;
+              text-align: center;
+              color: $grayDark;
+            }
+
+            img {
+              margin-top: 18px;
+              width: 100px;
+              height: 100px;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .send {
+          width: 100%;
+          position: relative;
+
+          .emoji {
+            position: absolute;
+            right: 10px;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            top: -18px;
+            color: $gray99;
+            transition: color 0.3s;
+            cursor: pointer;
+
+            &:hover {
+              color: white;
+            }
+          }
+        }
+      }
+
+
+    }
+
+
+  }
+
+}

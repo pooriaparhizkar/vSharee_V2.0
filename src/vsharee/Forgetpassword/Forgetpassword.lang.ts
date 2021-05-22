@@ -1,6 +1,6 @@
-export const LoginLang = {
-    signin: 'Sign In',
-    emailAddressPH: 'Email Address or Username',
+export const forgetLang = {
+    forget: 'Forget Password',
+    emailAddressPH: 'Email Address',
     password: 'Password',
     continue: 'C O N T I N U E',
     connectWithSocialMedia: 'or Connect with Social Media',
@@ -8,9 +8,11 @@ export const LoginLang = {
     dontHaveAccount: 'Don’t have an account?',
     signup: 'Sign up',
     incorrectPassword: 'Your password is not in the correct format ',
-    incorrectUsername: 'Your username or email is not in the correct format',
+    incorrectUsername: 'Your email address is not in the correct format',
     welcomeBack: 'Welcome Back',
     welcomeBackText: 'Sign in to continue access pages',
     incorrectData: 'Your email address or password is incorrect',
-    forgetpass:"Recovery password"
+    forgetpass: 'Recovery password',
+    emailSent: 'Email has been sent',
+    activeEmailText: 'To continue please click on a link that sent it to your email',
 };

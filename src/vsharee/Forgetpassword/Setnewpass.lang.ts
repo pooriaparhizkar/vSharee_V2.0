@@ -1,5 +1,5 @@
-export const LoginLang = {
-    signin: 'Sign In',
+export const setnewpassLang = {
+    setnewpassword: 'New Password',
     emailAddressPH: 'Email Address or Username',
     password: 'Password',
     continue: 'C O N T I N U E',
