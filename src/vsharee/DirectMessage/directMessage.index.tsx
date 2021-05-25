@@ -120,18 +120,18 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
                         </div>
 
 
-
-
-
-
-
-
-
                     </div>
 
                 </div>
                 <div className="chat-box">
                     <div className="top-chat">
+                        <div className="top-left-items">
+                            <img src={fakePic} alt="fakePic"/>
+                        </div>
+                        <div className="top-right-items">
+                            <p>username</p>
+                            <span>Last seen</span>
+                        </div>
 
                     </div>
 
@@ -144,8 +144,9 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
 
 
                             <div className="icon">
-                                <TextField id="outlined-basic-" label={""} placeholder={"send message ..."} variant="outlined"/>
-                                 <span className="material-icons ">
+                                <TextField id="outlined-basic-" label={""} placeholder={"send message ..."}
+                                           variant="outlined"/>
+                                <span className="material-icons ">
                                      send
                                 </span>
 

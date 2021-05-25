@@ -16,11 +16,12 @@
 
 
     .friend-list {
+      display: flex;
       background-color: $black2;
       width: 100%;
       max-width: 250px;
 
-      display: flex;
+
       flex-direction: column;
       padding: 12px;
       border-radius: 5px;
@@ -40,6 +41,7 @@
         .items {
           padding: 8px;
           cursor: pointer;
+
           &:hover {
             background-color: $black;
 
@@ -187,9 +189,13 @@
     }
 
     .chat-box {
+
+      @include vsharee-lg{
+        display: flex;
+      }
       margin-left: 24px;
       width: 100%;
-      display: flex;
+      display: none;
       flex-direction: column;
 
 
@@ -201,6 +207,56 @@
         width: 100%;
         margin-bottom: 15px;
         border-radius: 5px;
+        display: flex;
+
+
+        .top-left-items {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            max-width: 38px;
+            max-height: 38px;
+            min-width: 38px;
+            min-height: 38px;
+            position: relative;
+            padding: 30px;
+          img {
+            width: 100%;
+            height: 100%;
+            max-width: 38px;
+            max-height: 38px;
+            min-width: 38px;
+            min-height: 38px;
+            border-radius: 100%;
+            object-fit: cover;
+            flex: 1;
+          }
+
+
+        }
+
+
+        .top-right-items {
+          align-items: center;
+          display: flex;
+
+          p {
+            margin-left: 40px;
+
+            font-size: 14px;
+            color: #ffffff;
+          }
+
+          span {
+            margin-left: 10px;
+            font-size: 12px;
+            font-weight: 300;
+            color: #ffffff;
+
+          }
+
+        }
+
 
       }
 
