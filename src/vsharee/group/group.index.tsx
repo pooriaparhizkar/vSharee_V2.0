@@ -9,11 +9,15 @@ import { get, responseValidator } from '../../scripts/api';
 import { APIPath } from '../../data';
 import { useParams } from 'react-router-dom';
 import AlphabetPicture from '../../utilities/component/alphabetPhoto/alphabetPhoto.index';
+import { authToken } from 'scripts/storage';
+let socketstream:any=null
+let socketchat:any=null
 const Group: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [isEditGroup, setIsEditGroup] = useState<boolean>(false);
     const { id } = useParams<any>();
     const [groupData, setGroupData] = useState<GroupType>();
     const [isAdmin, setIsAdmin] = useState<boolean>();
+    const [chatpm,setchatpm] = useState<any>('')
     function getGroupData() {
         get<GroupType>(APIPath.groups.detail(id)).then((res) => {
             if (responseValidator(res.status) && res.data) {
@@ -24,7 +28,20 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
     }
     useEffect(() => {
         getGroupData();
+      
+       socketstream = new WebSocket("ws://api.vsharee.ir/stream/groups/" + id + "/?token=" + authToken.get()?.access_token + "");
+socketchat=new WebSocket("ws://api.vsharee.ir/chat/groups/" + id + "/?token=" + authToken.get()?.access_token + "");
+
+
     }, []);
+    function enterHandler(e: any) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            sendmessage()
+        }
+    }
+    function sendmessage(){
+        socketchat.send('Hello Server!');
+    }
     return (
         <div className="vsharee-group-page">
             <CreateGroupModal
@@ -167,10 +184,13 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                         <div className="send">
                             <TextField
                                 id="outlined-basic"
+                                value={chatpm}
                                 placeholder="Sent a new message..."
                                 label=""
                                 variant="outlined"
                                 multiline
+                                onKeyUp={enterHandler}
+onChange={(e)=>setchatpm(e.target.value)}
                             />
                             <i className="material-icons emoji">mood</i>
                         </div>
@@ -185,7 +205,7 @@ const mapStateToProps = (state: ReduxState) => ({
     text: state.language,
     isEdit: state.isEdit,
     myGroups: state.myGroups,
-    userData: state.userData,
+    userData: state.userData
 });
 
 const connector = connect(mapStateToProps);
