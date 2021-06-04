@@ -17,14 +17,12 @@ import {
     Select,
     TextField,
 } from '@material-ui/core';
-import fakeImage from '../../../assets/images/profile/fakeimage.jpg';
 import { get, post, responseValidator } from '../../../scripts/api';
 import { APIPath } from '../../../data';
 import { toast } from 'react-toastify';
 import { getMyGroups } from '../../vsharee.script';
-import { Simulate } from 'react-dom/test-utils';
-import WhiteSpinner from '../../../utilities/whiteSpinner/whiteSpinner.index';
 import { creategroup } from '../../../index';
+import WhiteSpinner from '../../../utilities/component/whiteSpinner/whiteSpinner.index';
 const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupModalProps> = function (
     props: ConnectedProps<typeof connector> & CreateGroupModalProps,
 ) {

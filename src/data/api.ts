@@ -19,6 +19,8 @@ export const __APIPath = {
         my: '/group/joined-groups/',
         uploadPhoto: (id: apiParams) => `/group/upload-photo/?groupid=${id}`,
         getPhoto: (id: apiParams) => `/group/${id}/get-photo-path/`,
+        detail: (id: apiParams) => `/group/detail/${id}/`,
+        join: '/group/join/',
     },
     profile: {
         userdata: '/user/find/username/',
