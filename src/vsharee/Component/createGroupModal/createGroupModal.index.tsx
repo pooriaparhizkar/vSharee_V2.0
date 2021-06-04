@@ -325,7 +325,7 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
                         {/*</div>*/}
                         <div className="my-btn">
                             <Button onClick={submitHandler} variant="contained" color="primary">
-                                {loading ? <WhiteSpinner /> : 'Create'}
+                                {loading ? <WhiteSpinner /> : props.data ? 'Edit' : 'Create'}
                             </Button>
                             <Button
                                 onClick={() => {

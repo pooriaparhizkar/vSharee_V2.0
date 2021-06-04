@@ -46,6 +46,45 @@
 
 ;
 
+@mixin vsharee-pre-xs {
+    @media (max-width: 575.98px) {
+        @content
+    }
+}
+
+;
+
+@mixin vsharee-pre-sm {
+    @media (max-width: 575.98px) {
+        @content
+    }
+}
+
+;
+
+@mixin vsharee-pre-md {
+    @media (max-width: 767.98px) {
+        @content
+    }
+}
+
+;
+
+@mixin vsharee-pre-lg {
+    @media (max-width: 991.98px) {
+        @content
+    }
+}
+
+;
+
+@mixin vsharee-pre-xl {
+    @media (max-width: 1199.98px) {
+        @content
+    }
+}
+
+;
 @mixin vsharee-size($property, $web-value, $mobile-value) {
   @include vsharee-xs {
     #{$property}: $mobile-value;
