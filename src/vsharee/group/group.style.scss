@@ -10,15 +10,23 @@
   display: flex;
 
   .my-container {
-    padding: 24px;
+    @include vsharee-size(padding, 24px, 12px);
+    // padding: 24px;
     display: flex;
     width: 100%;
+    flex-direction: column;
+    @include vsharee-md {
+      flex-direction: row;
+    }
 
     .left {
       flex: 1;
       display: flex;
       flex-direction: column;
-      margin-right: 27px;
+      @include vsharee-md {
+        margin-right: 27px;
+      }
+
 
       .video-player {
         border-radius: 10px;
@@ -35,6 +43,7 @@
           height: 100%;
           outline: none;
           border: none;
+          min-height: 350px;
 
         }
 
@@ -43,16 +52,21 @@
 
       .detail {
         min-height: 300px;
-        max-height: 300px;
+        @include vsharee-md {
+          max-height: 300px;
+        }
+
         height: 100%;
+        overflow: auto;
 
         .group-detail-title {
           display: flex;
           align-items: center;
-          margin-bottom: 32px;
+          @include vsharee-size(margin-bottom, 32px, 16px);
+
 
           h3 {
-            font-size: 24px;
+            @include vsharee-size(font-size, 24px, 20px);
             font-weight: bold;
             color: white;
 
@@ -65,27 +79,53 @@
             color: $gray99;
             transition: color 0.3s;
             cursor: pointer;
-            font-size: 15px;
+            @include vsharee-size(font-size, 15px, 12px);
 
             &:hover {
               color: white;
             }
 
             i {
-              font-size: 18px;
+              @include vsharee-size(font-size, 18px, 15px);
               margin-right: 2px;
             }
           }
         }
 
         .info {
+          @include vsharee-pre-md {
+            > div {
+              background-color: $black2;
+              padding: 18px 10px 24px 18px;
+              border-radius: 10px;
+
+              &:nth-child(1) {
+                margin-bottom: 18px;
+              }
+
+              @include vsharee-md {
+                margin-top: 0;
+              }
+            }
+          }
+
           display: flex;
           @media (max-width: 1450px) {
             flex-direction: column;
+            .gp-controller {
+              padding-top: 16px;
+              border-top: solid 4px $black2;
+            }
+            .context {
+              padding-bottom: 16px;
+            }
           }
 
           .context {
-            max-width: 800px;
+            @media (min-width: 1450px) {
+              max-width: 800px;
+            }
+
             display: flex;
             border-right: solid 4px $black2;
             padding-right: 24px;
@@ -110,7 +150,7 @@
             }
 
             .index {
-              margin-left: 24px;
+              @include vsharee-size(margin-left, 24px, 12px);
               flex: 1;
               display: flex;
               flex-direction: column;
@@ -121,7 +161,7 @@
                 margin-bottom: 4px;
 
                 h4 {
-                  font-size: 22px;
+                  @include vsharee-size(font-size, 22px, 18px);
                   font-weight: 500;
                   color: white;
                 }
@@ -131,14 +171,14 @@
                 }
 
                 label {
-                  font-size: 16px;
+                  @include vsharee-size(font-size, 16px, 12px);
                   font-weight: 300;
                   color: $gray;
                 }
               }
 
               span {
-                font-size: 16px;
+                @include vsharee-size(font-size, 16px, 12px);
                 font-weight: 300;
                 color: $gray;
               }
@@ -162,7 +202,7 @@
                 p {
                   max-height: 140px;
                   overflow-y: auto;
-                  font-size: 16px;
+                  @include vsharee-size(font-size, 16px, 14px);
                   color: $gray77;
                 }
               }
@@ -175,7 +215,7 @@
             padding-bottom: 24px;
 
             h4 {
-              font-size: 21px;
+              @include vsharee-size(font-size, 22px, 18px);
               color: white;
             }
 
@@ -193,12 +233,12 @@
                 color: $gray;
 
                 i {
-                  font-size: 72px;
-                  margin-bottom: 16px;
+                  @include vsharee-size(font-size, 72px, 54px);
+                  @include vsharee-size(margin-bottom, 16px, 12px);
                 }
 
                 p {
-                  font-size: 14px;
+                  @include vsharee-size(font-size, 14px, 12px);
                 }
               }
             }
@@ -208,8 +248,12 @@
     }
 
     .right {
-      @include vsharee-size(min-width, 350px, 250px);
-      @include vsharee-size(max-width, 350px, 250px);
+
+      @include vsharee-md {
+        @include vsharee-size(min-width, 350px, 250px);
+        @include vsharee-size(max-width, 350px, 250px);
+      }
+
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -218,6 +262,14 @@
         background-color: $black2;
         padding: 18px 10px 24px 18px;
         border-radius: 10px;
+
+        &:nth-child(1) {
+          margin-top: 18px;
+        }
+
+        @include vsharee-md {
+          margin-top: 0;
+        }
       }
 
       .member {
@@ -230,7 +282,7 @@
         flex-direction: column;
 
         h3 {
-          font-size: 21px;
+          @include vsharee-size(font-size, 22px, 18px);
           font-weight: 500;
           color: white;
           margin-bottom: 30px;
@@ -254,6 +306,7 @@
               height: 100%;
               object-fit: cover;
               border-radius: 100%;
+              @include vsharee-size(margin-right, 16px, 12px);
               margin-right: 16px;
             }
 
@@ -263,14 +316,14 @@
               justify-content: center;
 
               p {
-                font-size: 14px;
+                @include vsharee-size(font-size, 14px, 12px);
                 color: white;
                 margin-bottom: 2px;
               }
 
               label {
                 color: $gray;
-                font-size: 12px;
+                @include vsharee-size(font-size, 12px, 10px);
                 font-weight: 300;
               }
             }
@@ -286,7 +339,7 @@
         flex-direction: column;
 
         h3 {
-          font-size: 21px;
+          @include vsharee-size(font-size, 22px, 18px);
           font-weight: 500;
           color: white;
           margin-bottom: 30px;
@@ -306,23 +359,23 @@
             justify-content: center;
 
             label {
-              font-size: 18px;
+              @include vsharee-size(font-size, 18px, 15px);
               color: $gray;
               text-align: center;
             }
 
             p {
               max-width: 196px;
-              font-size: 14px;
+              @include vsharee-size(font-size, 14px, 12px);
               font-weight: 300;
               text-align: center;
               color: $grayDark;
             }
 
             img {
+              @include vsharee-size(width, 100px, 80px);
+              @include vsharee-size(height, 100px, 80px);
               margin-top: 18px;
-              width: 100px;
-              height: 100px;
               cursor: pointer;
             }
           }
@@ -349,11 +402,6 @@
           }
         }
       }
-
-
     }
-
-
   }
-
 }
