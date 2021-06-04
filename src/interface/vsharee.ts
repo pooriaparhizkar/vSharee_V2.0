@@ -29,3 +29,8 @@ export enum __Roles {
     Report = 4,
     Form = 3,
 }
+export enum __GroupPrivacy {
+    public = 0,
+    semiPrivate = 1,
+    private = 2,
+}

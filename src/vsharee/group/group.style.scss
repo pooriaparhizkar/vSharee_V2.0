@@ -1,7 +1,7 @@
 @import "src/utilities/references/index";
 
 .vsharee-group-page {
-    animation: vsharee-fade-in 0.5s ease-in-out forwards;
+  animation: vsharee-fade-in 0.5s ease-in-out forwards;
   @include die {
     animation: vsharee-fade-out 0.5s ease-in-out forwards;
   }
@@ -46,11 +46,36 @@
         max-height: 300px;
         height: 100%;
 
-        h3 {
-          font-size: 24px;
-          font-weight: bold;
-          color: white;
+        .group-detail-title {
+          display: flex;
+          align-items: center;
           margin-bottom: 32px;
+
+          h3 {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+
+          }
+
+          .edit {
+            margin-left: 12px;
+            display: flex;
+            align-items: center;
+            color: $gray99;
+            transition: color 0.3s;
+            cursor: pointer;
+            font-size: 15px;
+
+            &:hover {
+              color: white;
+            }
+
+            i {
+              font-size: 18px;
+              margin-right: 2px;
+            }
+          }
         }
 
         .info {
@@ -64,6 +89,7 @@
             display: flex;
             border-right: solid 4px $black2;
             padding-right: 24px;
+            width: 100%;
 
             img {
               min-width: 56px;
@@ -74,6 +100,13 @@
               height: 100%;
               object-fit: cover;
               border-radius: 100%;
+            }
+
+            .vsharee-alphabet-photo {
+              h2 {
+                width: 56px;
+                height: 56px;
+              }
             }
 
             .index {

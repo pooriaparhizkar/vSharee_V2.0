@@ -1,50 +1,79 @@
-import React from 'react';
-import { ReduxState } from 'interface';
+import React, { useEffect, useState } from 'react';
+import { GroupPrivacy, GroupType, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './group.style.scss';
 import waveHand from 'assets/images/group/waveHand.gif';
 import { TextField } from '@material-ui/core';
+import CreateGroupModal from '../Component/createGroupModal/createGroupModal.index';
+import { get, responseValidator } from '../../scripts/api';
+import { APIPath } from '../../data';
+import { useParams } from 'react-router-dom';
+import AlphabetPicture from '../../utilities/component/alphabetPhoto/alphabetPhoto.index';
 const Group: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
+    const [isEditGroup, setIsEditGroup] = useState<boolean>(false);
+    const { id } = useParams<any>();
+    const [groupData, setGroupData] = useState<GroupType>();
+    const [isAdmin, setIsAdmin] = useState<boolean>();
+    function getGroupData() {
+        get<GroupType>(APIPath.groups.detail(id)).then((res) => {
+            if (responseValidator(res.status) && res.data) {
+                setGroupData(res.data);
+                if (res.data.created_by === props.userData?.username) setIsAdmin(true);
+            }
+        });
+    }
+    useEffect(() => {
+        getGroupData();
+    }, []);
     return (
         <div className="vsharee-group-page">
+            <CreateGroupModal
+                data={groupData}
+                show={isEditGroup}
+                onClose={() => {
+                    setIsEditGroup(false);
+                    getGroupData();
+                }}
+            />
             <div className="my-container">
                 <div className="left">
                     <div className="video-player">
                         <iframe src="https://www.youtube.com/embed/OaqeH9_yQBw" />
                     </div>
                     <div className="detail">
-                        <h3>Group Information</h3>
+                        <div className="group-detail-title">
+                            <h3>Group Information</h3>
+                            {isAdmin && (
+                                <div onClick={() => setIsEditGroup(true)} className="edit">
+                                    <i className="material-icons">edit</i>
+                                    <span>Edit</span>
+                                </div>
+                            )}
+                        </div>
+
                         <div className="info">
                             <div className="context">
-                                <img
-                                    alt="group-photo"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoiMtJG_PC4lsb3-GZAiTZkUXAm3VlkJC1Ag&usqp=CAU"
-                                />
+                                {groupData &&
+                                    (groupData?.photo ? (
+                                        <img alt="group-photo" src={groupData.photo_path} />
+                                    ) : (
+                                        <AlphabetPicture title={groupData?.title} size={'medium'} type={'circle'} />
+                                    ))}
                                 <div className="index">
                                     <div className="gp-name">
-                                        <h4>Wanted Group</h4>
+                                        <h4>{groupData?.title}</h4>
                                         <span />
-                                        <label>18 members</label>
+                                        <label>{groupData?.members.length} members</label>
                                     </div>
-                                    <span>public group</span>
+                                    <span>
+                                        {groupData?.privacy === GroupPrivacy.public
+                                            ? 'Public'
+                                            : groupData?.privacy === GroupPrivacy.semiPrivate
+                                            ? 'Semi Private'
+                                            : 'Private'}
+                                    </span>
                                     <div className="description">
-                                        <p>
-                                            Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien
-                                            metus, scelerisque nec pharetra id, tempor a tortor. Pellentesque non
-                                            dignissim neque. Donec facilisis tortor ut augue lacinia, at viverra est
-                                            semper. Sed sapien metus, scelerisque nec pharetra id, tempor a tortor.
-                                            Pellentesque non dignissim neque. Ut porta viv Donec facilisis tortor ut
-                                            augue lacinia, at viverra est semper. Sed sapien metus, scelerisque nec
-                                            pharetra id, tempor a tortor. Pellentesque non dignissim neque. Ut porta viv
-                                            Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien
-                                            metus, scelerisque nec pharetra id, tempor a tortor. Pellentesque non
-                                            dignissim neque. Ut porta viv Donec facilisis tortor ut augue lacinia, at
-                                            viverra est semper. Sed sapien metus, scelerisque nec pharetra id, tempor a
-                                            tortor. Pellentesque non dignissim neque. Ut porta viv Donec facilisis
-                                            tortor ut augue lacinia, at viverra est semper. Sed sapien metus,
-                                            scelerisque nec pharetra id, tempor a tortor. Pellentesque non dignissim
-                                            neque. Ut porta vivUt porta viverra est, ut dignissim elit elementum ut.
-                                        </p>
+                                        <p>{groupData?.describtion}</p>
                                     </div>
                                 </div>
                             </div>
@@ -156,6 +185,7 @@ const mapStateToProps = (state: ReduxState) => ({
     text: state.language,
     isEdit: state.isEdit,
     myGroups: state.myGroups,
+    userData: state.userData,
 });
 
 const connector = connect(mapStateToProps);
