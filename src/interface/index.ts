@@ -1,7 +1,7 @@
 import { __Pagination, __Response } from './general';
 import { __ReduxAction, __ReduxState } from './redux';
 
-import { __GroupType, __Roles, __WorkSpace } from './vsharee';
+import { __GroupPrivacy, __GroupType, __Roles, __WorkSpace } from './vsharee';
 import { __AuthStatus, __Tokens, __UserData } from './register';
 
 export interface Response<D> extends __Response<D> {}
@@ -15,3 +15,4 @@ export interface GroupType extends __GroupType {}
 export interface UserData extends __UserData {}
 
 export { __AuthStatus as AuthStatus };
+export { __GroupPrivacy as GroupPrivacy };
