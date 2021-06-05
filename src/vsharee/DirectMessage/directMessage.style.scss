@@ -17,35 +17,19 @@
 
     .friend-list {
       @include vsharee-lg{
-        icon-back{
-          display: flex;
-          material-icons{
-            display: flex;
-          }
-        }
-
+      max-width: 300px;
       }
-      .icon-back {
-          position: relative;
-          background-color: #16151a;
-          display: flex;
 
-          .material-icons {
-            color: #7a7a7a;
-            position: absolute;
-            top: 0;
-            left: 10px;
-            height: 100%;
-             display: none;
-            align-items: center;
-            cursor: pointer;
-
-          }
-        }
       display: flex;
+      &.active{
+
+        @include vsharee-pre-lg{
+        display: none !important;
+        }
+      }
       background-color: $black2;
       width: 100%;
-      max-width: 250px;
+
 
 
       flex-direction: column;
@@ -127,62 +111,6 @@
 
           }
 
-          .right-item {
-            align-items: center;
-            display: flex;
-
-            p {
-              margin-left: 10px;
-
-              font-size: 14px;
-              color: #ffffff;
-            }
-
-            span {
-              margin-left: 10px;
-
-              font-size: 12px;
-              font-weight: 300;
-              color: #656369;
-              display: none;
-            }
-
-          }
-
-
-        }
-
-        .items-online {
-          margin-top: 15px;
-          display: flex;
-
-          .left-items {
-            flex: 1;
-            width: 100%;
-            height: 100%;
-            max-width: 38px;
-            max-height: 38px;
-            min-width: 38px;
-            min-height: 38px;
-            display: flex;
-            position: relative;
-
-
-            img {
-              width: 100%;
-              height: 100%;
-              max-width: 38px;
-              max-height: 38px;
-              min-width: 38px;
-              min-height: 38px;
-              border-radius: 100%;
-              object-fit: cover;
-              flex: 1;
-            }
-
-
-          }
-
           .right-items {
             align-items: center;
             display: flex;
@@ -199,7 +127,7 @@
 
               font-size: 12px;
               font-weight: 300;
-              color: #656369;
+              color: white;
               display: none;
             }
 
@@ -207,6 +135,8 @@
 
 
         }
+
+
 
 
       }
@@ -217,15 +147,49 @@
     .chat-box {
 
       @include vsharee-lg{
+        margin-left: 24px;
         display: flex;
       }
-      margin-left: 24px;
+
       width: 100%;
       display: none;
+      &.active{
+        display: flex !important;
+      }
       flex-direction: column;
 
 
       .top-chat {
+        padding: 0 12px;
+        @include vsharee-pre-lg{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+
+
+          .return {
+
+            color: #7a7a7a;
+            position: absolute;
+            top: 0;
+            left: 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            @include vsharee-lg{
+              display: none;
+            }
+           label{
+             margin: 0 0 0 -4px;
+             font-size: 14px;
+           }
+          }
+
+
         background-color: #16151a;
         max-height: 100px;
         height: 100%;
@@ -234,18 +198,14 @@
         margin-bottom: 15px;
         border-radius: 5px;
         display: flex;
+        position: relative;
 
 
         .top-left-items {
-            flex: 1;
-            width: 100%;
-            height: 100%;
-            max-width: 38px;
-            max-height: 38px;
-            min-width: 38px;
-            min-height: 38px;
-            position: relative;
-            padding: 30px;
+          display: flex;
+          align-items: center;
+          height: 100%;
+
           img {
             width: 100%;
             height: 100%;
@@ -257,24 +217,40 @@
             object-fit: cover;
             flex: 1;
           }
+          @include vsharee-pre-lg{
+            position: absolute;
+            top: 0;
+            right: 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+          }
 
 
         }
 
 
         .top-right-items {
-          align-items: center;
+
           display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          @include vsharee-lg{
+            margin-left: 12px;
+            align-items: flex-start;
+
+          }
 
           p {
-            margin-left: 40px;
+
 
             font-size: 14px;
             color: #ffffff;
           }
 
           span {
-            margin-left: 10px;
+
             font-size: 12px;
             font-weight: 300;
             color: #ffffff;

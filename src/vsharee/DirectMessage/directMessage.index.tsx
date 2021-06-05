@@ -12,27 +12,25 @@ import DashboardItemsSkeleton from "../Dashboard/skeleton/dashboard.skeleton";
 import {TextField} from "@material-ui/core";
 
 
-
 const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
 
-
+    const [userSelected, setUserSelected] = useState<UserData | null>(null)
     return (
         <div className="vsharee-directmassage-page">
 
 
             <div className="my-container">
-                <div className="friend-list">
-                    <div className="icon-back">
-                        <span className="material-icons">
-                        keyboard_return
-                        </span>
-                    </div>
+                <div className={`friend-list ${userSelected ? "active" : ""}`}>
+
                     <div className="search">
                         <TextField id="outlined-basic" label="Search" variant="outlined"/>
 
                     </div>
                     <div className="context">
-                        <div className="items">
+                        <div onClick={() => {
+                            setUserSelected(props.userData)
+                        }} className="items">
+
                             <div className="left-items">
                                 <img src={fakePic} alt="fakePic"/>
                             </div>
@@ -43,30 +41,10 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
 
 
                         </div>
-                        <div className="items online">
-                            <div className="left-items">
-                                <img src={fakePic} alt="fakePic"/>
-                                <i className="material-icons-outlined circle">circle</i>
-                            </div>
-                            <div className="right-item">
-                                <p>username</p>
-                                <span>watching movie</span>
-                            </div>
+                        <div onClick={() => {
+                            setUserSelected(props.userData)
+                        }} className="items online">
 
-
-                        </div>
-                        <div className="items">
-                            <div className="left-items">
-                                <img src={fakePic} alt="fakePic"/>
-                            </div>
-                            <div className="right-items">
-                                <p>username</p>
-                                <span>watching movie</span>
-                            </div>
-
-
-                        </div>
-                        <div className="items online">
                             <div className="left-items">
                                 <img src={fakePic} alt="fakePic"/>
                                 <i className="material-icons-outlined circle">circle</i>
@@ -78,7 +56,10 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
 
 
                         </div>
-                        <div className="items">
+                        <div onClick={() => {
+                            setUserSelected(props.userData)
+                        }} className="items">
+
                             <div className="left-items">
                                 <img src={fakePic} alt="fakePic"/>
                             </div>
@@ -89,30 +70,10 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
 
 
                         </div>
-                        <div className="items online">
-                            <div className="left-items">
-                                <img src={fakePic} alt="fakePic"/>
-                                <i className="material-icons-outlined circle">circle</i>
-                            </div>
-                            <div className="right-items">
-                                <p>username</p>
-                                <span>watching movie</span>
-                            </div>
+                        <div onClick={() => {
+                            setUserSelected(props.userData)
+                        }} className="items online">
 
-
-                        </div>
-                        <div className="items">
-                            <div className="left-items">
-                                <img src={fakePic} alt="fakePic"/>
-                            </div>
-                            <div className="right-items">
-                                <p>username</p>
-                                <span>watching movie</span>
-                            </div>
-
-
-                        </div>
-                        <div className="items online">
                             <div className="left-items">
                                 <img src={fakePic} alt="fakePic"/>
                                 <i className="material-icons-outlined circle">circle</i>
@@ -124,13 +85,49 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
 
 
                         </div>
+                        <div onClick={() => {
+                            setUserSelected(props.userData)
+                        }} className="items">
 
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                            </div>
+                            <div className="right-items">
+                                <p>username</p>
+                                <span>watching movie</span>
+                            </div>
+
+
+                        </div>
+                        <div onClick={() => {
+                            setUserSelected(props.userData)
+                        }} className="items">
+
+                            <div className="left-items">
+                                <img src={fakePic} alt="fakePic"/>
+                            </div>
+                            <div className="right-items">
+                                <p>username</p>
+                                <span>watching movie</span>
+                            </div>
+
+
+                        </div>
 
                     </div>
 
                 </div>
-                <div className="chat-box">
+                <div className={`chat-box ${userSelected ? "active" : ""}`}>
                     <div className="top-chat">
+                        <div onClick={() => setUserSelected(null)} className="return">
+
+                        <span className="material-icons">
+                        arrow_back_ios
+                        </span>
+
+                            <label>Chats</label>
+                        </div>
+
                         <div className="top-left-items">
                             <img src={fakePic} alt="fakePic"/>
                         </div>
@@ -172,6 +169,7 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
 
 const mapStateToProps = (state: ReduxState) => ({
     text: state.language,
+    userData: state.userData
 });
 
 const connector = connect(mapStateToProps);
