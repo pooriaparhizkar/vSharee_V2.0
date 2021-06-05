@@ -1,39 +1,43 @@
-import React, {useEffect, useState} from 'react';
-import {NotificationType, ReduxState, UserData} from 'interface';
+import React, { useEffect, useState } from 'react';
+import { NotificationType, ReduxState, UserData } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './notification.style.scss';
-import {get, responseValidator} from "../../scripts/api";
-import {APIPath} from "../../data";
-import {toast} from "react-toastify";
+import { get, responseValidator } from "../../scripts/api";
+import { APIPath } from "../../data";
+import { toast } from "react-toastify";
 
 
 const Notification: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
 
     const [notification, setNotification] = useState<any>([]);
-const [firendReqCount,setfirendReqCount]=useState<any>("0")
-const [groupReqCount,setgroupReqCount]=useState<any>("0")
-const [groupNotifCount,setgroupNotifCount]=useState<any>("0")
+    const [firendReqCount, setfirendReqCount] = useState<any>("0")
+    const [groupReqCount, setgroupReqCount] = useState<any>("0")
+    const [groupNotifCount, setgroupNotifCount] = useState<any>("0")
+    const [previewNotif, setpreviewNotif] = useState<any>(true)
+    const [detailNotiffriendReq, setdetailNotiffriendReq] = useState<any>(false)
+    const [countFollowReqview,setcountFollowReqview]=useState<any>(false)
+    const [followReqlist,setfollowReqlist]=useState<any>([])
     useEffect(() => {
-            get<any>(APIPath.notification.index).then((res) => {
+        get<any>(APIPath.notification.index).then((res) => {
             if (responseValidator(res.status) && res.data) {
-               
-                console.log(res.data)
-                const notifarray=[]
-for(let i =0;i<res.data.length;i++){
-    if(res.data[i].notification_type===NotificationType.GroupRequestnumber)
-    setgroupReqCount(res.data[i].text_preview)
-    else if(res.data[i].notification_type===NotificationType.FollowRequestNumber)
-    setfirendReqCount(res.data[i].text_preview)
-    else if(res.data[i].notification_type===NotificationType.GroupNotifnumber)
-    setgroupNotifCount(res.data[i].text_preview)
-    else{
-       
-            notifarray.push(res.data[i])
-    }
 
-}
-console.log(notifarray)
-setNotification(notifarray)
+                console.log(res.data)
+                const notifarray = []
+                for (let i = 0; i < res.data.length; i++) {
+                    if (res.data[i].notification_type === NotificationType.GroupRequestnumber)
+                        setgroupReqCount(res.data[i].text_preview)
+                    else if (res.data[i].notification_type === NotificationType.FollowRequestNumber)
+                        setfirendReqCount(res.data[i].text_preview)
+                    else if (res.data[i].notification_type === NotificationType.GroupNotifnumber)
+                        setgroupNotifCount(res.data[i].text_preview)
+                    else {
+
+                        notifarray.push(res.data[i])
+                    }
+
+                }
+                console.log(notifarray)
+                setNotification(notifarray)
                 // if (NotificationType.Follow == res.data){
                 //
                 // }
@@ -42,45 +46,90 @@ setNotification(notifarray)
                 toast.error('Something went wrong ');
             }
         });
+        if(props.userData?.is_private){
+            setcountFollowReqview(true)
+               get<any>(APIPath.notification.followReq).then((res) => {
+            if (responseValidator(res.status) && res.data) {
 
+                console.log(res.data)
+        setfollowReqlist(res.data.result)
+
+            } else {
+                toast.error('Something went wrong ');
+            }
+        });
+        }
+        else{
+
+        }
+     
     }, []);
 
-
-
+    function clickonfriendReq() {
+        setpreviewNotif(false)
+        setdetailNotiffriendReq(true)
+    }
+    function clickonbackArrow(){
+        setpreviewNotif(true)
+        setdetailNotiffriendReq(false)
+    }
     return (
 
-            <div className="vsharee-notification">
-                            <div className="friends-list">
+        <div className="vsharee-notification">
+            <div hidden={!previewNotif}>
+                <div hidden={!countFollowReqview} className="friends-list" onClick={clickonfriendReq}>
 
-                                <p>Friend Requests </p>
-                                <i/>
-                                <span>{firendReqCount}</span>
+                    <p>Friend Requests </p>
+                    <i />
+                    <span>{firendReqCount}</span>
 
 
 
-                            </div>
-                            <div className="groups">
-                                <p>Group Requests </p>
-                                <i/>
-                                <span>{groupReqCount}</span>
+                </div>
+                <div className="groups">
+                    <p>Group Requests </p>
+                    <i />
+                    <span>{groupReqCount}</span>
 
-                            </div>
-                            <div className="groups">
-                                <p>Group Notif </p>
-                                <i/>
-                                <span>{groupNotifCount}</span>
+                </div>
+                <div className="groups">
+                    <p>Group Notif </p>
+                    <i />
+                    <span>{groupNotifCount}</span>
 
-                            </div>
-                            {notification.map((index:any)=>(
-                            
-                                  <div key={index.id} className="group-accept-join">
-                                <p>{index.text_preview}</p>
+                </div>
+                {notification.map((index: any) => (
 
-                            </div> 
-                            ))}
-                         
-                           
-                        </div>
+                    <div key={index.id} className="group-accept-join">
+                        <p>{index.text_preview}</p>
+
+                    </div>
+                ))}
+            </div>
+            <div hidden={!detailNotiffriendReq}>
+            <span style={{cursor:'pointer'}} onClick={clickonbackArrow} className="material-icons-outlined">
+arrow_back
+</span>
+               
+                    {followReqlist.map((index:any)=>(
+                      <div key={index.id} className="friends-list" >   
+                       <p>{index.sender} want Follow You </p>
+                    <i />
+                    <span style={{ color: 'green' }} className="material-icons-outlined">
+                        check_circle
+                    </span>
+                    <span style={{ color: 'red' }} className="material-icons-outlined">
+                        highlight_off
+                    </span>
+                </div>
+                    ))}
+                   
+             
+            </div>
+
+
+
+        </div>
 
 
     );
@@ -89,6 +138,7 @@ setNotification(notifarray)
 
 const mapStateToProps = (state: ReduxState) => ({
     text: state.language,
+    userData:state.userData
 });
 
 const connector = connect(mapStateToProps);

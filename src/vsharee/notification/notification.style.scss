@@ -1,6 +1,6 @@
 @import 'src/utilities/references/index';
 .vsharee-notification {
-          background-color: #00b944;
+          background-color: $black2;
           height: 300px;
           width: 300px;
           display: flex;
@@ -20,7 +20,7 @@
             background-color: $black2;
             display: flex;
             flex-direction: row;
-            height: 100%;
+      
             width: 100%;
             align-items: center;
             justify-content: center;
@@ -33,7 +33,7 @@
           }
           .groups{
             background-color: $black2;
-            height: 100%;
+           
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -48,7 +48,7 @@
 
           }
           .group-accept-join{
-            height: 100%;
+         
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -58,7 +58,7 @@
             border-bottom: solid 1px #8b8b8b;
         }
           .user-accept-request{
-            height: 100%;
+         
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -68,7 +68,7 @@
             border-bottom: solid 1px #8b8b8b;
           }
           .start-follow{
-            height: 100%;
+           
             width: 100%;
             display: flex;
             flex-direction: row;
