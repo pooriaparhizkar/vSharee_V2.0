@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GroupType, ReduxState } from 'interface';
+import { GroupPrivacy, GroupType, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './joinGroupModal.style.scss';
 import { Modal } from 'react-bootstrap';
@@ -78,6 +78,14 @@ const JoinGroupModal: React.FC<ConnectedProps<typeof connector> & JoinGroupModal
                             <h2>{data.title}</h2>
                             <h6>#{data.groupid}</h6>
                         </div>
+                        <span>
+                            {data.members.length} Members -{' '}
+                            {data?.privacy === GroupPrivacy.public
+                                ? 'Public'
+                                : data?.privacy === GroupPrivacy.semiPrivate
+                                ? 'Semi Private'
+                                : 'Private'}
+                        </span>
                         <p>{data.describtion}</p>
                         <div className="my-btn">
                             <Button onClick={submitHandler} variant="contained" color="primary">

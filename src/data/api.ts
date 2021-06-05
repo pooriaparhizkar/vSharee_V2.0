@@ -1,5 +1,6 @@
 type apiParams = string | number;
 export const __APIPath = {
+    baseurl:'/',
     verifyEmail: '/user/email-verify',
     user: {
         signup: '/user/auth/registration/',
@@ -21,6 +22,10 @@ export const __APIPath = {
         getPhoto: (id: apiParams) => `/group/${id}/get-photo-path/`,
         detail: (id: apiParams) => `/group/detail/${id}/`,
         join: '/group/join/',
+        permissions: (id: apiParams, member: string) => `/group/${id}/permissions/?member=${member}`,
+        preview: (id: apiParams) => `/group/preview/?group=${id}`,
+        invite: '/group/invite/',
+
     },
     profile: {
         userdata: '/user/find/username/',
@@ -33,4 +38,9 @@ export const __APIPath = {
         upload_photo: (username: string) => `/user/${username}/edit-profile/upload-photo/`,
         edit_profile: (username: string) => `/user/${username}/edit-profile/`,
     },
+    notification:{
+        index: '/notifications/',
+        followReq:'/user/relations/follow-requests/',
+        groupnotice:'/notifications/groups-notice-list/'
+    }
 };
