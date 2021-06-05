@@ -12,6 +12,7 @@ import DashboardItemsSkeleton from "../Dashboard/skeleton/dashboard.skeleton";
 import {TextField} from "@material-ui/core";
 
 
+
 const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
 
 
@@ -21,6 +22,11 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
 
             <div className="my-container">
                 <div className="friend-list">
+                    <div className="icon-back">
+                        <span className="material-icons">
+                        keyboard_return
+                        </span>
+                    </div>
                     <div className="search">
                         <TextField id="outlined-basic" label="Search" variant="outlined"/>
 
@@ -42,7 +48,7 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
                                 <img src={fakePic} alt="fakePic"/>
                                 <i className="material-icons-outlined circle">circle</i>
                             </div>
-                            <div className="right-items">
+                            <div className="right-item">
                                 <p>username</p>
                                 <span>watching movie</span>
                             </div>

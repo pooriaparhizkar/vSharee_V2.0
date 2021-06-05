@@ -16,6 +16,32 @@
 
 
     .friend-list {
+      @include vsharee-lg{
+        icon-back{
+          display: flex;
+          material-icons{
+            display: flex;
+          }
+        }
+
+      }
+      .icon-back {
+          position: relative;
+          background-color: #16151a;
+          display: flex;
+
+          .material-icons {
+            color: #7a7a7a;
+            position: absolute;
+            top: 0;
+            left: 10px;
+            height: 100%;
+             display: none;
+            align-items: center;
+            cursor: pointer;
+
+          }
+        }
       display: flex;
       background-color: $black2;
       width: 100%;
@@ -101,7 +127,7 @@
 
           }
 
-          .right-items {
+          .right-item {
             align-items: center;
             display: flex;
 
