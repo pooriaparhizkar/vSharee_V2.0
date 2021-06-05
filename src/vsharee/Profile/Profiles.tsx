@@ -9,7 +9,7 @@ import Logo from '../../assets/images/landing/logo.png';
 import { Dropdown, Button } from 'react-bootstrap';
 
 import { VshareeLanguage } from '../vsharee.lang';
-import { AuthStatus, ReduxState } from '../../interface';
+import { AuthStatus, GroupType, ReduxState } from '../../interface';
 import { connect } from 'react-redux';
 import { APIPath, RoutePath } from '../../data';
 import { Link, useHistory } from 'react-router-dom';
@@ -19,6 +19,8 @@ import { setAuth, setIsEdit } from '../../redux/actions';
 import { authToken } from '../../scripts/storage';
 import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
+import JoinGroupModal from '../Component/joinGroupModal/joinGroupModal.index';
+import AlphabetPicture from '../../utilities/component/alphabetPhoto/alphabetPhoto.index';
 
 class Profiles extends React.Component<any, any> {
     constructor(props: any) {
@@ -38,7 +40,9 @@ class Profiles extends React.Component<any, any> {
             list: [{ name: 'asdasd' }, { name: 'asdasd' }, { name: 'asdasd' }, { name: 'asdasd' }, { name: 'asdasd' }],
             title: '',
             name: '',
-            hidegroups:false
+            hidegroups: false,
+            isJoinGroupModal: false,
+            idSelected: undefined,
         };
         this.profileSettingHandler = this.profileSettingHandler.bind('ss');
     }
@@ -92,21 +96,18 @@ class Profiles extends React.Component<any, any> {
         get<any>(APIPath.profile.edit_profile(loc[4])).then((res) => {
             console.log(res.data);
             if (responseValidator(res.status)) {
-
                 this.setState({
-
-                    photourl:res.data.photo_url
-                })
+                    photourl: res.data.photo_url,
+                });
                 if (this.props.userData.username === loc[4]) {
-                    if(res.data.is_private){
+                    if (res.data.is_private) {
                         this.setState({
-                            hidegroups:true
-                        })
-                    }
-                    else{
+                            hidegroups: true,
+                        });
+                    } else {
                         this.setState({
-                            hidegroups:false
-                        })
+                            hidegroups: false,
+                        });
                     }
                 }
 
@@ -174,6 +175,13 @@ class Profiles extends React.Component<any, any> {
     render() {
         return (
             <React.Fragment>
+                <JoinGroupModal
+                    id={this.state.idSelected}
+                    show={this.state.isJoinGroupModal}
+                    onClose={() => {
+                        this.setState({ isJoinGroupModal: false, idSelected: undefined });
+                    }}
+                />
                 <Modal
                     className="vsharee-follower-list-modal"
                     show={this.state.showlist}
@@ -206,9 +214,12 @@ class Profiles extends React.Component<any, any> {
                             <div className="col-md-1 "></div>
 
                             <div className="col-md-7 col-xs-12 div-item-description">
-
-                                <img onError={()=>this.setState({photourl:Logo})} src={this.state.photourl} alt="" id='photoprofile' />
-                              
+                                <img
+                                    onError={() => this.setState({ photourl: Logo })}
+                                    src={this.state.photourl}
+                                    alt=""
+                                    id="photoprofile"
+                                />
 
                                 <div className="text-description">
                                     <h1>{this.state.resdata.username}</h1>
@@ -282,15 +293,34 @@ class Profiles extends React.Component<any, any> {
                             <div className="col-md-1 "></div>
                             <div className="col-md-10 col-xs-12 div-item-group" hidden={this.state.Emptystate}>
                                 <div className="row ">
-                                    {this.state.usergroup.map((list: any, i: any) => (
-                                        <div key={i} className="col-md-6 col-xs-12">
+                                    {this.state.usergroup.map((list: GroupType, i: any) => (
+                                        <div
+                                            onClick={() =>
+                                                this.setState({ isJoinGroupModal: true, idSelected: list.groupid })
+                                            }
+                                            key={i}
+                                            className="col-md-6 col-xs-12"
+                                        >
                                             <div className="row">
                                                 <div className="col-6 div-item-group-detail">
-                                                    <img src={TestImg} alt=""></img>
-                                                    <h1>{list.the_group}</h1>
+                                                    {list.photo ? (
+                                                        <img src={list.photo_path} alt="fakePic" />
+                                                    ) : (
+                                                        <AlphabetPicture
+                                                            size={'medium'}
+                                                            title={list.title}
+                                                            type={'square'}
+                                                        />
+                                                    )}
+                                                    {/*<AlphabetPicture*/}
+                                                    {/*    size={'medium'}*/}
+                                                    {/*    title={list.the_group}*/}
+                                                    {/*    type={'square'}*/}
+                                                    {/*/>*/}
+                                                    <h1>{list.title}</h1>
                                                 </div>
                                                 <div className="col-6 div-item-group-detail">
-                                                    <h5>129</h5>
+                                                    <h5>{list.members.length}</h5>
                                                     <h6>members</h6>
                                                 </div>
                                             </div>
@@ -313,42 +343,42 @@ class Profiles extends React.Component<any, any> {
                             <div className="col-md-1 "></div>
                         </div>
 
-                        <div className="row mayknow-row">
-                            <div className="col-md-1 "></div>
-                            <div className="col-md-11 col-xs-12 div-item-mayknow-title">
-                                <h1>{VshareeLanguage.Profile.body.mayknow}</h1>
-                            </div>
-                            <div className="col-md-1 "></div>
-                            <div className="col-md-10 col-xs-12 div-item-mayknow">
-                                <div className="row div-item-mayknow-detail">
-                                    <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">
-                                        <img src={TestImg} alt=""></img>
-                                        <h1>Alan Ryan</h1>
-                                    </div>
-                                    <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">
-                                        <img src={TestImg} alt=""></img>
-                                        <h1>Alan Ryan</h1>
-                                    </div>
-                                    <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">
-                                        <img src={TestImg} alt=""></img>
-                                        <h1>Alan Ryan</h1>
-                                    </div>
-                                    <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">
-                                        <img src={TestImg} alt=""></img>
-                                        <h1>Alan Ryan</h1>
-                                    </div>
-                                    <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">
-                                        <img src={TestImg} alt=""></img>
-                                        <h1>Alan Ryan</h1>
-                                    </div>
-                                    <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">
-                                        <img src={TestImg} alt=""></img>
-                                        <h1>Alan Ryan</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-1 "></div>
-                        </div>
+                        {/*<div className="row mayknow-row">*/}
+                        {/*    <div className="col-md-1 "></div>*/}
+                        {/*    <div className="col-md-11 col-xs-12 div-item-mayknow-title">*/}
+                        {/*        <h1>{VshareeLanguage.Profile.body.mayknow}</h1>*/}
+                        {/*    </div>*/}
+                        {/*    <div className="col-md-1 "></div>*/}
+                        {/*    <div className="col-md-10 col-xs-12 div-item-mayknow">*/}
+                        {/*        <div className="row div-item-mayknow-detail">*/}
+                        {/*            <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">*/}
+                        {/*                <img src={TestImg} alt=""></img>*/}
+                        {/*                <h1>Alan Ryan</h1>*/}
+                        {/*            </div>*/}
+                        {/*            <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">*/}
+                        {/*                <img src={TestImg} alt=""></img>*/}
+                        {/*                <h1>Alan Ryan</h1>*/}
+                        {/*            </div>*/}
+                        {/*            <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">*/}
+                        {/*                <img src={TestImg} alt=""></img>*/}
+                        {/*                <h1>Alan Ryan</h1>*/}
+                        {/*            </div>*/}
+                        {/*            <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">*/}
+                        {/*                <img src={TestImg} alt=""></img>*/}
+                        {/*                <h1>Alan Ryan</h1>*/}
+                        {/*            </div>*/}
+                        {/*            <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">*/}
+                        {/*                <img src={TestImg} alt=""></img>*/}
+                        {/*                <h1>Alan Ryan</h1>*/}
+                        {/*            </div>*/}
+                        {/*            <div className="col-md-2 col-xs-4 div-item-mayknow-detail-col">*/}
+                        {/*                <img src={TestImg} alt=""></img>*/}
+                        {/*                <h1>Alan Ryan</h1>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*    <div className="col-md-1 "></div>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </React.Fragment>

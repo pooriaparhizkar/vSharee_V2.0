@@ -8,10 +8,11 @@
   outline: none !important;
   position: relative;
   z-index: 100;
-animation: vsharee-fade-in 0.5s ease-in-out forwards;
+  animation: vsharee-fade-in 0.5s ease-in-out forwards;
   @include die {
     animation: vsharee-fade-out 0.5s ease-in-out forwards;
   }
+
   .btn:focus {
     box-shadow: none !important;
   }
@@ -74,7 +75,23 @@ animation: vsharee-fade-in 0.5s ease-in-out forwards;
     align-items: center;
 
     .dropdownClasss {
+      margin-top: -6px;
+
       .dropdownToggleClasss {
+        img {
+          margin-top: 6px;
+          margin-right: -4px;
+          margin-left: 6px;
+          min-width: 40px;
+          min-height: 40px;
+          max-width: 40px;
+          max-height: 40px;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 100%;
+        }
+
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -125,11 +142,13 @@ animation: vsharee-fade-in 0.5s ease-in-out forwards;
       overflow: hidden;
       height: 0;
       transition: height 0.4s;
-      label{
+
+      label {
 
         color: #ffffff;
 
       }
+
       &.open {
         overflow: auto;
         height: 250px;
@@ -166,13 +185,16 @@ animation: vsharee-fade-in 0.5s ease-in-out forwards;
           width: 32px;
           height: 32px;
           border-radius: 8px;
-          margin-right: 8px;
+
+          object-fit: cover;
         }
+
+
 
         p {
           color: $gray99;
           font-size: 16px;
-          margin: 0;
+          margin: 0 0 0 8px;
         }
       }
 
@@ -193,6 +215,7 @@ animation: vsharee-fade-in 0.5s ease-in-out forwards;
           width: 32px;
           height: 32px;
           border-radius: 100%;
+          background-color: black;
           margin-right: 8px;
         }
 
@@ -240,6 +263,7 @@ animation: vsharee-fade-in 0.5s ease-in-out forwards;
     color: unset;
 
     align-items: center;
+
 
     i {
       color: $black !important;

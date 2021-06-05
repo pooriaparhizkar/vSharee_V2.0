@@ -16,109 +16,92 @@ import {
     Select,
     TextField,
 } from '@material-ui/core';
-import Logo from '../../../assets/images/landing/logo.png'
+import Logo from '../../../assets/images/landing/logo.png';
 import fakeImage from '../../../assets/images/profile/fakeimage.jpg';
 import { setAuth, setIsEdit } from '../../../redux/actions';
 import { APIPath, RoutePath } from '../../../data';
+
 const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const LANG = props.text.components.CreateGroupModal;
     const [privacy, setPrivacy] = useState<string>('false');
     const [firstname, setfirstname] = useState<string | undefined>(props.userData?.firstname);
     const [lastname, setlastname] = useState<string | undefined>(props.userData?.lastname);
     const [bio, setbio] = useState<string | undefined>(props.userData?.bio);
-    const [photourl,setphotourl] = useState<string | undefined>();
-    const [resdata,setresdata] = useState<any>();
-    useEffect(() => {
-        const location = window.location.href;
-        const loc = location.split('/');
-   get_photo()
-        get<any>(APIPath.profile.userdata, { search: loc[4] }).then((res) => {
-            console.log(res);
-            if (responseValidator(res.status)) {
-               setresdata(res.data[0]);
-            }
-        });
-   
-      },[]);
-      function openinp(){
-        const location = window.location.href;
-        const loc = location.split('/');
+    const [photourl, setphotourl] = useState<string | undefined>();
+    const [resdata, setresdata] = useState<any>(props.userData);
 
-        if (props.userData?.username === loc[4]) {
-             document.getElementById('photoinp')?.click()  
-        }
-     
+    function openinp() {
+        document.getElementById('photoinp')?.click();
     }
-    function get_photo(){
+
+    function get_photo() {
         const location = window.location.href;
         const loc = location.split('/');
-        get<any>(APIPath.profile.edit_profile(loc[4])).then((res) => {
+        get<any>(APIPath.profile.edit_profile(props.userData!.username)).then((res) => {
             console.log(res.data);
             if (responseValidator(res.status)) {
-                setphotourl(res.data.photo_url)
-                if(res.data.is_private)
-              setPrivacy("true")
-              else
-              setPrivacy("false")
+                setphotourl(res.data.photo_url);
+                if (res.data.is_private) setPrivacy('true');
+                else setPrivacy('false');
                 // this.setState({ followingCount: res.data.followings_count, followingList: res.data.result });
             }
             // else{
             //     this.setState({
             //         photourl:Logo
-            //     }) 
+            //     })
             // }
         });
     }
-function upload_photo(e:any){
-    const file= e.target.files[0]
-    console.log(file)
-    post<any>(APIPath.profile.upload_photo(resdata.username),{}).then((res) => {
-       
-        if (responseValidator(res.status) && res.data) {
-          
-                    const fd = new FormData();
 
+    function upload_photo(e: any) {
+        const file = e.target.files[0];
+        console.log(file);
+        post<any>(APIPath.profile.upload_photo(resdata.username), {}).then((res) => {
+            if (responseValidator(res.status) && res.data) {
+                const fd = new FormData();
 
-                    fd.append('key', res.data.upload_photo.fields.key);
-                    //  fd.append('acl', 'public-read');
-                    //fd.append('Content-Type', file.type);
-                    fd.append('AWSAccessKeyId', res.data.upload_photo.fields.AWSAccessKeyId);
-                    fd.append('policy', res.data.upload_photo.fields.policy)
-                    fd.append('signature', res.data.upload_photo.fields.signature);
+                fd.append('key', res.data.upload_photo.fields.key);
+                //  fd.append('acl', 'public-read');
+                //fd.append('Content-Type', file.type);
+                fd.append('AWSAccessKeyId', res.data.upload_photo.fields.AWSAccessKeyId);
+                fd.append('policy', res.data.upload_photo.fields.policy);
+                fd.append('signature', res.data.upload_photo.fields.signature);
 
-                    fd.append("file", file);
+                fd.append('file', file);
 
-                    const xhr = new XMLHttpRequest();
-                
-                    // xhr.upload.addEventListener("progress", uploadProgress, false);
-                    // xhr.addEventListener("load", uploadComplete, false);
-                    // xhr.addEventListener("error", uploadFailed, false);
-                    // xhr.addEventListener("abort", uploadCanceled, false);
+                const xhr = new XMLHttpRequest();
 
-                    xhr.open('POST', res.data.upload_photo.url, true); //MUST BE LAST LINE BEFORE YOU SEND
-xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
-                    xhr.send(fd);
-                    setTimeout(()=>get_photo(), 3000);               
+                // xhr.upload.addEventListener("progress", uploadProgress, false);
+                // xhr.addEventListener("load", uploadComplete, false);
+                // xhr.addEventListener("error", uploadFailed, false);
+                // xhr.addEventListener("abort", uploadCanceled, false);
 
-          console.log(xhr)
-        } 
-    });
-}
-function editprofile(){
-    const body={
-        "firstname": firstname,
-        "lastname": lastname,
-        "bio": bio,
-        "is_private": privacy
+                xhr.open('POST', res.data.upload_photo.url, true); //MUST BE LAST LINE BEFORE YOU SEND
+                xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+                xhr.send(fd);
+                setTimeout(() => get_photo(), 3000);
+
+                console.log(xhr);
+            }
+        });
     }
-  
-    put<any>(APIPath.profile.edit_profile(resdata.username),body).then((res) => {
-        console.log(res);
-        if (responseValidator(res.status)) {
-            window.location.replace(RoutePath.profileDetail(resdata.username))
-        }
-    });
-}
+
+    function editprofile() {
+        const body = {
+            firstname: firstname,
+            lastname: lastname,
+            bio: bio,
+            is_private: privacy,
+        };
+
+        put<any>(APIPath.profile.edit_profile(resdata.username), body).then((res) => {
+            console.log(res);
+            if (responseValidator(res.status)) {
+                window.location.replace(RoutePath.profileDetail(resdata.username));
+            }
+        });
+    }
+
     return (
         <Modal
             className="vsharee-edit-profile-modal"
@@ -127,11 +110,15 @@ function editprofile(){
         >
             <div className="vsharee-edit-profile-component">
                 <Card variant="outlined">
-                    <div className="image-uploader">
-                        <img onError={()=>setphotourl(Logo)} src={photourl}  alt="profile-photo"  onClick={openinp}/>
-                        <input type='file' style={{display:'none'}} id='photoinp' onChange={upload_photo}></input>
+                    <div onClick={openinp} className="image-uploader">
+                        <img
+                            onError={() => setphotourl(Logo)}
+                            src={props.userData?.photo ? props.userData.photo_path : Logo}
+                            alt="profile-photo"
+                        />
+                        <input type="file" style={{ display: 'none' }} id="photoinp" onChange={upload_photo}></input>
                         <div className="icon">
-                            <i className="material-icons" onClick={openinp}>edit</i>
+                            <i className="material-icons">edit</i>
                         </div>
                     </div>
                     <div className="my-row">
@@ -150,7 +137,15 @@ function editprofile(){
                             variant="outlined"
                         />
                     </div>
-                    <TextField rows={4} multiline={true} label={'bio'} id="outlined-basic bio" variant="outlined" value={bio} onChange={(e)=>setbio(e.target.value)} />
+                    <TextField
+                        rows={4}
+                        multiline={true}
+                        label={'bio'}
+                        id="outlined-basic bio"
+                        variant="outlined"
+                        value={bio}
+                        onChange={(e) => setbio(e.target.value)}
+                    />
                     <div className="my-radio">
                         <FormControl component="fieldset">
                             <FormLabel component="legend">{LANG.privacyTitle}</FormLabel>

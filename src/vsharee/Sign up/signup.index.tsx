@@ -12,7 +12,7 @@ import { emailValidation, passwordValidation, usernameValidation } from '../../s
 import { toast } from 'react-toastify';
 import ReactTooltip from 'react-tooltip';
 import { Spinner } from 'react-bootstrap';
-import {signup} from '../../index'
+import { signup } from '../../index';
 const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [email, setEmail] = useState<string | undefined>(undefined);
     const [username, setUsername] = useState<string | undefined>(undefined);
@@ -59,7 +59,7 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
             post<any>(APIPath.user.signup, body).then((res) => {
                 setSubmitLoading(false);
                 if (responseValidator(res.status)) {
-                    signup()
+                    signup();
                     document.body.classList.add(navigationAnim);
                     setTimeout(() => {
                         document.body.classList.remove(navigationAnim);
@@ -193,7 +193,7 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                             <i
                                                 onMouseEnter={() => ReactTooltip.rebuild()}
                                                 data-tip
-                                                data-for="error"
+                                                data-for="error-free-user"
                                                 className="material-icons error"
                                             >
                                                 cancel
@@ -202,12 +202,12 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                     )}
                                 </div>
                                 {freeUser === false && (
-                                    <ReactTooltip id="error" place="right" type="error" effect="solid">
+                                    <ReactTooltip id="error-free-user" place="right" type="error" effect="solid">
                                         <p>User with this username is already exist</p>
                                     </ReactTooltip>
                                 )}
                                 {!isUsernameCorrect && (
-                                    <ReactTooltip id="error" place="right" type="error" effect="solid">
+                                    <ReactTooltip id="error-free-user" place="right" type="error" effect="solid">
                                         <p>{LANG.incorrectUsername}</p>
                                     </ReactTooltip>
                                 )}
@@ -227,7 +227,7 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                             <i
                                                 onMouseEnter={() => ReactTooltip.rebuild()}
                                                 data-tip
-                                                data-for="error"
+                                                data-for="free-email"
                                                 className="material-icons error"
                                             >
                                                 cancel
@@ -236,12 +236,12 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                     )}
                                 </div>
                                 {freeEmail === false && (
-                                    <ReactTooltip id="error" place="right" type="error" effect="solid">
+                                    <ReactTooltip id="free-email" place="right" type="error" effect="solid">
                                         <p>User with this email address is already exist</p>
                                     </ReactTooltip>
                                 )}
                                 {!isEmailCorrect && (
-                                    <ReactTooltip id="error" place="right" type="error" effect="solid">
+                                    <ReactTooltip id="free-email" place="right" type="error" effect="solid">
                                         <p>{LANG.incorrectEmail}</p>
                                     </ReactTooltip>
                                 )}
@@ -313,7 +313,7 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                             <i
                                                 onMouseEnter={() => ReactTooltip.rebuild()}
                                                 data-tip
-                                                data-for="error"
+                                                data-for="error-same-password"
                                                 className="material-icons error"
                                             >
                                                 cancel
@@ -322,7 +322,7 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                     )}
                                 </div>
                                 {!samePassword && (
-                                    <ReactTooltip id="error" place="right" type="error" effect="solid">
+                                    <ReactTooltip id="error-same-password" place="right" type="error" effect="solid">
                                         <p>{LANG.incorrectConfirmPassword}</p>
                                     </ReactTooltip>
                                 )}

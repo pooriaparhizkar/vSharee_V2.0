@@ -8,7 +8,7 @@ export const __RoutePath = {
     verify: '/email-verified',
     group: (id: routeParam) => `/group/${id}`,
     landing: '/',
-    directMessage:'/directMessage',
-    forget:'/forgetpassword'
-
+    setnew: (uidb: string, token: string) => `/auth/password/reset/confirm/${uidb}/${token}/`,
+    directMessage: '/directMessage',
+    forget: '/forgetpassword',
 };

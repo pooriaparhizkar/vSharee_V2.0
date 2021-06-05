@@ -30,10 +30,6 @@
 
       cursor: pointer;
 
-
-
-     
-
             &:hover {
               background-color: $black;
 
@@ -68,12 +64,10 @@
                 max-height: 38px;
                 min-width: 38px;
                 min-height: 38px;
-
                 border-radius: 8px;
                 object-fit: cover;
-
-
               }
+
             }
 
             .items-top-right {
