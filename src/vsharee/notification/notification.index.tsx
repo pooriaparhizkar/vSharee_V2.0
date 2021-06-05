@@ -17,6 +17,8 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
     const [detailNotiffriendReq, setdetailNotiffriendReq] = useState<any>(false)
     const [countFollowReqview,setcountFollowReqview]=useState<any>(false)
     const [followReqlist,setfollowReqlist]=useState<any>([])
+    const [groupnotice,setgroupnotice]=useState<any>([])
+    const [groupnoticeview,setgroupnoticeview]=useState<any>(false)
     useEffect(() => {
         get<any>(APIPath.notification.index).then((res) => {
             if (responseValidator(res.status) && res.data) {
@@ -59,9 +61,17 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
             }
         });
         }
-        else{
 
-        }
+              get<any>(APIPath.notification.groupnotice).then((res) => {
+            if (responseValidator(res.status) && res.data) {
+
+                console.log(res.data)
+        setgroupnotice(res.data)
+
+            } else {
+                toast.error('Something went wrong ');
+            }
+        });
      
     }, []);
 
@@ -72,6 +82,14 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
     function clickonbackArrow(){
         setpreviewNotif(true)
         setdetailNotiffriendReq(false)
+        setgroupnoticeview(false)
+    }
+    function clickgroupnotice(){
+        if(groupNotifCount!=="0"){
+                setpreviewNotif(false)
+        setgroupnoticeview(true) 
+        }
+   
     }
     return (
 
@@ -92,7 +110,7 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
                     <span>{groupReqCount}</span>
 
                 </div>
-                <div className="groups">
+                <div onClick={clickgroupnotice} className="groups">
                     <p>Group Notif </p>
                     <i />
                     <span>{groupNotifCount}</span>
@@ -126,6 +144,27 @@ arrow_back
                    
              
             </div>
+            <div hidden={!groupnoticeview}>
+            <span style={{cursor:'pointer'}} onClick={clickonbackArrow} className="material-icons-outlined">
+arrow_back
+</span>
+               
+                    {groupnotice.map((index:any)=>(
+                      <div key={index.id} className="friends-list" >   
+                       <p>{index.sender} want Follow You </p>
+                    <i />
+                    <span style={{ color: 'green' }} className="material-icons-outlined">
+                        check_circle
+                    </span>
+                    <span style={{ color: 'red' }} className="material-icons-outlined">
+                        highlight_off
+                    </span>
+                </div>
+                    ))}
+                   
+             
+            </div>
+
 
 
 

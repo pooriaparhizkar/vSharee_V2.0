@@ -36,6 +36,7 @@ export const __APIPath = {
     },
     notification:{
         index: '/notifications/',
-        followReq:'/user/relations/follow-requests/'
+        followReq:'/user/relations/follow-requests/',
+        groupnotice:'/notifications/groups-notice-list/'
     }
 };
