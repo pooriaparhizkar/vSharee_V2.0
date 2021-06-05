@@ -21,6 +21,9 @@ export const __APIPath = {
         getPhoto: (id: apiParams) => `/group/${id}/get-photo-path/`,
         detail: (id: apiParams) => `/group/detail/${id}/`,
         join: '/group/join/',
+        permissions: (id: apiParams, member: string) => `/group/${id}/permissions/?member=${member}`,
+        preview: (id: apiParams) => `/group/preview/?group=${id}`,
+        invite: '/group/invite/',
     },
     profile: {
         userdata: '/user/find/username/',

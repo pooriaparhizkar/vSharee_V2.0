@@ -263,66 +263,7 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
                                 </RadioGroup>
                             </FormControl>
                         </div>
-                        {/*<div className="my-card">*/}
-                        {/*    <Card variant={'outlined'}>*/}
-                        {/*        <div className="my-card-inputs">*/}
-                        {/*            <TextField autoComplete="new-password" id="standard-basic" placeholder={LANG.search} />*/}
-                        {/*        </div>*/}
-                        {/*        <div className="context">*/}
-                        {/*            <div className="items">*/}
-                        {/*                <img src={fakeImage} alt="profile-pic" />*/}
-                        {/*                <p>Pooria Parhizkar</p>*/}
-                        {/*                <span className="spacer" />*/}
-                        {/*                <FormControl variant="outlined">*/}
-                        {/*                    <Select*/}
-                        {/*                        labelId="demo-simple-select-outlined-label"*/}
-                        {/*                        id="demo-simple-select-outlined"*/}
-                        {/*                        value={role}*/}
-                        {/*                        onChange={(e: any) => setRole(e.target.value)}*/}
-                        {/*                    >*/}
-                        {/*                        <MenuItem value={'owner'}>{LANG.owner}</MenuItem>*/}
-                        {/*                        <MenuItem value={'viewer'}>{LANG.viewer}</MenuItem>*/}
-                        {/*                        <MenuItem value={'controller'}>{LANG.controller}</MenuItem>*/}
-                        {/*                    </Select>*/}
-                        {/*                </FormControl>*/}
-                        {/*            </div>*/}
-                        {/*            <div className="items">*/}
-                        {/*                <img src={fakeImage} alt="profile-pic" />*/}
-                        {/*                <p>Pooria Parhizkar</p>*/}
-                        {/*                <span className="spacer" />*/}
-                        {/*                <FormControl variant="outlined">*/}
-                        {/*                    <Select*/}
-                        {/*                        labelId="demo-simple-select-outlined-label"*/}
-                        {/*                        id="demo-simple-select-outlined"*/}
-                        {/*                        value={role}*/}
-                        {/*                        onChange={(e: any) => setRole(e.target.value)}*/}
-                        {/*                    >*/}
-                        {/*                        <MenuItem value={'owner'}>{LANG.owner}</MenuItem>*/}
-                        {/*                        <MenuItem value={'viewer'}>{LANG.viewer}</MenuItem>*/}
-                        {/*                        <MenuItem value={'controller'}>{LANG.controller}</MenuItem>*/}
-                        {/*                    </Select>*/}
-                        {/*                </FormControl>*/}
-                        {/*            </div>*/}
-                        {/*            <div className="items">*/}
-                        {/*                <img src={fakeImage} alt="profile-pic" />*/}
-                        {/*                <p>Pooria Parhizkar</p>*/}
-                        {/*                <span className="spacer" />*/}
-                        {/*                <FormControl variant="outlined">*/}
-                        {/*                    <Select*/}
-                        {/*                        labelId="demo-simple-select-outlined-label"*/}
-                        {/*                        id="demo-simple-select-outlined"*/}
-                        {/*                        value={role}*/}
-                        {/*                        onChange={(e: any) => setRole(e.target.value)}*/}
-                        {/*                    >*/}
-                        {/*                        <MenuItem value={'owner'}>{LANG.owner}</MenuItem>*/}
-                        {/*                        <MenuItem value={'viewer'}>{LANG.viewer}</MenuItem>*/}
-                        {/*                        <MenuItem value={'controller'}>{LANG.controller}</MenuItem>*/}
-                        {/*                    </Select>*/}
-                        {/*                </FormControl>*/}
-                        {/*            </div>*/}
-                        {/*        </div>*/}
-                        {/*    </Card>*/}
-                        {/*</div>*/}
+
                         <div className="my-btn">
                             <Button onClick={submitHandler} variant="contained" color="primary">
                                 {loading ? <WhiteSpinner /> : props.data ? 'Edit' : 'Create'}
