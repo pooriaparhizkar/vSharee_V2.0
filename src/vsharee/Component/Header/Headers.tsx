@@ -16,8 +16,10 @@ import { get, responseValidator } from '../../../scripts/api';
 import { Button, CircularProgress } from '@material-ui/core';
 import emptyProfilePhoto from '../../../assets/images/fakeimage.svg';
 import EditProfile from '../editProfile/editProfile.index';
-import WhiteSpinner from '../../../utilities/whiteSpinner/whiteSpinner.index';
+import WhiteSpinner from '../../../utilities/component/whiteSpinner/whiteSpinner.index';
 import Logo from '../../../assets/images/landing/logo.png';
+import AlphabetPicture from '../../../utilities/component/alphabetPhoto/alphabetPhoto.index';
+import JoinGroupModal from '../joinGroupModal/joinGroupModal.index';
 
 class Headers extends React.Component<any, any> {
     searchResultRef: React.RefObject<HTMLDivElement>;
@@ -27,10 +29,12 @@ class Headers extends React.Component<any, any> {
         this.state = {
             hiddentextField: true,
             isCreateGroupModal: false,
+            isJoinGroupModal: false,
             searchTerm: null,
             isLoadingSearch: true,
             searchResult: [],
             searchResult2: [],
+            idSelected: undefined,
         };
         this.searchResultRef = React.createRef();
         this.logoutHandler = this.logoutHandler.bind('ss');
@@ -60,6 +64,7 @@ class Headers extends React.Component<any, any> {
             item.dispatch(setAuth(AuthStatus.isInValid));
         }, 500);
     }
+
     profileSettingHandler(item: any) {
         item.dispatch(setIsEdit(true));
     }
@@ -99,15 +104,33 @@ class Headers extends React.Component<any, any> {
     render() {
         return (
             <div className="row main-div-header">
+                <JoinGroupModal
+                    id={this.state.idSelected}
+                    show={this.state.isJoinGroupModal}
+                    onClose={() => {
+                        this.setState({ isJoinGroupModal: false, idSelected: undefined });
+                    }}
+                />
                 <EditProfile />
                 <CreateGroupModal
                     show={this.state.isCreateGroupModal}
                     onClose={() => this.setState({ isCreateGroupModal: false })}
                 />
-                <Link to={RoutePath.dashboard} className="col-md-3 col-4 logo-div" onClick={this.clickOnOthers}>
+                <div
+                    style={{ cursor: 'pointer' }}
+                    className="col-md-3 col-4 logo-div"
+                    onClick={() => {
+                        this.clickOnOthers();
+                        document.body.classList.add(navigationAnim);
+                        window.location.replace(RoutePath.dashboard);
+                        setTimeout(() => {
+                            document.body.classList.remove(navigationAnim);
+                        }, 500);
+                    }}
+                >
                     <img src={VshareeLogo} alt="" />
                     <h1>{HeaderLang.body.sharee}</h1>
-                </Link>
+                </div>
                 <div hidden={this.state.hiddentextField} className="col-6 input-main-div ">
                     <div ref={this.searchResultRef} className="search-input">
                         <TextField
@@ -136,18 +159,27 @@ class Headers extends React.Component<any, any> {
                                     <label>Groups</label>
                                     {this.state.searchResult2.length !== 0 ? (
                                         this.state.searchResult2.map((item: GroupType, index: number) => (
-                                            <div key={index} className="items-group">
+                                            <div
+                                                onClick={() =>
+                                                    this.setState({
+                                                        isJoinGroupModal: true,
+                                                        idSelected: item.groupid,
+                                                        searchResult: [],
+                                                        isLoadingSearch: true,
+                                                        searchTerm: '',
+                                                    })
+                                                }
+                                                key={index}
+                                                className="items-group"
+                                            >
                                                 {item.photo ? (
                                                     <img src={item.photo_path} alt="fakePic" />
                                                 ) : (
-                                                    <h2
-                                                        style={{
-                                                            backgroundColor:
-                                                                '#' + Math.floor(Math.random() * 16777215).toString(16),
-                                                        }}
-                                                    >
-                                                        {item.title.charAt(0).toUpperCase()}
-                                                    </h2>
+                                                    <AlphabetPicture
+                                                        size={'small'}
+                                                        title={item.title}
+                                                        type={'square'}
+                                                    />
                                                 )}
                                                 <p>{item.title}</p>
                                             </div>
@@ -221,18 +253,27 @@ class Headers extends React.Component<any, any> {
                                     <label>Groups</label>
                                     {this.state.searchResult2.length !== 0 ? (
                                         this.state.searchResult2.map((item: GroupType, index: number) => (
-                                            <div key={index} className="items-group">
+                                            <div
+                                                onClick={() =>
+                                                    this.setState({
+                                                        isJoinGroupModal: true,
+                                                        idSelected: item.groupid,
+                                                        searchResult: [],
+                                                        isLoadingSearch: true,
+                                                        searchTerm: '',
+                                                    })
+                                                }
+                                                key={index}
+                                                className="items-group"
+                                            >
                                                 {item.photo ? (
                                                     <img src={item.photo_path} alt="fakePic" />
                                                 ) : (
-                                                    <h2
-                                                        style={{
-                                                            backgroundColor:
-                                                                '#' + Math.floor(Math.random() * 16777215).toString(16),
-                                                        }}
-                                                    >
-                                                        {item.title.charAt(0).toUpperCase()}
-                                                    </h2>
+                                                    <AlphabetPicture
+                                                        size={'small'}
+                                                        title={item.title}
+                                                        type={'square'}
+                                                    />
                                                 )}
                                                 <p>{item.title}</p>
                                             </div>
@@ -244,9 +285,13 @@ class Headers extends React.Component<any, any> {
                                     {this.state.searchResult.length !== 0 ? (
                                         this.state.searchResult.map((item: UserData, index: number) => (
                                             <div
-                                                onClick={() =>
-                                                    window.location.replace(RoutePath.profileDetail(item.username))
-                                                }
+                                                onClick={() => {
+                                                    document.body.classList.add(navigationAnim);
+                                                    window.location.replace(RoutePath.profileDetail(item.username));
+                                                    setTimeout(() => {
+                                                        document.body.classList.remove(navigationAnim);
+                                                    }, 500);
+                                                }}
                                                 key={index}
                                                 className="items-user"
                                             >
@@ -287,6 +332,7 @@ class Headers extends React.Component<any, any> {
                     <Dropdown className="dropdownClasss">
                         <Dropdown.Toggle variant="none" className="dropdownToggleClasss">
                             <img
+                                style={{ backgroundColor: 'black' }}
                                 src={this.props.userData.photo ? this.props.userData.photo_path : Logo}
                                 alt="gp-photo"
                             />
@@ -296,9 +342,13 @@ class Headers extends React.Component<any, any> {
                         <Dropdown.Menu>
                             <Dropdown.Item>
                                 <div
-                                    onClick={() =>
-                                        window.location.replace(RoutePath.profileDetail(this.props.userData.username))
-                                    }
+                                    onClick={() => {
+                                        document.body.classList.add(navigationAnim);
+                                        window.location.replace(RoutePath.profileDetail(this.props.userData.username));
+                                        setTimeout(() => {
+                                            document.body.classList.remove(navigationAnim);
+                                        }, 500);
+                                    }}
                                     className="dropdowm-item"
                                 >
                                     <i className="material-icons">account_circle</i>
@@ -322,7 +372,16 @@ class Headers extends React.Component<any, any> {
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <i onClick={() => window.location.replace(RoutePath.directMessage)} className="material-icons ">
+                    <i
+                        onClick={() => {
+                            document.body.classList.add(navigationAnim);
+                            window.location.replace(RoutePath.directMessage);
+                            setTimeout(() => {
+                                document.body.classList.remove(navigationAnim);
+                            }, 500);
+                        }}
+                        className="material-icons "
+                    >
                         mail
                     </i>
 
