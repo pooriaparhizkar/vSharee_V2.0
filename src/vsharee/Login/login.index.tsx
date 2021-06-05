@@ -155,7 +155,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                                     <i
                                         onMouseEnter={() => ReactTooltip.rebuild()}
                                         data-tip
-                                        data-for="error"
+                                        data-for="error-user"
                                         className="material-icons error"
                                     >
                                         cancel
@@ -164,7 +164,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                             )}
                         </div>
                         {!isUserCorrect && (
-                            <ReactTooltip id="error" place="right" type="error" effect="solid">
+                            <ReactTooltip id="error-user" place="right" type="error" effect="solid">
                                 <p>{LANG.incorrectUsername}</p>
                             </ReactTooltip>
                         )}
@@ -191,7 +191,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                                     <i
                                         onMouseEnter={() => ReactTooltip.rebuild()}
                                         data-tip
-                                        data-for="error"
+                                        data-for="error-password"
                                         className="material-icons error"
                                     >
                                         cancel
@@ -203,7 +203,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                             </h3>
                         </div>
                         {!isPasswordCorrect && (
-                            <ReactTooltip id="error" place="right" type="error" effect="solid">
+                            <ReactTooltip id="error-password" place="right" type="error" effect="solid">
                                 <p>{LANG.incorrectPassword}</p>
                             </ReactTooltip>
                         )}

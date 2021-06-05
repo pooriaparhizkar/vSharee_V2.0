@@ -111,7 +111,11 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
             <div className="vsharee-edit-profile-component">
                 <Card variant="outlined">
                     <div onClick={openinp} className="image-uploader">
-                        <img onError={() => setphotourl(Logo)} src={photourl} alt="profile-photo" />
+                        <img
+                            onError={() => setphotourl(Logo)}
+                            src={props.userData?.photo ? props.userData.photo_path : Logo}
+                            alt="profile-photo"
+                        />
                         <input type="file" style={{ display: 'none' }} id="photoinp" onChange={upload_photo}></input>
                         <div className="icon">
                             <i className="material-icons">edit</i>

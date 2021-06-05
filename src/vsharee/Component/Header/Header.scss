@@ -185,24 +185,16 @@
           width: 32px;
           height: 32px;
           border-radius: 8px;
-          margin-right: 8px;
+
+          object-fit: cover;
         }
 
-        h2 {
-          margin-right: 8px;
-          width: 32px;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 8px;
-          font-size: 32px;
-        }
+
 
         p {
           color: $gray99;
           font-size: 16px;
-          margin: 0;
+          margin: 0 0 0 8px;
         }
       }
 
@@ -282,5 +274,15 @@
       margin-left: 10px;
       margin-top: 5px;
     }
+  }
+  .notif-box{
+    position:absolute;
+    top: 75px;
+    right: 30px;
+    transition: height 0.5s;
+    height: 0;
+    overflow: hidden;
+
+
   }
 }

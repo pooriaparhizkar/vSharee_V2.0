@@ -1,0 +1,32 @@
+.vsharee-alphabet-photo {
+  h2 {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0;
+
+    &.circle {
+      border-radius: 100%;
+    }
+
+    &.square {
+      border-radius: 8px;
+    }
+
+    &.small {
+      width: 32px;
+      height: 32px;
+    }
+
+    &.large {
+      width: 140px;
+      height: 140px;
+      font-size: 72px;
+    }
+  }
+
+
+}

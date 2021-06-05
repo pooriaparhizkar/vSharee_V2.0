@@ -1,10 +1,3 @@
-export interface __WorkSpace {
-    created_at: string;
-    id: number;
-    is_default: boolean;
-    title: string;
-}
-
 export interface __GroupType {
     aux_count: number;
     created_by: string;
@@ -22,10 +15,35 @@ export interface __GroupType {
     photo: boolean;
     video_hash: string;
 }
+export interface __MembersInGroupType {
+    chat_permission: boolean;
+    choose_video_permission: boolean;
+    date_set: string;
+    group: string;
+    id: number;
+    member: string;
+    playback_permission: boolean;
+}
 
 export enum __Roles {
-    Admin = 1,
-    Publish = 2,
-    Report = 4,
-    Form = 3,
+    Owner = 1,
+    Selector = 2,
+    Controller = 3,
+    Mute = 4,
+    Viewer = 5,
 }
+export enum __GroupPrivacy {
+    public = 0,
+    semiPrivate = 1,
+    private = 2,
+}
+export enum __NotificationType {
+    FollowRequestNumber = 1,
+    GroupRequestnumber = 2,
+    FollowReqyestState = 3,
+    GroupReqyestState = 4,
+    FollowReqyestStatus = 5,
+    GroupNotifnumber = 6
+
+}
+
