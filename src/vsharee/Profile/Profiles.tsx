@@ -293,28 +293,34 @@ class Profiles extends React.Component<any, any> {
                             <div className="col-md-1 "></div>
                             <div className="col-md-10 col-xs-12 div-item-group" hidden={this.state.Emptystate}>
                                 <div className="row ">
-                                    {this.state.usergroup.map((list: any, i: any) => (
-                                        <div key={i} className="col-md-6 col-xs-12">
+                                    {this.state.usergroup.map((list: GroupType, i: any) => (
+                                        <div
+                                            onClick={() =>
+                                                this.setState({ isJoinGroupModal: true, idSelected: list.groupid })
+                                            }
+                                            key={i}
+                                            className="col-md-6 col-xs-12"
+                                        >
                                             <div className="row">
                                                 <div className="col-6 div-item-group-detail">
-                                                    {/*{list.photo ? (*/}
-                                                    {/*    <img src={list.photo_path} alt="fakePic" />*/}
-                                                    {/*) : (*/}
-                                                    {/*    <AlphabetPicture*/}
-                                                    {/*        size={'small'}*/}
-                                                    {/*        title={list.title}*/}
-                                                    {/*        type={'square'}*/}
-                                                    {/*    />*/}
-                                                    {/*)}*/}
-                                                    <AlphabetPicture
-                                                        size={'medium'}
-                                                        title={list.the_group}
-                                                        type={'square'}
-                                                    />
+                                                    {list.photo ? (
+                                                        <img src={list.photo_path} alt="fakePic" />
+                                                    ) : (
+                                                        <AlphabetPicture
+                                                            size={'medium'}
+                                                            title={list.title}
+                                                            type={'square'}
+                                                        />
+                                                    )}
+                                                    {/*<AlphabetPicture*/}
+                                                    {/*    size={'medium'}*/}
+                                                    {/*    title={list.the_group}*/}
+                                                    {/*    type={'square'}*/}
+                                                    {/*/>*/}
                                                     <h1>{list.title}</h1>
                                                 </div>
                                                 <div className="col-6 div-item-group-detail">
-                                                    <h5>129</h5>
+                                                    <h5>{list.members.length}</h5>
                                                     <h6>members</h6>
                                                 </div>
                                             </div>
