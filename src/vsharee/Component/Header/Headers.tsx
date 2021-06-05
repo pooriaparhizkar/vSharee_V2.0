@@ -18,8 +18,11 @@ import emptyProfilePhoto from '../../../assets/images/fakeimage.svg';
 import EditProfile from '../editProfile/editProfile.index';
 import Notification from "../../notification/notification.index";
 
+
 class Headers extends React.Component<any, any> {
+
     searchResultRef: React.RefObject<HTMLDivElement>;
+    notifRef: React.RefObject<HTMLDivElement>;
 
     constructor(props: any) {
         super(props);
@@ -30,10 +33,13 @@ class Headers extends React.Component<any, any> {
             isLoadingSearch: true,
             searchResult: [],
             searchResult2: [],
+            openNotifBox: false
         };
         this.searchResultRef = React.createRef();
+        this.notifRef = React.createRef();
         this.logoutHandler = this.logoutHandler.bind('ss');
         this.onClickOutSide = this.onClickOutSide.bind(this);
+
     }
 
     showInput = (txt: string) => {
@@ -86,6 +92,12 @@ class Headers extends React.Component<any, any> {
             this.setState({ searchResult: [], isLoadingSearch: true, searchTerm: '' });
         }
     }
+    private onClickOutSide2(event: any) {
+        // console.log(this.searchResultRef);
+        if (this.notifRef.current && !this.notifRef.current.contains(event.target)) {
+            console.log("alo alo kamyab jojo e")
+        }
+    }
 
     componentDidMount() {
         document.addEventListener('click', this.onClickOutSide, { passive: true });
@@ -95,11 +107,26 @@ class Headers extends React.Component<any, any> {
         document.removeEventListener('click', this.onClickOutSide);
     }
 
+    openNotif = () => {
+        if (this.state.openNotifBox === false){
+        document.getElementById("notif-box")!.style.height="300px"
+        document.getElementById("notif-box")!.style.overflow="auto"
+        this.setState({openNotifBox:true})
+        }
+        else{
+
+        document.getElementById("notif-box")!.style.height="0"
+        document.getElementById("notif-box")!.style.overflow="hidden"
+        this.setState({openNotifBox:false})
+        }
+
+    }
+
     render() {
         return (
             <div className="row main-div-header">
                 <EditProfile />
-                <Notification/>
+
                 <CreateGroupModal
                     show={this.state.isCreateGroupModal}
                     onClose={() => this.setState({ isCreateGroupModal: false })}
@@ -179,6 +206,10 @@ class Headers extends React.Component<any, any> {
                     className="col-2 input-main-div-mobile "
                     onClick={this.clickOnOthers}
                 />
+                <div  ref={this.notifRef} className="notif-box" id={"notif-box"}>
+                    <Notification/>
+
+                </div>
 
                 <div
                     className="col-md-3 col-3 input-main-div"
@@ -315,7 +346,7 @@ class Headers extends React.Component<any, any> {
                     </Dropdown>
                     <i onClick={()=>window.location.replace(RoutePath.directMessage)} className="material-icons ">mail</i>
 
-                    <i className="material-icons paddingi">notifications</i>
+                    <i onClick={this.openNotif} className="material-icons paddingi">notifications</i>
                 </div>
             </div>
         );

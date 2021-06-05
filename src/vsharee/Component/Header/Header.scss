@@ -251,4 +251,14 @@ animation: vsharee-fade-in 0.5s ease-in-out forwards;
       margin-top: 5px;
     }
   }
+  .notif-box{
+    position:absolute;
+    top: 75px;
+    right: 30px;
+    transition: height 0.5s;
+    height: 0;
+    overflow: hidden;
+
+
+  }
 }

@@ -34,5 +34,6 @@ export enum __NotificationType {
     FollowReqyestState = 3,
     GroupReqyestState = 4,
     FollowReqyestStatus = 5,
+
 }
 

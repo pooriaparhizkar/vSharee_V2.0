@@ -30,9 +30,36 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
 
 
     return (
-        <div className="vsharee-notification">
 
-        </div>
+            <div className="vsharee-notification">
+                            <div className="friends-list">
+
+                                <p>Friend Requests </p>
+                                <i/>
+                                <span>15</span>
+
+
+
+                            </div>
+                            <div className="groups">
+                                <p>Group Requests </p>
+                                <i/>
+                                <span>15</span>
+
+                            </div>
+                            <div className="group-accept-join">
+                                <p>Group G1 Accepted Join Request</p>
+
+                            </div>
+                            <div className="user-accept-request">
+                                <p>User U1 Accepted your Request</p>
+                            </div>
+                            <div className="start-follow">
+                                <p>User U1 Started Following You</p>
+                            </div>
+                        </div>
+
+
     );
 };
 
