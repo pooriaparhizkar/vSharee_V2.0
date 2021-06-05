@@ -9,13 +9,31 @@ import {toast} from "react-toastify";
 
 const Notification: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
 
-    const [notification, setNotification] = useState<UserData[] | undefined>(undefined);
-
+    const [notification, setNotification] = useState<any>([]);
+const [firendReqCount,setfirendReqCount]=useState<any>("0")
+const [groupReqCount,setgroupReqCount]=useState<any>("0")
+const [groupNotifCount,setgroupNotifCount]=useState<any>("0")
     useEffect(() => {
             get<any>(APIPath.notification.index).then((res) => {
             if (responseValidator(res.status) && res.data) {
-                setNotification(res.data);
+               
                 console.log(res.data)
+                const notifarray=[]
+for(let i =0;i<res.data.length;i++){
+    if(res.data[i].notification_type===NotificationType.GroupRequestnumber)
+    setgroupReqCount(res.data[i].text_preview)
+    else if(res.data[i].notification_type===NotificationType.FollowRequestNumber)
+    setfirendReqCount(res.data[i].text_preview)
+    else if(res.data[i].notification_type===NotificationType.GroupNotifnumber)
+    setgroupNotifCount(res.data[i].text_preview)
+    else{
+       
+            notifarray.push(res.data[i])
+    }
+
+}
+console.log(notifarray)
+setNotification(notifarray)
                 // if (NotificationType.Follow == res.data){
                 //
                 // }
@@ -36,7 +54,7 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
 
                                 <p>Friend Requests </p>
                                 <i/>
-                                <span>15</span>
+                                <span>{firendReqCount}</span>
 
 
 
@@ -44,19 +62,24 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
                             <div className="groups">
                                 <p>Group Requests </p>
                                 <i/>
-                                <span>15</span>
+                                <span>{groupReqCount}</span>
 
                             </div>
-                            <div className="group-accept-join">
-                                <p>Group G1 Accepted Join Request</p>
+                            <div className="groups">
+                                <p>Group Notif </p>
+                                <i/>
+                                <span>{groupNotifCount}</span>
 
                             </div>
-                            <div className="user-accept-request">
-                                <p>User U1 Accepted your Request</p>
-                            </div>
-                            <div className="start-follow">
-                                <p>User U1 Started Following You</p>
-                            </div>
+                            {notification.map((index:any)=>(
+                            
+                                  <div key={index.id} className="group-accept-join">
+                                <p>{index.text_preview}</p>
+
+                            </div> 
+                            ))}
+                         
+                           
                         </div>
 
 

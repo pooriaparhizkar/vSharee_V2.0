@@ -109,7 +109,7 @@ class Headers extends React.Component<any, any> {
 
     openNotif = () => {
         if (this.state.openNotifBox === false){
-        document.getElementById("notif-box")!.style.height="300px"
+        document.getElementById("notif-box")!.style.height="350px"
         document.getElementById("notif-box")!.style.overflow="auto"
         this.setState({openNotifBox:true})
         }
