@@ -140,6 +140,9 @@ const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (prop
 
                     <div className="center-chat">
 
+
+
+
                     </div>
 
                     <div className="bottom-chat">

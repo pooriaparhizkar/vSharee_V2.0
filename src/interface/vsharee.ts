@@ -37,3 +37,13 @@ export enum __GroupPrivacy {
     semiPrivate = 1,
     private = 2,
 }
+export enum __NotificationType {
+    FollowRequestNumber = 1,
+    GroupRequestnumber = 2,
+    FollowReqyestState = 3,
+    GroupReqyestState = 4,
+    FollowReqyestStatus = 5,
+    GroupNotifnumber = 6
+
+}
+
