@@ -9,11 +9,13 @@ import { get, responseValidator } from '../../scripts/api';
 import { APIPath } from '../../data';
 import { useParams } from 'react-router-dom';
 import AlphabetPicture from '../../utilities/component/alphabetPhoto/alphabetPhoto.index';
+import GroupMembersModal from '../Component/groupMembers/groupMembers.index';
 const Group: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [isEditGroup, setIsEditGroup] = useState<boolean>(false);
     const { id } = useParams<any>();
     const [groupData, setGroupData] = useState<GroupType>();
     const [isAdmin, setIsAdmin] = useState<boolean>();
+    const [isMemberModal, setIsMemberModal] = useState<boolean>(false);
     function getGroupData() {
         get<GroupType>(APIPath.groups.detail(id)).then((res) => {
             if (responseValidator(res.status) && res.data) {
@@ -35,6 +37,9 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                     getGroupData();
                 }}
             />
+
+            <GroupMembersModal isAdmin={isAdmin} id={id} show={isMemberModal} onClose={() => setIsMemberModal(false)} />
+
             <div className="my-container">
                 <div className="left">
                     <div className="video-player">
@@ -63,7 +68,9 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                                     <div className="gp-name">
                                         <h4>{groupData?.title}</h4>
                                         <span />
-                                        <label>{groupData?.members.length} members</label>
+                                        <label onClick={() => setIsMemberModal(true)}>
+                                            {groupData?.members.length} members
+                                        </label>
                                     </div>
                                     <span>
                                         {groupData?.privacy === GroupPrivacy.public

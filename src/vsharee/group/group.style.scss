@@ -51,13 +51,17 @@
       }
 
       .detail {
+        display: flex;
+        flex-direction: column;
         min-height: 300px;
         @include vsharee-md {
           max-height: 300px;
         }
 
         height: 100%;
-        overflow: auto;
+         @media (max-width: 1450px) {
+           overflow: auto;
+         }
 
         .group-detail-title {
           display: flex;
@@ -93,6 +97,7 @@
         }
 
         .info {
+          flex: 1;
           @include vsharee-pre-md {
             > div {
               background-color: $black2;
@@ -174,6 +179,11 @@
                   @include vsharee-size(font-size, 16px, 12px);
                   font-weight: 300;
                   color: $gray;
+                  cursor: pointer;
+                  transition: color 0.3s;
+                  &:hover{
+                    color: white;
+                  }
                 }
               }
 
@@ -222,7 +232,7 @@
             .context {
               width: 100%;
               height: 100%;
-
+              border-right: none;
               .empty-state {
                 width: 100%;
                 height: 100%;
@@ -233,6 +243,7 @@
                 color: $gray;
 
                 i {
+                  cursor: default;
                   @include vsharee-size(font-size, 72px, 54px);
                   @include vsharee-size(margin-bottom, 16px, 12px);
                 }
@@ -268,7 +279,10 @@
         }
 
         @include vsharee-md {
-          margin-top: 0;
+          &:nth-child(1) {
+            margin-top: 0;
+          }
+
         }
       }
 
@@ -291,6 +305,7 @@
         .context {
           flex: 1;
           overflow-y: auto;
+          @include vsharee-scroll-shadow
           margin-top: -18px;
 
           .items {
