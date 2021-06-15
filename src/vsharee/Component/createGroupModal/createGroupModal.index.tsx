@@ -21,9 +21,9 @@ import { del, get, patch, post, responseValidator } from '../../../scripts/api';
 import { APIPath, navigationAnim, RoutePath } from '../../../data';
 import { toast } from 'react-toastify';
 import { getMyGroups } from '../../vsharee.script';
-import { creategroup } from '../../../index';
 import WhiteSpinner from '../../../utilities/component/whiteSpinner/whiteSpinner.index';
 import { useHistory } from 'react-router-dom';
+import { creategroup } from '../../../firebaseFunctions';
 const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupModalProps> = function (
     props: ConnectedProps<typeof connector> & CreateGroupModalProps,
 ) {
