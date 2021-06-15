@@ -11,21 +11,20 @@ import { useParams } from 'react-router-dom';
 import AlphabetPicture from '../../utilities/component/alphabetPhoto/alphabetPhoto.index';
 
 import { authToken } from 'scripts/storage';
-let socketstream:any=null
-let socketchat:any=null
+let socketstream: any = null;
+let socketchat: any = null;
 
 import GroupMembersModal from '../Component/groupMembers/groupMembers.index';
+import NotifyMemberModal from '../Component/notifyMemberModal/notifyMemberModal.index';
 
 const Group: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [isEditGroup, setIsEditGroup] = useState<boolean>(false);
     const { id } = useParams<any>();
     const [groupData, setGroupData] = useState<GroupType>();
     const [isAdmin, setIsAdmin] = useState<boolean>();
-
-    const [chatpm,setchatpm] = useState<any>('')
-
+    const [chatpm, setchatpm] = useState<any>('');
     const [isMemberModal, setIsMemberModal] = useState<boolean>(false);
-
+    const [isNotifyModal, setIsNotifyModal] = useState<boolean>(false);
     function getGroupData() {
         get<GroupType>(APIPath.groups.detail(id)).then((res) => {
             if (responseValidator(res.status) && res.data) {
@@ -36,18 +35,20 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
     }
     useEffect(() => {
         getGroupData();
-      
-       socketstream = new WebSocket("ws://api.vsharee.ir/stream/groups/" + id + "/?token=" + authToken.get()?.access_token + "");
-socketchat=new WebSocket("ws://api.vsharee.ir/chat/groups/" + id + "/?token=" + authToken.get()?.access_token + "");
 
-
+        socketstream = new WebSocket(
+            'ws://api.vsharee.ir/stream/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
+        );
+        socketchat = new WebSocket(
+            'ws://api.vsharee.ir/chat/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
+        );
     }, []);
     function enterHandler(e: any) {
         if (e.key === 'Enter' || e.keyCode === 13) {
-            sendmessage()
+            sendmessage();
         }
     }
-    function sendmessage(){
+    function sendmessage() {
         socketchat.send('Hello Server!');
     }
     return (
@@ -60,6 +61,7 @@ socketchat=new WebSocket("ws://api.vsharee.ir/chat/groups/" + id + "/?token=" + 
                     getGroupData();
                 }}
             />
+            <NotifyMemberModal id={id} show={isNotifyModal} onClose={() => setIsNotifyModal(false)} />
 
             <GroupMembersModal isAdmin={isAdmin} id={id} show={isMemberModal} onClose={() => setIsMemberModal(false)} />
 
@@ -95,13 +97,22 @@ socketchat=new WebSocket("ws://api.vsharee.ir/chat/groups/" + id + "/?token=" + 
                                             {groupData?.members.length} members
                                         </label>
                                     </div>
-                                    <span>
-                                        {groupData?.privacy === GroupPrivacy.public
-                                            ? 'Public'
-                                            : groupData?.privacy === GroupPrivacy.semiPrivate
-                                            ? 'Semi Private'
-                                            : 'Private'}
-                                    </span>
+                                    <div className="gp-sub-name">
+                                        <span>
+                                            {groupData?.privacy === GroupPrivacy.public
+                                                ? 'Public'
+                                                : groupData?.privacy === GroupPrivacy.semiPrivate
+                                                ? 'Semi Private'
+                                                : 'Private'}
+                                        </span>
+                                        <span className="spacer" />
+                                        {isAdmin && (
+                                            <div onClick={() => setIsNotifyModal(true)} className="notify-members">
+                                                <i className="material-icons">notifications_active</i>
+                                                <label>Notify</label>
+                                            </div>
+                                        )}
+                                    </div>
                                     <div className="description">
                                         <p>{groupData?.describtion}</p>
                                     </div>
@@ -203,7 +214,7 @@ socketchat=new WebSocket("ws://api.vsharee.ir/chat/groups/" + id + "/?token=" + 
                                 variant="outlined"
                                 multiline
                                 onKeyUp={enterHandler}
-onChange={(e)=>setchatpm(e.target.value)}
+                                onChange={(e) => setchatpm(e.target.value)}
                             />
                             <i className="material-icons emoji">mood</i>
                         </div>
@@ -218,7 +229,7 @@ const mapStateToProps = (state: ReduxState) => ({
     text: state.language,
     isEdit: state.isEdit,
     myGroups: state.myGroups,
-    userData: state.userData
+    userData: state.userData,
 });
 
 const connector = connect(mapStateToProps);
