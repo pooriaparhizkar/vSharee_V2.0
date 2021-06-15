@@ -17,7 +17,8 @@ import { emailValidation, passwordValidation, usernameValidation } from '../../s
 import { AST } from 'eslint';
 import { getMyGroups } from '../vsharee.script';
 import ReactTooltip from 'react-tooltip';
-import { login } from '../../index';
+import { login } from '../../firebaseFunctions';
+
 const Login: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [username, setUsername] = useState<string | undefined>(undefined);
     const [password, setPassword] = useState<string | undefined>(undefined);
@@ -126,7 +127,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
 
     return (
         <div className="vsharee-login-page">
-            <img className="background" src={background} alt="background" />
+            <img data-testid="background" className="background" src={background} alt="background" />
             <div className="box">
                 <div className="redbox">
                     <span />
@@ -181,6 +182,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                                 style={{ right: !password || password?.length === 0 ? '10px' : '40px' }}
                                 onClick={() => setEyeClicked(!eyeClicked)}
                                 className="material-icons eye"
+                                data-testid="eye"
                             >
                                 {eyeClicked ? 'visibility_off' : 'visibility'}
                             </i>

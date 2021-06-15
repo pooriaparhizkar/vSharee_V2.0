@@ -2,29 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import firebase from 'firebase/app' 
-import 'firebase/analytics'
-  const firebaseConfig = {
-    apiKey: "AIzaSyBME7Yqe7AAyfIVW_7KQvx4CovAPL5GAcI",
-    authDomain: "vsharee-624a6.firebaseapp.com",
-    projectId: "vsharee-624a6",
-    storageBucket: "vsharee-624a6.appspot.com",
-    messagingSenderId: "335488443689",
-    appId: "1:335488443689:web:2c8d9ac23668bde9f0c338",
-    measurementId: "G-YZDHNZVENP"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-export const login=()=>{
-  firebase.analytics().logEvent('LoginEvent')
-}
-export const signup=()=>{
-  firebase.analytics().logEvent('SignupEvent')
-}
-export const creategroup=()=>{
-  firebase.analytics().logEvent('creategroup')
-}
+import firebase from 'firebase/app';
+import 'firebase/analytics';
+const firebaseConfig = {
+    apiKey: 'AIzaSyBME7Yqe7AAyfIVW_7KQvx4CovAPL5GAcI',
+    authDomain: 'vsharee-624a6.firebaseapp.com',
+    projectId: 'vsharee-624a6',
+    storageBucket: 'vsharee-624a6.appspot.com',
+    messagingSenderId: '335488443689',
+    appId: '1:335488443689:web:2c8d9ac23668bde9f0c338',
+    measurementId: 'G-YZDHNZVENP',
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
 ReactDOM.render(
     <React.StrictMode>

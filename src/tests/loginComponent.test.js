@@ -1,21 +1,21 @@
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { render as rtlRender, fireEvent, screen } from '@testing-library/react';
+import { render as rtlRender, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import reducer from '../redux/reducer';
-import * as Actions from '../redux/actions';
-import { initial_state } from '../redux/reducer';
 import { AuthStatus } from '../interface';
 import { VshareeLanguage } from '../vsharee/vsharee.lang';
-import Dashboard from '../vsharee/Dashboard/dashboard.index';
+import Login from '../vsharee/Login/login.index';
+import userEvent from '@testing-library/user-event';
 
-// const mockChildComponent = jest.fn();
-// jest.mock('../../utilities/components/input/input.index', () => (props) => {
-//     mockChildComponent(props);
-//     return <mock-childComponent />;
-// });
-
+const initialState = {
+    userData: null,
+    authStatus: AuthStatus.isInValid,
+    language: VshareeLanguage,
+    isEdit: false,
+    myGroups: null,
+};
 function renderWithRedux(
     component,
     { initialState, store = createStore(reducer, initialState), ...renderOptions } = {},
@@ -26,64 +26,72 @@ function renderWithRedux(
     return rtlRender(component, { wrapper: Wrapper, ...renderOptions });
 }
 
-describe('register reducer', () => {
-    it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual({
-            userData: null,
-            authStatus: AuthStatus.isPending,
-            language: VshareeLanguage,
-            isEdit: false,
-            myGroups: undefined,
-        });
+describe('Renders <Login /> component correctly', () => {
+    const LANG = VshareeLanguage.Login;
+    it('Renders background  correctly', () => {
+        renderWithRedux(<Login />, { initialState });
+        const background = screen.getByTestId('background');
+        expect(background).toBeValid();
     });
-
-    it('should handle USER_DATA', () => {
-        expect(
-            reducer(initial_state, {
-                type: Actions.USER_DATA,
-                payload: {
-                    firstname: 'Yazdan',
-                    lastname: 'Seyyedi',
-                    email: 'y@gmail.com',
-                    username: 'Yazdan',
-                },
-            }),
-        ).toEqual({
-            userData: {
-                firstname: 'Yazdan',
-                lastname: 'Seyyedi',
-                email: 'y@gmail.com',
-                username: 'Yazdan',
-            },
-            authStatus: AuthStatus.isPending,
-            language: VshareeLanguage,
-            isEdit: false,
-            myGroups: undefined,
-        });
+    it('Renders username input correctly', () => {
+        renderWithRedux(<Login />, { initialState });
+        const username = screen.getByPlaceholderText(LANG.emailAddressPH);
+        expect(username).toBeValid();
     });
-
-    it('Renders <Dashboard /> component correctly', () => {
-        renderWithRedux(<Dashboard />, {
-            initialState: {
-                language: VshareeLanguage,
-                isEdit: false,
-                myGroups: null,
-            },
-        });
-        const test = screen.getByTestId('test');
-        console.log(test);
+    it('Renders password input correctly', () => {
+        renderWithRedux(<Login />, { initialState });
+        const password = screen.getByPlaceholderText(LANG.password);
+        expect(password).toBeValid();
     });
-
-    // console.log(mockChildComponent.mock.calls);
-    // mockChildComponent.mock.calls.map((e) => {
-    //     if (e[0].label === 'نام کاربری') {
-    //         expect(e[0].value).toEqual('YadanSeyyedi');
-    //     } else if (e[0].label === 'نام') {
-    //         expect(e[0].value).toEqual('Yazdan');
-    //     } else if (e[0].label === 'نام خانوادگی') {
-    //         expect(e[0].value).toEqual('Seyyedi');
-    //     } else if (e[0].label === 'ایمیل') {
-    //         expect(e[0].value).toEqual('y@gmail.com');
-    //     }
-    // });
+    it('Change type of the password input correctly', () => {
+        renderWithRedux(<Login />, { initialState });
+        const password = screen.getByPlaceholderText(LANG.password);
+        expect(password.type).toBe('password');
+        const eyeIcon = screen.getByTestId('eye');
+        userEvent.click(eyeIcon);
+        expect(password.type).toBe('text');
+        userEvent.click(eyeIcon);
+        expect(password.type).toBe('password');
+    });
+    it('Change value of the password input correctly', () => {
+        const tempPassword = 'Test Password';
+        renderWithRedux(<Login />, { initialState });
+        const password = screen.getByPlaceholderText(LANG.password);
+        expect(password.value).toBe('');
+        password.value = tempPassword;
+        expect(password.value).toBe(tempPassword);
+    });
+    it('Change value of the input input correctly', () => {
+        const tempUsername = 'Test Username';
+        renderWithRedux(<Login />, { initialState });
+        const username = screen.getByPlaceholderText(LANG.emailAddressPH);
+        expect(username.value).toBe('');
+        username.value = tempUsername;
+        expect(username.value).toBe(tempUsername);
+    });
+    it('Render Disable status of button correctly', () => {
+        renderWithRedux(<Login />, { initialState });
+        const button = screen.getByRole('button');
+        const username = screen.getByPlaceholderText(LANG.emailAddressPH);
+        const password = screen.getByPlaceholderText(LANG.password);
+        function clear() {
+            userEvent.clear(username);
+            userEvent.clear(password);
+        }
+        userEvent.type(username, '');
+        userEvent.type(password, '');
+        expect(button.className.includes('disable')).toBe(true);
+        clear();
+        userEvent.type(username, 'pouorix');
+        userEvent.type(password, 'Pouorix 123');
+        expect(button.className.includes('disable')).toBe(false);
+        clear();
+        userEvent.type(username, 'pouorix');
+        userEvent.type(password, '1234');
+        expect(button.className.includes('disable')).toBe(true);
+        clear();
+        userEvent.type(username, '$pouorix');
+        userEvent.type(password, 'Pouorix 123');
+        expect(button.className.includes('disable')).toBe(true);
+    });
 });
