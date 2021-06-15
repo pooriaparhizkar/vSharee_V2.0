@@ -21,23 +21,18 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
     const [online, setOnline] = useState<UserData[] | undefined>(undefined);
     const [topGroup, setTopGroup] = useState<GroupType[] | undefined>(undefined);
 
-      useEffect(() => {
-            get<any>("/notifications/").then((res) => {
+    useEffect(() => {
+        get<any>('/notifications/').then((res) => {
             if (responseValidator(res.status) && res.data) {
-
-                console.log(res.data)
+                console.log(res.data);
                 // if (NotificationType.Follow == res.data){
                 //
                 // }
-
             } else {
                 toast.error('Something went wrong ');
             }
         });
-
     }, []);
-
-
 
     useEffect(() => {
         get<UserData[]>(APIPath.user.offline).then((res) => {
@@ -98,7 +93,7 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
             <div className="centercolumn">
                 <div className="center-items">
                     <img alt="tv" src={tvPic} className="tvPic" />
-                    <h2>Welcome!</h2>
+                    <h2 data-testid="test">Welcome!</h2>
                     <span>This is your brand, shiny server. Here are some steps </span>
                     <h3>to help you et stared:</h3>
                     <div className="p-text">

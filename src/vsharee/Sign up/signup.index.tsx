@@ -12,7 +12,7 @@ import { emailValidation, passwordValidation, usernameValidation } from '../../s
 import { toast } from 'react-toastify';
 import ReactTooltip from 'react-tooltip';
 import { Spinner } from 'react-bootstrap';
-import { signup } from '../../index';
+import { signup } from '../../firebaseFunctions';
 const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [email, setEmail] = useState<string | undefined>(undefined);
     const [username, setUsername] = useState<string | undefined>(undefined);
@@ -160,9 +160,17 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
         } else setSamePassword(undefined);
     }
 
+    function backHandler() {
+        document.body.classList.add(navigationAnim);
+        setTimeout(() => {
+            document.body.classList.remove(navigationAnim);
+            history.push(RoutePath.landing);
+        }, 500);
+    }
+
     return (
         <div className="vsharee-signup-page">
-            <img className="background" src={background} alt="background" />
+            <img data-testid="background" className="background" src={background} alt="background" />
             <div className="box">
                 <div className="redbox">
                     <span />
@@ -170,7 +178,7 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                     <h1 className="welcome-Back">{LANG.welcomeBack}</h1>
                     <h1 className="sign-in-to-continue">{LANG.welcomeBackText}</h1>
                     <span />
-                    <Link to={RoutePath.landing}>copyright vSharee.ir</Link>
+                    <a onClick={backHandler}>copyright vSharee.ir</a>
                 </div>
                 <div className="blackbox">
                     <div className="context">
@@ -269,7 +277,11 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                             ? 'cancel'
                                             : 'info'}
                                     </i>
-                                    <i onClick={() => setEyeClicked(!eyeClicked)} className="material-icons eye">
+                                    <i
+                                        data-testid="eye"
+                                        onClick={() => setEyeClicked(!eyeClicked)}
+                                        className="material-icons eye"
+                                    >
                                         {eyeClicked ? 'visibility_off' : 'visibility'}
                                     </i>
                                 </div>
@@ -300,6 +312,7 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                         placeholder={LANG.confirmPassword}
                                     />
                                     <i
+                                        data-testid="eye2"
                                         style={{ right: !password2 || password2?.length === 0 ? '10px' : '40px' }}
                                         onClick={() => setEyeClicked2(!eyeClicked2)}
                                         className="material-icons eye2"
