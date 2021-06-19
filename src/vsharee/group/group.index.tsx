@@ -15,6 +15,7 @@ const socketstream: any = null;
 
 import GroupMembersModal from '../Component/groupMembers/groupMembers.index';
 import NotifyMemberModal from '../Component/notifyMemberModal/notifyMemberModal.index';
+import GroupOnlineMembers from './onlineMember/onlineMember.index';
 
 const Group: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [isEditGroup, setIsEditGroup] = useState<boolean>(false);
@@ -140,66 +141,7 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                     <div className="member">
                         <h3>Online Member</h3>
                         <div className="context">
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
+                            <GroupOnlineMembers id={id} />
                         </div>
                     </div>
                     <div className="chat">

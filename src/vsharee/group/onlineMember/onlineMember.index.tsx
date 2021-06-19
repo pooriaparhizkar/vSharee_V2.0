@@ -4,6 +4,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import './onlineMember.style.scss';
 import { get, responseValidator } from '../../../scripts/api';
 import { APIPath } from '../../../data';
+import Logo from '../../../assets/images/landing/logo.png';
 
 const GroupOnlineMembers: React.FC<ConnectedProps<typeof connector> & { id: number }> = function (
     props: ConnectedProps<typeof connector> & { id: number },
@@ -17,15 +18,11 @@ const GroupOnlineMembers: React.FC<ConnectedProps<typeof connector> & { id: numb
     }, []);
     return (
         <div className="vsharee-group-online-members">
-            {props.id}
             <div className="items">
-                <img
-                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                    alt="profile-pic"
-                />
+                <img src={props.userData!.photo ? props.userData!.photo_path : Logo} alt="gp-photo" />
                 <div className="info">
-                    <p>Bonelwa Ngqawana</p>
-                    <label>Streamer</label>
+                    <p>{props.userData!.username}</p>
+                    <label>Owner</label>
                 </div>
             </div>
         </div>
