@@ -43,6 +43,7 @@ export const __APIPath = {
         followReq: '/user/relations/follow-requests/',
         groupnotice: '/notifications/groups-notice-list/',
         acceotordecline: (id: any, type: string) => `/user/relations/request/?state=${type}&userid=${id}`,
+        ivitelist:'/group/invite-list/'
         
     },
 };

@@ -17,8 +17,10 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
     const [previewNotif, setpreviewNotif] = useState<any>(true)
     const [detailNotiffriendReq, setdetailNotiffriendReq] = useState<any>(false)
     const [countFollowReqview,setcountFollowReqview]=useState<any>(false)
+    const [invitelistreview,setinvitelistreview]=useState<any>(false)
     const [followReqlist,setfollowReqlist]=useState<any>([])
     const [groupnotice,setgroupnotice]=useState<any>([])
+    const [invitelist,setinvitelist]=useState<any>([])
     const [groupnoticeview,setgroupnoticeview]=useState<any>(false)
     useEffect(() => {
         get<any>(APIPath.notification.index).then((res) => {
@@ -64,6 +66,16 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
             }
         });
         }
+        get<any>(APIPath.notification.ivitelist).then((res) => {
+            if (responseValidator(res.status) && res.data) {
+
+                console.log(res.data)
+        setinvitelist(res.data)
+
+            } else {
+                toast.error('Something went wrong ');
+            }
+        });
 
               get<any>(APIPath.notification.groupnotice).then((res) => {
             if (responseValidator(res.status) && res.data) {
@@ -80,6 +92,7 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
     }, []);
 
     function clickonfriendReq() {
+
         setpreviewNotif(false)
         setdetailNotiffriendReq(true)
     }
@@ -87,6 +100,7 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
         setpreviewNotif(true)
         setdetailNotiffriendReq(false)
         setgroupnoticeview(false)
+        setinvitelistreview(false)
     }
     function clickgroupnotice(){
         if(groupNotifCount!=="0"){
@@ -94,6 +108,10 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
         setgroupnoticeview(true) 
         }
    
+    }
+    function clickinvitelist(){
+        setpreviewNotif(false)
+        setinvitelistreview(true)
     }
     function answerRequest(id:any,type:any){
         console.log('123')
@@ -133,7 +151,7 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
                     <span>{groupNotifCount}</span>
 
                 </div>
-                <div onClick={clickgroupnotice} className="groups">
+                <div onClick={clickinvitelist} className="groups">
                     <p>Group Added </p>
                     <i />
                     <span>{groupAlarmCount}</span>
@@ -188,7 +206,22 @@ arrow_back
                    
              
             </div>
-
+            <div hidden={!invitelistreview}>
+            <span style={{cursor:'pointer'}} onClick={clickonbackArrow} className="material-icons-outlined">
+arrow_back
+</span>
+               
+                    {invitelist.map((index:any)=>(
+                   
+                      <div key={index.id} className="friends-list" >   
+                       <p>You add in {index.group} </p>
+                    <i />
+               
+                </div>
+                    ))}
+                   
+             
+            </div>
 
 
 
