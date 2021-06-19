@@ -372,10 +372,10 @@ const Signup: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
                                 </button>
 
                                 <h3 className="social">{LANG.connectWithSocialMedia}</h3>
-                                <div className="rectangle">
-                                    <img src={googleLogo} alt="google" />
-                                    <p>{LANG.signInGoogle}</p>
-                                </div>
+                                {/*<div className="rectangle">*/}
+                                {/*    <img src={googleLogo} alt="google" />*/}
+                                {/*    <p>{LANG.signInGoogle}</p>*/}
+                                {/*</div>*/}
 
                                 <div className="new-acc">
                                     <h4>{LANG.haveAccount}</h4>
