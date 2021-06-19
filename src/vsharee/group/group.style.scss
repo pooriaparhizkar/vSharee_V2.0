@@ -59,9 +59,9 @@
         }
 
         height: 100%;
-         @media (max-width: 1450px) {
-           overflow: auto;
-         }
+        @media (max-width: 1450px) {
+          overflow: auto;
+        }
 
         .group-detail-title {
           display: flex;
@@ -181,17 +181,62 @@
                   color: $gray;
                   cursor: pointer;
                   transition: color 0.3s;
-                  &:hover{
+
+                  &:hover {
                     color: white;
                   }
                 }
               }
 
-              span {
-                @include vsharee-size(font-size, 16px, 12px);
-                font-weight: 300;
-                color: $gray;
+              .gp-sub-name {
+                width: 100%;
+                display: flex;
+                align-items: center;
+
+                span {
+                  @include vsharee-size(font-size, 16px, 12px);
+                  font-weight: 300;
+                  color: $gray;
+                }
+
+                .spacer {
+                  flex: 1;
+                }
+
+                .notify-members {
+                  display: flex;
+                  align-items: center;
+                  cursor: pointer;
+
+                  label {
+                    @include vsharee-size(font-size, 16px, 12px);
+                    font-weight: 300;
+                    color: $gray;
+                    cursor: pointer;
+                    transition: color 0.3s;
+                    margin: 0;
+                  }
+
+                  i {
+                    margin-right: 6px;
+                    color: $gray;
+                    transition: color 0.3s;
+                    font-size: 20px;
+                  }
+
+                  &:hover {
+                    label {
+                      color: white;
+                    }
+
+                    i {
+                      color: white;
+                    }
+                  }
+                }
+
               }
+
 
               .description {
                 margin-top: 18px;
@@ -233,6 +278,7 @@
               width: 100%;
               height: 100%;
               border-right: none;
+
               .empty-state {
                 width: 100%;
                 height: 100%;
@@ -305,7 +351,7 @@
         .context {
           flex: 1;
           overflow-y: auto;
-          @include vsharee-scroll-shadow
+          @include vsharee-scroll-shadow;
           margin-top: -18px;
 
           .items {
