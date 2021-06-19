@@ -18,7 +18,7 @@ const NotifyMemberModal: React.FC<ConnectedProps<typeof connector> & NotifyMembe
 
     function sendHandler() {
         setLoading(true);
-        post(APIPath.groups.notifyMembers(props.id), { message }).then((res) => {
+        post(APIPath.groups.notifyMembers, { group: props.id, notice: message }).then((res) => {
             setLoading(false);
             if (responseValidator(res.status)) {
                 toast.success('Your message successfully sent to your members');

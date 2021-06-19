@@ -25,7 +25,7 @@ export const __APIPath = {
         permissions: (id: apiParams, member: string) => `/group/${id}/permissions/?member=${member}`,
         preview: (id: apiParams) => `/group/preview/?group=${id}`,
         invite: '/group/invite/',
-        notifyMembers: (id: apiParams) => `/group/${id}/notify`,
+        notifyMembers: `/group/set-notice/`,
     },
     profile: {
         userdata: '/user/find/username/',
