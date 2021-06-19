@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AuthStatus, ReduxState, Tokens, UserData} from 'interface';
 import {connect, ConnectedProps} from 'react-redux';
 import background from 'assets/images/login-background.jpg';
@@ -6,13 +6,37 @@ import RedBox from 'assets/images/RedBox.png';
 import './directMessage.style.scss';
 import fakePic from "../../assets/images/dashboard/fakepic.jpg";
 import {Link} from "react-router-dom";
-import {RoutePath} from "../../data";
+import {APIPath, RoutePath} from "../../data";
 import DashboardEmptyState from "../Dashboard/emptyState/emptyState.index";
 import DashboardItemsSkeleton from "../Dashboard/skeleton/dashboard.skeleton";
 import {TextField} from "@material-ui/core";
+import {get, responseValidator} from "../../scripts/api";
+import {toast} from "react-toastify";
 
 
 const DirectMessage: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
+
+    useEffect(() => {
+        get<any>(APIPath.user.directMessage,{user:props.userData!.username}).then((res) => {
+            if (responseValidator(res.status) && res.data) {
+                console.log(res.data);
+
+            } else {
+                toast.error('Something went wrong ');
+            }
+        });
+    }, []);
+    useEffect(() => {
+        get<any>(APIPath.user.chatList,{user:props.userData!.username}).then((res) => {
+            if (responseValidator(res.status) && res.data) {
+                console.log(res.data);
+
+            } else {
+                toast.error('Something went wrong ');
+            }
+        });
+    }, []);
+
 
     const [userSelected, setUserSelected] = useState<UserData | null>(null)
     return (

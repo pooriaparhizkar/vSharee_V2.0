@@ -9,6 +9,8 @@ export const __APIPath = {
         offline: '/user/relations/offline-followings/',
         online: '/user/relations/online-followings/',
         myInfo: '/user/information/',
+        directMessage:'/user/direct-message/',
+        chatList:'/user/chat-list/',
         detail: (username: string) => `/user/${username}/information`,
     },
     forgetPass: {
