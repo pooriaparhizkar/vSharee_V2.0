@@ -77,17 +77,7 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
             }
         });
 
-              get<any>(APIPath.notification.groupnotice).then((res) => {
-            if (responseValidator(res.status) && res.data) {
-
-                console.log(res.data)
-            
-        setgroupnotice(res.data)
-
-            } else {
-                toast.error('Something went wrong ');
-            }
-        });
+   
      
     }, []);
 
@@ -106,12 +96,26 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
         if(groupNotifCount!=="0"){
                 setpreviewNotif(false)
         setgroupnoticeview(true) 
+        getnotify()
         }
    
     }
     function clickinvitelist(){
         setpreviewNotif(false)
         setinvitelistreview(true)
+    }
+    function getnotify(){
+           get<any>(APIPath.notification.groupnotice).then((res) => {
+            if (responseValidator(res.status) && res.data) {
+
+                console.log(res.data)
+            
+        setgroupnotice(res.data)
+
+            } else {
+                toast.error('Something went wrong ');
+            }
+        });
     }
     function answerRequest(id:any,type:any){
         console.log('123')
@@ -193,14 +197,9 @@ arrow_back
                     {groupnotice.map((index:any)=>(
                    
                       <div key={index.id} className="friends-list" >   
-                       <p>{index.sender} want Follow You </p>
+                       <p>Group {index.group} : {index.text_preview} </p>
                     <i />
-                    <i style={{ color: 'green' }} className="material-icons-outlined" >
-                        check_circlecheck_circle
-                    </i>
-                    <i style={{ color: 'red' }} className="material-icons-outlined" >
-                        highlight_off
-                    </i>
+             
                 </div>
                     ))}
                    
