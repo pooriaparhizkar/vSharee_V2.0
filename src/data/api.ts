@@ -26,6 +26,7 @@ export const __APIPath = {
         preview: (id: apiParams) => `/group/preview/?group=${id}`,
         invite: '/group/invite/',
         notifyMembers: `/group/set-notice/`,
+        onlineMembers: (id: apiParams) => `/group/online-users/?group=${id}`,
     },
     profile: {
         userdata: '/user/find/username/',

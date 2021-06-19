@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GroupPrivacy, GroupType, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './group.style.scss';
@@ -11,8 +11,7 @@ import { useParams } from 'react-router-dom';
 import AlphabetPicture from '../../utilities/component/alphabetPhoto/alphabetPhoto.index';
 
 import { authToken } from 'scripts/storage';
-let socketstream: any = null;
-let socketchat: any = null;
+const socketstream: any = null;
 
 import GroupMembersModal from '../Component/groupMembers/groupMembers.index';
 import NotifyMemberModal from '../Component/notifyMemberModal/notifyMemberModal.index';
@@ -33,15 +32,20 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
             }
         });
     }
+    const streamSocket = new WebSocket(
+        'ws://api.vsharee.ir:8001/stream/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
+    );
+    const chatSocket = new WebSocket(
+        'ws://api.vsharee.ir:8001/chat/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
+    );
+
     useEffect(() => {
         getGroupData();
-
-        socketstream = new WebSocket(
-            'ws://api.vsharee.ir/stream/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
-        );
-        socketchat = new WebSocket(
-            'ws://api.vsharee.ir/chat/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
-        );
+        console.log(`ws://api.vsharee.ir:8001/stream/groups/${id}/?token=${authToken.get()?.access_token}`);
+        streamSocket.onopen = () => console.log('steam socket connected');
+        streamSocket.onclose = () => console.log('stream socket disconnected');
+        chatSocket.onopen = () => console.log('chat socket connected');
+        chatSocket.onclose = () => console.log('chat socket disconnected');
     }, []);
     function enterHandler(e: any) {
         if (e.key === 'Enter' || e.keyCode === 13) {
@@ -49,7 +53,9 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
         }
     }
     function sendmessage() {
-        socketchat.send('Hello Server!');
+        const message_send_chat = { command: 'chat_client', message_client: 'test' };
+        chatSocket.send('ss');
+        // socketchat.current.send(JSON.stringify(message_send_chat));
     }
     return (
         <div className="vsharee-group-page">
