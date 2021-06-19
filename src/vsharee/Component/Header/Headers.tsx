@@ -17,18 +17,17 @@ import { Button, CircularProgress } from '@material-ui/core';
 import emptyProfilePhoto from '../../../assets/images/fakeimage.svg';
 import EditProfile from '../editProfile/editProfile.index';
 
-import Notification from "../../notification/notification.index";
+import Notification from '../../notification/notification.index';
 
 import WhiteSpinner from '../../../utilities/component/whiteSpinner/whiteSpinner.index';
 import Logo from '../../../assets/images/landing/logo.png';
 import AlphabetPicture from '../../../utilities/component/alphabetPhoto/alphabetPhoto.index';
 import JoinGroupModal from '../joinGroupModal/joinGroupModal.index';
 
-
 class Headers extends React.Component<any, any> {
-
     searchResultRef: React.RefObject<HTMLDivElement>;
     notifRef: React.RefObject<HTMLDivElement>;
+    notifRef2: React.RefObject<HTMLDivElement>;
 
     constructor(props: any) {
         super(props);
@@ -44,13 +43,14 @@ class Headers extends React.Component<any, any> {
             openNotifBox: false,
 
             idSelected: undefined,
-
         };
-        this.searchResultRef = React.createRef();
         this.notifRef = React.createRef();
+        this.notifRef2 = React.createRef();
+        this.searchResultRef = React.createRef();
+
         this.logoutHandler = this.logoutHandler.bind('ss');
         this.onClickOutSide = this.onClickOutSide.bind(this);
-
+        this.onClickOutSide2 = this.onClickOutSide2.bind(this);
     }
 
     showInput = (txt: string) => {
@@ -99,39 +99,33 @@ class Headers extends React.Component<any, any> {
     }
 
     private onClickOutSide(event: any) {
-        // console.log(this.searchResultRef);
+        //console.log(this.searchResultRef);
         if (this.searchResultRef.current && !this.searchResultRef.current.contains(event.target)) {
             this.setState({ searchResult: [], isLoadingSearch: true, searchTerm: '' });
         }
     }
     private onClickOutSide2(event: any) {
-        // console.log(this.searchResultRef);
-        if (this.notifRef.current && !this.notifRef.current.contains(event.target)) {
-            console.log("alo alo kamyab jojo e")
+        if (this.state.openNotifBox) {
+            if (
+                this.notifRef.current &&
+                !this.notifRef.current.contains(event.target) &&
+                this.notifRef2.current &&
+                !this.notifRef2.current.contains(event.target)
+            ) {
+                this.setState({ openNotifBox: false });
+                console.log('ssss');
+            }
         }
     }
 
     componentDidMount() {
         document.addEventListener('click', this.onClickOutSide, { passive: true });
+        document.addEventListener('click', this.onClickOutSide2, { passive: true });
     }
 
     componentWillUnmount() {
         document.removeEventListener('click', this.onClickOutSide);
-    }
-
-    openNotif = () => {
-        if (this.state.openNotifBox === false){
-        document.getElementById("notif-box")!.style.height="350px"
-        document.getElementById("notif-box")!.style.overflow="auto"
-        this.setState({openNotifBox:true})
-        }
-        else{
-
-        document.getElementById("notif-box")!.style.height="0"
-        document.getElementById("notif-box")!.style.overflow="hidden"
-        this.setState({openNotifBox:false})
-        }
-
+        document.removeEventListener('click', this.onClickOutSide2);
     }
 
     render() {
@@ -248,9 +242,12 @@ class Headers extends React.Component<any, any> {
                     className="col-2 input-main-div-mobile "
                     onClick={this.clickOnOthers}
                 />
-                <div  ref={this.notifRef} className="notif-box" id={"notif-box"}>
-                    <Notification/>
-
+                <div
+                    ref={this.notifRef}
+                    className={`notif-box  ${this.state.openNotifBox === true ? 'open' : ''}`}
+                    id={'notif-box'}
+                >
+                    <Notification />
                 </div>
 
                 <div
@@ -423,7 +420,16 @@ class Headers extends React.Component<any, any> {
                         mail
                     </i>
 
-                    <i onClick={this.openNotif} className="material-icons paddingi">notifications</i>
+                    <i
+                        ref={this.notifRef2}
+                        onClick={() => {
+                            // console.log(this.state.openNotifBox, !this.state.openNotifBox);
+                            this.setState({ openNotifBox: !this.state.openNotifBox });
+                        }}
+                        className="material-icons paddingi"
+                    >
+                        notifications
+                    </i>
                 </div>
             </div>
         );

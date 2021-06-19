@@ -235,10 +235,10 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                         </button>
 
                         <h3 className="social">{LANG.connectWithSocialMedia} </h3>
-                        <div className="rectangle">
-                            <img src={googleLogo} alt="google" />
-                            <p>{LANG.signInGoogle}</p>
-                        </div>
+                        {/*<div className="rectangle">*/}
+                        {/*    <img src={googleLogo} alt="google" />*/}
+                        {/*    <p>{LANG.signInGoogle}</p>*/}
+                        {/*</div>*/}
                         <div className="new-acc">
                             <h4>{LANG.dontHaveAccount}</h4>
                             <a onClick={goToSignup}>{LANG.signup}</a>
