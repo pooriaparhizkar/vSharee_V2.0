@@ -26,6 +26,7 @@ export const __APIPath = {
         preview: (id: apiParams) => `/group/preview/?group=${id}`,
         invite: '/group/invite/',
         notifyMembers: `/group/set-notice/`,
+        onlineMembers: (id: apiParams) => `/group/online-users/?group=${id}`,
     },
     profile: {
         userdata: '/user/find/username/',
@@ -42,5 +43,8 @@ export const __APIPath = {
         index: '/notifications/',
         followReq: '/user/relations/follow-requests/',
         groupnotice: '/notifications/groups-notice-list/',
+        acceotordecline: (id: any, type: string) => `/user/relations/request/?state=${type}&userid=${id}`,
+        ivitelist:'/group/invite-list/'
+        
     },
 };
