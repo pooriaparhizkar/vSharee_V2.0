@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GroupPrivacy, GroupType, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './group.style.scss';
@@ -11,21 +11,20 @@ import { useParams } from 'react-router-dom';
 import AlphabetPicture from '../../utilities/component/alphabetPhoto/alphabetPhoto.index';
 
 import { authToken } from 'scripts/storage';
-let socketstream:any=null
-let socketchat:any=null
+const socketstream: any = null;
 
 import GroupMembersModal from '../Component/groupMembers/groupMembers.index';
+import NotifyMemberModal from '../Component/notifyMemberModal/notifyMemberModal.index';
+import GroupOnlineMembers from './onlineMember/onlineMember.index';
 
 const Group: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const [isEditGroup, setIsEditGroup] = useState<boolean>(false);
     const { id } = useParams<any>();
     const [groupData, setGroupData] = useState<GroupType>();
     const [isAdmin, setIsAdmin] = useState<boolean>();
-
-    const [chatpm,setchatpm] = useState<any>('')
-
+    const [chatpm, setchatpm] = useState<any>('');
     const [isMemberModal, setIsMemberModal] = useState<boolean>(false);
-
+    const [isNotifyModal, setIsNotifyModal] = useState<boolean>(false);
     function getGroupData() {
         get<GroupType>(APIPath.groups.detail(id)).then((res) => {
             if (responseValidator(res.status) && res.data) {
@@ -34,21 +33,30 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
             }
         });
     }
+    const streamSocket = new WebSocket(
+        'ws://api.vsharee.ir:8001/stream/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
+    );
+    const chatSocket = new WebSocket(
+        'ws://api.vsharee.ir:8001/chat/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
+    );
+
     useEffect(() => {
         getGroupData();
-      
-       socketstream = new WebSocket("ws://api.vsharee.ir/stream/groups/" + id + "/?token=" + authToken.get()?.access_token + "");
-socketchat=new WebSocket("ws://api.vsharee.ir/chat/groups/" + id + "/?token=" + authToken.get()?.access_token + "");
-
-
+        console.log(`ws://api.vsharee.ir:8001/stream/groups/${id}/?token=${authToken.get()?.access_token}`);
+        streamSocket.onopen = () => console.log('steam socket connected');
+        streamSocket.onclose = () => console.log('stream socket disconnected');
+        chatSocket.onopen = () => console.log('chat socket connected');
+        chatSocket.onclose = () => console.log('chat socket disconnected');
     }, []);
     function enterHandler(e: any) {
         if (e.key === 'Enter' || e.keyCode === 13) {
-            sendmessage()
+            sendmessage();
         }
     }
-    function sendmessage(){
-        socketchat.send('Hello Server!');
+    function sendmessage() {
+        const message_send_chat = { command: 'chat_client', message_client: 'test' };
+        chatSocket.send('ss');
+        // socketchat.current.send(JSON.stringify(message_send_chat));
     }
     return (
         <div className="vsharee-group-page">
@@ -60,6 +68,7 @@ socketchat=new WebSocket("ws://api.vsharee.ir/chat/groups/" + id + "/?token=" + 
                     getGroupData();
                 }}
             />
+            <NotifyMemberModal id={id} show={isNotifyModal} onClose={() => setIsNotifyModal(false)} />
 
             <GroupMembersModal isAdmin={isAdmin} id={id} show={isMemberModal} onClose={() => setIsMemberModal(false)} />
 
@@ -95,13 +104,22 @@ socketchat=new WebSocket("ws://api.vsharee.ir/chat/groups/" + id + "/?token=" + 
                                             {groupData?.members.length} members
                                         </label>
                                     </div>
-                                    <span>
-                                        {groupData?.privacy === GroupPrivacy.public
-                                            ? 'Public'
-                                            : groupData?.privacy === GroupPrivacy.semiPrivate
-                                            ? 'Semi Private'
-                                            : 'Private'}
-                                    </span>
+                                    <div className="gp-sub-name">
+                                        <span>
+                                            {groupData?.privacy === GroupPrivacy.public
+                                                ? 'Public'
+                                                : groupData?.privacy === GroupPrivacy.semiPrivate
+                                                ? 'Semi Private'
+                                                : 'Private'}
+                                        </span>
+                                        <span className="spacer" />
+                                        {isAdmin && (
+                                            <div onClick={() => setIsNotifyModal(true)} className="notify-members">
+                                                <i className="material-icons">notifications_active</i>
+                                                <label>Notify</label>
+                                            </div>
+                                        )}
+                                    </div>
                                     <div className="description">
                                         <p>{groupData?.describtion}</p>
                                     </div>
@@ -123,66 +141,7 @@ socketchat=new WebSocket("ws://api.vsharee.ir/chat/groups/" + id + "/?token=" + 
                     <div className="member">
                         <h3>Online Member</h3>
                         <div className="context">
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
-                            <div className="items">
-                                <img
-                                    src="https://littleletterslinked.com/wp-content/uploads/2019/07/man-with-cool-beard-style-looking-into-camera.jpg"
-                                    alt="profile-pic"
-                                />
-                                <div className="info">
-                                    <p>Bonelwa Ngqawana</p>
-                                    <label>Streamer</label>
-                                </div>
-                            </div>
+                            <GroupOnlineMembers id={id} />
                         </div>
                     </div>
                     <div className="chat">
@@ -203,7 +162,7 @@ socketchat=new WebSocket("ws://api.vsharee.ir/chat/groups/" + id + "/?token=" + 
                                 variant="outlined"
                                 multiline
                                 onKeyUp={enterHandler}
-onChange={(e)=>setchatpm(e.target.value)}
+                                onChange={(e) => setchatpm(e.target.value)}
                             />
                             <i className="material-icons emoji">mood</i>
                         </div>
@@ -218,7 +177,7 @@ const mapStateToProps = (state: ReduxState) => ({
     text: state.language,
     isEdit: state.isEdit,
     myGroups: state.myGroups,
-    userData: state.userData
+    userData: state.userData,
 });
 
 const connector = connect(mapStateToProps);

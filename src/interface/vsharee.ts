@@ -43,7 +43,8 @@ export enum __NotificationType {
     FollowReqyestState = 3,
     GroupReqyestState = 4,
     FollowReqyestStatus = 5,
-    GroupNotifnumber = 6
+    GroupNotifnumber = 6,
+    Groupalarmnumber = 8,
 
 }
 
