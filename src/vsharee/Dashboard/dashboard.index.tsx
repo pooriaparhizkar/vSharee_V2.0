@@ -24,7 +24,6 @@ const Dashboard: React.FC<ConnectedProps<typeof connector>> = function (props: C
     useEffect(() => {
         get<any>('/notifications/').then((res) => {
             if (responseValidator(res.status) && res.data) {
-                console.log(res.data);
                 // if (NotificationType.Follow == res.data){
                 //
                 // }

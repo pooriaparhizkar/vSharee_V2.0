@@ -52,6 +52,8 @@
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
+    justify-content: center;
+    align-items: center;
 
     Button {
       background-color: $red;
@@ -110,7 +112,7 @@
     }
 
     .paddingi {
-      padding-right: 15px;
+      padding-right: 5px;
     }
   }
 
@@ -188,7 +190,6 @@
 
           object-fit: cover;
         }
-
 
 
         p {
@@ -275,17 +276,19 @@
       margin-top: 5px;
     }
   }
-  .notif-box{
-    position:absolute;
+
+  .notif-box {
+    position: absolute;
     top: 75px;
     right: 30px;
     transition: height 0.5s;
     height: 0;
     overflow: hidden;
-  &.open{
-    height: 350px;
-    overflow: auto;
-  }
+
+    &.open {
+      height: 350px;
+      overflow: auto;
+    }
 
   }
 }

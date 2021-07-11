@@ -118,7 +118,7 @@ const CreateGroupModal: React.FC<ConnectedProps<typeof connector> & CreateGroupM
     function postPhoto(groupID: string) {
         post<any>(APIPath.groups.uploadPhoto(groupID), {}).then((res) => {
             const response = res.data;
-            console.log(response);
+
             const file_upload = imageFile;
             const fd = new FormData();
 

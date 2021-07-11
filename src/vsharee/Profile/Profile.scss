@@ -95,7 +95,19 @@
           margin-right: 10px;
           font-size: 14px;
         }
-
+        .requestedbtn{
+          width: 110px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-color: transparent;
+          height: 34px;
+          background-color: $gray;
+          border-radius: 6px;
+          color: $white;
+          margin-right: 10px;
+          font-size: 14px;
+        }
         .unfollowbtn {
           width: 110px;
           display: flex;
@@ -214,7 +226,7 @@
         justify-content: center;
         height: 34px;
         background-color: $white;
-
+        cursor: pointer;
         .messagebtn {
           width: 19px;
 
@@ -261,7 +273,24 @@
         color: $grayLight;
       }
     }
+    .div_privatestate {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      background-color: $gray1A;
+      height: 210px;
+      flex-direction: column;
 
+      i {
+        font-size: 70px;
+        color: $grayLight;
+      }
+
+      h1 {
+        color: $grayLight;
+      }
+    }
     .div-item-group {
       background-color: $gray1A;
       height: 210px;
@@ -298,7 +327,7 @@
           color: $white;
           font-weight: 500;
           padding-left: 10px;
-          padding-top: 10px;
+          padding-top: 20px;
         }
 
         h5 {

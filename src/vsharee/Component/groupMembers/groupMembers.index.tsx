@@ -127,6 +127,7 @@ const GroupMembersModal: React.FC<ConnectedProps<typeof connector> & GroupMember
             <div className="my-container">
                 <div className="context">
                     <h1>{isAdd ? 'Add member' : 'Members'}</h1>
+
                     <div className="items-container">
                         <div className="my-card">
                             <Card variant={'outlined'}>
@@ -177,6 +178,15 @@ const GroupMembersModal: React.FC<ConnectedProps<typeof connector> & GroupMember
                                                         </Link>
 
                                                         <p>{item.member}</p>
+                                                        {/*{[...editSelected][index] !== false && (*/}
+                                                        {/*    <label*/}
+                                                        {/*        className="remove"*/}
+                                                        {/*        onClick={() => removeHandler(item.member)}*/}
+                                                        {/*    >*/}
+                                                        {/*        Remove*/}
+                                                        {/*    </label>*/}
+                                                        {/*)}*/}
+                                                        <span className="spacer" />
                                                         {props.isAdmin && (
                                                             <div className="admin-controller">
                                                                 {/*<i className="material-icons">delete</i>*/}
@@ -200,14 +210,13 @@ const GroupMembersModal: React.FC<ConnectedProps<typeof connector> & GroupMember
                                                                             setEditSelected([...temp]);
                                                                             changePermission(item.member);
                                                                         }}
-                                                                        className="material-icons"
+                                                                        className="check material-icons"
                                                                     >
                                                                         check_circle
                                                                     </i>
                                                                 )}
                                                             </div>
                                                         )}
-                                                        <span className="spacer" />
                                                         {[...editSelected][index] !== false ? (
                                                             <FormControl variant="outlined">
                                                                 <Select
