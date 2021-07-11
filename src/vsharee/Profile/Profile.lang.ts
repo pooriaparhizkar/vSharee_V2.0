@@ -9,5 +9,7 @@ export const Profilelang = {
         setting: 'Setting',
         followerlist: 'FollowerList',
         followinglist: 'FollowingList',
+        requested:"Requested"
     },
+    
 };

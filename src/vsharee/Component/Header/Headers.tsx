@@ -146,7 +146,7 @@ class Headers extends React.Component<any, any> {
                 />
                 <div
                     style={{ cursor: 'pointer' }}
-                    className="col-md-3 col-4 logo-div"
+                    className="col-2 col-md-3 logo-div"
                     onClick={() => {
                         this.clickOnOthers();
                         document.body.classList.add(navigationAnim);
@@ -157,7 +157,7 @@ class Headers extends React.Component<any, any> {
                     }}
                 >
                     <img src={VshareeLogo} alt="" />
-                    <h1>{HeaderLang.body.sharee}</h1>
+                    <h1 className="d-none d-md-block">{HeaderLang.body.sharee}</h1>
                 </div>
                 <div hidden={this.state.hiddentextField} className="col-6 input-main-div ">
                     <div ref={this.searchResultRef} className="search-input">
@@ -345,7 +345,7 @@ class Headers extends React.Component<any, any> {
                     </div>
                 </div>
                 <div
-                    className="col-md-2 col-1 icon-main-div"
+                    className="col-md-2 col-3 icon-main-div"
                     hidden={!this.state.hiddentextField}
                     onClick={this.clickOnOthers}
                 >

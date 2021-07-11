@@ -52,7 +52,8 @@
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-
+justify-content: center;
+align-items: center;
     Button {
       background-color: $red;
       border-color: transparent;
@@ -60,7 +61,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-
+width: 50%;
       h6 {
         margin-bottom: 0;
       }
@@ -110,7 +111,7 @@
     }
 
     .paddingi {
-      padding-right: 15px;
+      padding-right: 5px;
     }
   }
 
