@@ -23,7 +23,6 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
     useEffect(() => {
         get<any>(APIPath.notification.index).then((res) => {
             if (responseValidator(res.status) && res.data) {
-                console.log(res.data);
                 const notifarray = [];
                 for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].notification_type === NotificationType.GroupRequestnumber)
@@ -38,7 +37,7 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
                         notifarray.push(res.data[i]);
                     }
                 }
-                console.log(notifarray);
+
                 setNotification(notifarray);
                 // if (NotificationType.Follow == res.data){
                 //
@@ -51,7 +50,6 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
             setcountFollowReqview(true);
             get<any>(APIPath.notification.followReq).then((res) => {
                 if (responseValidator(res.status) && res.data) {
-                    console.log(res.data);
                     setfollowReqlist(res.data.result);
                 } else {
                     toast.error('Something went wrong ');
@@ -60,7 +58,6 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
         }
         get<any>(APIPath.notification.ivitelist).then((res) => {
             if (responseValidator(res.status) && res.data) {
-                console.log(res.data);
                 setinvitelist(res.data);
             } else {
                 toast.error('Something went wrong ');
@@ -92,8 +89,6 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
     function getnotify() {
         get<any>(APIPath.notification.groupnotice).then((res) => {
             if (responseValidator(res.status) && res.data) {
-                console.log(res.data);
-
                 setgroupnotice(res.data);
             } else {
                 toast.error('Something went wrong ');
@@ -101,11 +96,9 @@ const Notification: React.FC<ConnectedProps<typeof connector>> = function (props
         });
     }
     function answerRequest(id: any, type: any) {
-        console.log('123');
         post<any>(APIPath.notification.acceotordecline(id, type), {}).then((res: any) => {
             if (responseValidator(res.status) && res.data) {
                 toast.error(res.data.Success);
-                console.log(res.data);
             } else {
                 toast.error('Something went wrong ');
             }

@@ -115,10 +115,6 @@ const GroupMembersModal: React.FC<ConnectedProps<typeof connector> & GroupMember
         });
     }
 
-    function removeHandler(member: string) {
-        console.log(member);
-    }
-
     return (
         <Modal
             className="vsharee-group-members-modal"

@@ -42,7 +42,6 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
         const location = window.location.href;
         const loc = location.split('/');
         get<any>(APIPath.profile.edit_profile(props.userData!.username)).then((res) => {
-            console.log(res.data);
             if (responseValidator(res.status)) {
                 setphotourl(res.data.photo_url);
                 if (res.data.is_private) setPrivacy('true');
@@ -60,7 +59,7 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
     function upload_photo(e: any) {
         const file = e.target.files[0];
         setImagePreview(URL.createObjectURL(e.target.files[0]));
-        console.log(file);
+
         post<any>(APIPath.profile.upload_photo(resdata.username), {}).then((res) => {
             if (responseValidator(res.status) && res.data) {
                 const fd = new FormData();
@@ -85,8 +84,6 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
                 xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
                 xhr.send(fd);
                 setTimeout(() => get_photo(), 3000);
-
-                console.log(xhr);
             }
         });
     }
@@ -101,7 +98,6 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
         };
 
         put<any>(APIPath.profile.edit_profile(resdata.username), body).then((res) => {
-            console.log(res);
             setLoading(false);
             if (responseValidator(res.status)) {
                 toast.success('Your Profile successfully edited');

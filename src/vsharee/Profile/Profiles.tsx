@@ -62,7 +62,6 @@ class Profiles extends React.Component<any, any> {
             this.setState({ hidefollowbtn: true, hideunfollowbtn: true, hidesetting: false });
         } else {
             get<any>(APIPath.profile.konwfollow + loc[4]).then((res) => {
-                console.log(res);
                 if (responseValidator(res.status)) {
                     this.setState({ hidefollowbtn: true, hideunfollowbtn: false, hidesetting: true, havefollow: true });
                 } else {
@@ -93,19 +92,16 @@ class Profiles extends React.Component<any, any> {
             }
         });
         get<any>(APIPath.profile.follower, { user: loc[4] }).then((res) => {
-            console.log(res);
             if (responseValidator(res.status)) {
                 this.setState({ followerCount: res.data.followers_count, followerList: res.data.result });
             }
         });
         get<any>(APIPath.profile.following, { user: loc[4] }).then((res) => {
-            console.log(res.data);
             if (responseValidator(res.status)) {
                 this.setState({ followingCount: res.data.followings_count, followingList: res.data.result });
             }
         });
         get<any>(APIPath.profile.edit_profile(loc[4])).then((res) => {
-            console.log(res.data);
             if (responseValidator(res.status)) {
                 this.setState({
                     photourl: res.data.photo_url,
@@ -134,18 +130,15 @@ class Profiles extends React.Component<any, any> {
 
     followuser = () => {
         if (this.state.resdata.is_private) {
-            console.log('true');
             this.setState({
                 hiderequestedbtn: false,
                 hidefollowbtn: true,
             });
         } else {
-            console.log('false');
             post<any>(APIPath.profile.followUser + '?user_id=' + this.state.resdata.username, {
                 who_is_followed: this.state.resdata.username,
                 who_follows: '',
             }).then((res) => {
-                console.log(res);
                 if (responseValidator(res.status)) {
                     this.setState({
                         followerCount: this.state.followerCount + 1,
@@ -158,7 +151,6 @@ class Profiles extends React.Component<any, any> {
     };
     unfollowuser = () => {
         del<any>(APIPath.profile.unfollowUser + this.state.resdata.username, {}).then((res) => {
-            console.log(res);
             if (responseValidator(res.status)) {
                 this.setState({
                     followerCount: this.state.followerCount - 1,
