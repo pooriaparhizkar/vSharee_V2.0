@@ -182,14 +182,14 @@ const GroupMembersModal: React.FC<ConnectedProps<typeof connector> & GroupMember
                                                         </Link>
 
                                                         <p>{item.member}</p>
-                                                        {[...editSelected][index] !== false && (
-                                                            <label
-                                                                className="remove"
-                                                                onClick={() => removeHandler(item.member)}
-                                                            >
-                                                                Remove
-                                                            </label>
-                                                        )}
+                                                        {/*{[...editSelected][index] !== false && (*/}
+                                                        {/*    <label*/}
+                                                        {/*        className="remove"*/}
+                                                        {/*        onClick={() => removeHandler(item.member)}*/}
+                                                        {/*    >*/}
+                                                        {/*        Remove*/}
+                                                        {/*    </label>*/}
+                                                        {/*)}*/}
                                                         <span className="spacer" />
                                                         {props.isAdmin && (
                                                             <div className="admin-controller">
