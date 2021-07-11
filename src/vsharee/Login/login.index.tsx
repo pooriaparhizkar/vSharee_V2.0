@@ -210,7 +210,20 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                             </ReactTooltip>
                         )}
 
-                        <button onClick={submitHandler} disabled={submitLoading}>
+                        <button
+                            onClick={submitHandler}
+                            disabled={submitLoading}
+                            className={`continue ${
+                                !(
+                                    username &&
+                                    password &&
+                                    passwordValidation(password) &&
+                                    (usernameValidation(username) || emailValidation(username))
+                                )
+                                    ? 'disable'
+                                    : ''
+                            }`}
+                        >
                             {!submitLoading ? (
                                 <React.Fragment>
                                     <span>{LANG.continue}</span>
