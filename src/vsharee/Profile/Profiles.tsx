@@ -43,7 +43,9 @@ class Profiles extends React.Component<any, any> {
             hidegroups: false,
             isJoinGroupModal: false,
             idSelected: undefined,
-            displaygrops:false
+            displaygrops:false,
+            hiderequestedbtn:true,
+            havefollow:false
         };
         this.profileSettingHandler = this.profileSettingHandler.bind('ss');
     }
@@ -62,9 +64,9 @@ class Profiles extends React.Component<any, any> {
             get<any>(APIPath.profile.konwfollow + loc[4]).then((res) => {
                 console.log(res);
                 if (responseValidator(res.status)) {
-                    this.setState({ hidefollowbtn: true, hideunfollowbtn: false, hidesetting: true });
+                    this.setState({ hidefollowbtn: true, hideunfollowbtn: false, hidesetting: true ,havefollow:true});
                 } else {
-                    this.setState({ hidefollowbtn: false, hideunfollowbtn: true, hidesetting: true });
+                    this.setState({ hidefollowbtn: false, hideunfollowbtn: true, hidesetting: true,havefollow:false });
                 }
             });
         }
@@ -78,8 +80,15 @@ class Profiles extends React.Component<any, any> {
             }
         });
         get<any>(APIPath.profile.usergroup, { user_id: loc[4] }).then((res) => {
+            console.log(res);
             if (responseValidator(res.status)) {
-                this.setState({ usergroup: res.data, Emptystate: false });
+                if(res.data.length===0){
+                    this.setState({ Emptystate: true });
+                }
+                else{
+                     this.setState({ usergroup: res.data, Emptystate: false });
+                }
+               
             } else {
                 this.setState({ Emptystate: true });
             }
@@ -125,7 +134,16 @@ class Profiles extends React.Component<any, any> {
     }
 
     followuser = () => {
-        post<any>(APIPath.profile.followUser + '?user_id=' + this.state.resdata.username, {
+        if(this.state.resdata.is_private){
+            console.log('true')
+         this.setState({
+            hiderequestedbtn:false,
+            hidefollowbtn:true
+         })
+        }
+        else{
+            console.log('false')
+              post<any>(APIPath.profile.followUser + '?user_id=' + this.state.resdata.username, {
             who_is_followed: this.state.resdata.username,
             who_follows: '',
         }).then((res) => {
@@ -137,7 +155,10 @@ class Profiles extends React.Component<any, any> {
                     hideunfollowbtn: false,
                 });
             }
-        });
+        });   
+        }
+        
+   
     };
     unfollowuser = () => {
         del<any>(APIPath.profile.unfollowUser + this.state.resdata.username, {}).then((res) => {
@@ -177,7 +198,7 @@ class Profiles extends React.Component<any, any> {
     };
     checkhide=()=>{
 if(this.state.resdata.is_private){
-if(this.state.hidefollowbtn){
+if(this.state.havefollow){
 return false
 }
 else{
@@ -187,6 +208,12 @@ else{
 else{
     return false
 }
+    }
+    requested=()=>{
+        this.setState({
+            hiderequestedbtn:true,
+            hidefollowbtn:false
+         })
     }
     render() {
         return (
@@ -264,6 +291,13 @@ else{
                                         {VshareeLanguage.Profile.body.follow}
                                     </Button>
                                     <Button
+                                        hidden={this.state.hiderequestedbtn}
+                                        onClick={this.requested}
+                                        className="requestedbtn"
+                                    >
+                                        {VshareeLanguage.Profile.body.requested}
+                                    </Button>
+                                    <Button
                                         hidden={this.state.hideunfollowbtn}
                                         onClick={this.unfollowuser}
                                         className="unfollowbtn"
@@ -300,8 +334,8 @@ else{
 
                         <div className="row group-row">
                             <div className="col-md-1 "></div>
-                            <div className="col-md-11 col-xs-12 div-item-group-title" hidden={this.checkhide()}> 
-                                <h1 >{VshareeLanguage.Profile.body.publicGroup}</h1>
+                            <div className="col-md-11 col-xs-12 div-item-group-title" > 
+                                <h1 hidden={this.checkhide()}>{VshareeLanguage.Profile.body.publicGroup}</h1>
                             </div>
                             <div className="col-md-1 "></div>
                             <div className="col-md-10 col-xs-12 " hidden={this.checkhide()}>

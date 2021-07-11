@@ -95,7 +95,19 @@
           margin-right: 10px;
           font-size: 14px;
         }
-
+        .requestedbtn{
+          width: 110px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-color: transparent;
+          height: 34px;
+          background-color: $gray;
+          border-radius: 6px;
+          color: $white;
+          margin-right: 10px;
+          font-size: 14px;
+        }
         .unfollowbtn {
           width: 110px;
           display: flex;
