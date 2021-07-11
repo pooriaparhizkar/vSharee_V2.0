@@ -312,7 +312,10 @@ class Profiles extends React.Component<any, any> {
                                     </CopyToClipboard>
                                 </div>
 
-                                <div className="messagediv">
+                                <div
+                                    onClick={() => window.location.replace(RoutePath.directMessage)}
+                                    className="messagediv"
+                                >
                                     <img src={Message} alt="" className="messagebtn"></img>
                                 </div>
                             </div>
