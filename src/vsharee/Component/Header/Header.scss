@@ -52,8 +52,9 @@
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-justify-content: center;
-align-items: center;
+    justify-content: center;
+    align-items: center;
+
     Button {
       background-color: $red;
       border-color: transparent;
@@ -61,7 +62,7 @@ align-items: center;
       flex-direction: row;
       align-items: center;
       justify-content: center;
-width: 50%;
+
       h6 {
         margin-bottom: 0;
       }
@@ -191,7 +192,6 @@ width: 50%;
         }
 
 
-
         p {
           color: $gray99;
           font-size: 16px;
@@ -276,17 +276,19 @@ width: 50%;
       margin-top: 5px;
     }
   }
-  .notif-box{
-    position:absolute;
+
+  .notif-box {
+    position: absolute;
     top: 75px;
     right: 30px;
     transition: height 0.5s;
     height: 0;
     overflow: hidden;
-  &.open{
-    height: 350px;
-    overflow: auto;
-  }
+
+    &.open {
+      height: 350px;
+      overflow: auto;
+    }
 
   }
 }
