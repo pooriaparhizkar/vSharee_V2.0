@@ -180,6 +180,7 @@ const Login: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                             />
                             <i
                                 style={{ right: !password || password?.length === 0 ? '10px' : '40px' }}
+                                onClick={() => setEyeClicked(!eyeClicked)}
                                 className="material-icons eye"
                                 data-testid="eye"
                             >
