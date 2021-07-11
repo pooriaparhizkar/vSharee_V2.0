@@ -261,7 +261,24 @@
         color: $grayLight;
       }
     }
+    .div_privatestate {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      background-color: $gray1A;
+      height: 210px;
+      flex-direction: column;
 
+      i {
+        font-size: 70px;
+        color: $grayLight;
+      }
+
+      h1 {
+        color: $grayLight;
+      }
+    }
     .div-item-group {
       background-color: $gray1A;
       height: 210px;

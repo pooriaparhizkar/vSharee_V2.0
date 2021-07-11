@@ -21,7 +21,7 @@ import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import JoinGroupModal from '../Component/joinGroupModal/joinGroupModal.index';
 import AlphabetPicture from '../../utilities/component/alphabetPhoto/alphabetPhoto.index';
-
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 class Profiles extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -43,6 +43,7 @@ class Profiles extends React.Component<any, any> {
             hidegroups: false,
             isJoinGroupModal: false,
             idSelected: undefined,
+            displaygrops:false
         };
         this.profileSettingHandler = this.profileSettingHandler.bind('ss');
     }
@@ -72,6 +73,8 @@ class Profiles extends React.Component<any, any> {
             console.log(res);
             if (responseValidator(res.status)) {
                 this.setState({ resdata: res.data[0] });
+             
+             
             }
         });
         get<any>(APIPath.profile.usergroup, { user_id: loc[4] }).then((res) => {
@@ -172,6 +175,19 @@ class Profiles extends React.Component<any, any> {
         if (this.state.name === 'who_follows') return list.who_follows;
         else return list.who_is_followed;
     };
+    checkhide=()=>{
+if(this.state.resdata.is_private){
+if(this.state.hidefollowbtn){
+return false
+}
+else{
+    return true
+}
+}
+else{
+    return false
+}
+    }
     render() {
         return (
             <React.Fragment>
@@ -262,6 +278,7 @@ class Profiles extends React.Component<any, any> {
                                         <i className="material-icons-outlined">settings</i>
                                         <h1>{VshareeLanguage.Profile.body.setting}</h1>
                                     </Button>
+                                    <CopyToClipboard text={window.location.href} onCopy={()=>toast.success("Copied.")}>
                                     <Button className="sharebtn">
                                         <h1>{VshareeLanguage.Profile.body.share}</h1>
 
@@ -269,14 +286,10 @@ class Profiles extends React.Component<any, any> {
                                             <i className="material-icons ">share</i>
                                         </div>
                                     </Button>
+                                    </CopyToClipboard>
+                                 
                                 </div>
-                                <div className="socialmediadiv">
-                                    <div className="spotifydiv">
-                                        <img src={Spotify} className="spotifybtn"></img>
-                                    </div>
-
-                                    <img src={Imdb} className="imdbbtn"></img>
-                                </div>
+                            
                                 <div className="messagediv">
                                     <img src={Message} alt="" className="messagebtn"></img>
                                 </div>
@@ -287,11 +300,12 @@ class Profiles extends React.Component<any, any> {
 
                         <div className="row group-row">
                             <div className="col-md-1 "></div>
-                            <div className="col-md-11 col-xs-12 div-item-group-title">
-                                <h1>{VshareeLanguage.Profile.body.publicGroup}</h1>
+                            <div className="col-md-11 col-xs-12 div-item-group-title" hidden={this.checkhide()}> 
+                                <h1 >{VshareeLanguage.Profile.body.publicGroup}</h1>
                             </div>
                             <div className="col-md-1 "></div>
-                            <div className="col-md-10 col-xs-12 div-item-group" hidden={this.state.Emptystate}>
+                            <div className="col-md-10 col-xs-12 " hidden={this.checkhide()}>
+                                   <div className=" div-item-group" hidden={this.state.Emptystate}>
                                 <div className="row ">
                                     {this.state.usergroup.map((list: GroupType, i: any) => (
                                         <div
@@ -328,13 +342,25 @@ class Profiles extends React.Component<any, any> {
                                     ))}
                                 </div>
                             </div>
-                            <div className="col-md-10 col-xs-12 div_emprystate" hidden={!this.state.Emptystate}>
+                            <div className="div_emprystate" hidden={!this.state.Emptystate}>
                                 <div className=" div_emprystate">
                                     <img src={EmptyPic}></img>
                                     <h1>No Group Found</h1>
                                 </div>
                             </div>
-                            {/* <div className="col-md-10 col-xs-12 div_emprystate" hidden={!this.state.hidegroups}>
+                            
+                            </div>
+                       <div className="col-md-10 col-xs-12" hidden={!this.checkhide()}>
+  <div className="div_privatestate">
+  <i className="material-icons-outlined">
+lock
+</i>
+  <h1>This account is private</h1>
+                            </div>
+                           
+                       </div>
+                       
+                           {/* <div className="col-md-10 col-xs-12 div_emprystate" hidden={!this.state.hidegroups}>
                                 <div className=" div_emprystate">
                                     <img src={EmptyPic}></img>
                                     <h1>this account is private</h1>
