@@ -38,7 +38,7 @@ const Forget: React.FC<ConnectedProps<typeof connector>> = function (props: Conn
             };
             post<any>(APIPath.forgetPass.forget, body).then((res) => {
                 setSubmitLoading(false);
-                console.log(res.data);
+
                 if (responseValidator(res.status) && res.data) {
                     document.body.classList.add(navigationAnim);
                     setTimeout(() => {

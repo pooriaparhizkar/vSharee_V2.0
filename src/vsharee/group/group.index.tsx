@@ -3,7 +3,7 @@ import { GroupPrivacy, GroupType, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './group.style.scss';
 import waveHand from 'assets/images/group/waveHand.gif';
-import { TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import CreateGroupModal from '../Component/createGroupModal/createGroupModal.index';
 import { get, responseValidator } from '../../scripts/api';
 import { APIPath } from '../../data';
@@ -11,7 +11,6 @@ import { useParams } from 'react-router-dom';
 import AlphabetPicture from '../../utilities/component/alphabetPhoto/alphabetPhoto.index';
 
 import { authToken } from 'scripts/storage';
-const socketstream: any = null;
 
 import GroupMembersModal from '../Component/groupMembers/groupMembers.index';
 import NotifyMemberModal from '../Component/notifyMemberModal/notifyMemberModal.index';
@@ -33,31 +32,17 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
             }
         });
     }
-    const streamSocket = new WebSocket(
-        'ws://api.vsharee.ir:8001/stream/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
-    );
-    const chatSocket = new WebSocket(
-        'ws://api.vsharee.ir:8001/chat/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
-    );
+    // const streamSocket = new WebSocket(
+    //     'ws://api.vsharee.ir:8001/stream/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
+    // );
+    // const chatSocket = new WebSocket(
+    //     'ws://api.vsharee.ir:8001/chat/groups/' + id + '/?token=' + authToken.get()?.access_token + '',
+    // );
 
     useEffect(() => {
         getGroupData();
-        console.log(`ws://api.vsharee.ir:8001/stream/groups/${id}/?token=${authToken.get()?.access_token}`);
-        streamSocket.onopen = () => console.log('steam socket connected');
-        streamSocket.onclose = () => console.log('stream socket disconnected');
-        chatSocket.onopen = () => console.log('chat socket connected');
-        chatSocket.onclose = () => console.log('chat socket disconnected');
     }, []);
-    function enterHandler(e: any) {
-        if (e.key === 'Enter' || e.keyCode === 13) {
-            sendmessage();
-        }
-    }
-    function sendmessage() {
-        const message_send_chat = { command: 'chat_client', message_client: 'test' };
-        chatSocket.send('ss');
-        // socketchat.current.send(JSON.stringify(message_send_chat));
-    }
+
     return (
         <div className="vsharee-group-page">
             <CreateGroupModal
@@ -75,7 +60,7 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
             <div className="my-container">
                 <div className="left">
                     <div className="video-player">
-                        <iframe src="https://www.youtube.com/embed/OaqeH9_yQBw" />
+                        <iframe src="https://www.aparat.com/video/video/embed/videohash/6EyXa/vt/frame" />
                     </div>
                     <div className="detail">
                         <div className="group-detail-title">
@@ -116,7 +101,7 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                                         {isAdmin && (
                                             <div onClick={() => setIsNotifyModal(true)} className="notify-members">
                                                 <i className="material-icons">notifications_active</i>
-                                                <label>Notify</label>
+                                                <label>Notify members</label>
                                             </div>
                                         )}
                                     </div>
@@ -161,7 +146,6 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                                 label=""
                                 variant="outlined"
                                 multiline
-                                onKeyUp={enterHandler}
                                 onChange={(e) => setchatpm(e.target.value)}
                             />
                             <i className="material-icons emoji">mood</i>

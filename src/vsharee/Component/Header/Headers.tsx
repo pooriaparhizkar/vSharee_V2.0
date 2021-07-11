@@ -113,7 +113,6 @@ class Headers extends React.Component<any, any> {
                 !this.notifRef2.current.contains(event.target)
             ) {
                 this.setState({ openNotifBox: false });
-                console.log('ssss');
             }
         }
     }

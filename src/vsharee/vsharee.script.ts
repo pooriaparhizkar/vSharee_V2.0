@@ -24,7 +24,7 @@ export const getMyGroups = (dispatch: Dispatch<AnyAction>) => {
     }
 };
 
-const getUser = (dispatch: Dispatch<AnyAction>) => {
+export const getUser = (dispatch: Dispatch<AnyAction>) => {
     if (!authToken.get()) {
         dispatch(setAuth(AuthStatus.isInValid));
     } else {

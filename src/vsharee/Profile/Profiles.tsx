@@ -21,7 +21,7 @@ import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import JoinGroupModal from '../Component/joinGroupModal/joinGroupModal.index';
 import AlphabetPicture from '../../utilities/component/alphabetPhoto/alphabetPhoto.index';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 class Profiles extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -43,9 +43,9 @@ class Profiles extends React.Component<any, any> {
             hidegroups: false,
             isJoinGroupModal: false,
             idSelected: undefined,
-            displaygrops:false,
-            hiderequestedbtn:true,
-            havefollow:false
+            displaygrops: false,
+            hiderequestedbtn: true,
+            havefollow: false,
         };
         this.profileSettingHandler = this.profileSettingHandler.bind('ss');
     }
@@ -62,51 +62,46 @@ class Profiles extends React.Component<any, any> {
             this.setState({ hidefollowbtn: true, hideunfollowbtn: true, hidesetting: false });
         } else {
             get<any>(APIPath.profile.konwfollow + loc[4]).then((res) => {
-                console.log(res);
                 if (responseValidator(res.status)) {
-                    this.setState({ hidefollowbtn: true, hideunfollowbtn: false, hidesetting: true ,havefollow:true});
+                    this.setState({ hidefollowbtn: true, hideunfollowbtn: false, hidesetting: true, havefollow: true });
                 } else {
-                    this.setState({ hidefollowbtn: false, hideunfollowbtn: true, hidesetting: true,havefollow:false });
+                    this.setState({
+                        hidefollowbtn: false,
+                        hideunfollowbtn: true,
+                        hidesetting: true,
+                        havefollow: false,
+                    });
                 }
             });
         }
 
-        get<any>(APIPath.profile.userdata, { search: loc[4] }).then((res) => {
-            console.log(res);
+        get<any>('/user/' + loc[4] + '/information/').then((res) => {
             if (responseValidator(res.status)) {
-                this.setState({ resdata: res.data[0] });
-             
-             
+                this.setState({ resdata: res.data });
             }
         });
         get<any>(APIPath.profile.usergroup, { user_id: loc[4] }).then((res) => {
-            console.log(res);
             if (responseValidator(res.status)) {
-                if(res.data.length===0){
+                if (res.data.length === 0) {
                     this.setState({ Emptystate: true });
+                } else {
+                    this.setState({ usergroup: res.data, Emptystate: false });
                 }
-                else{
-                     this.setState({ usergroup: res.data, Emptystate: false });
-                }
-               
             } else {
                 this.setState({ Emptystate: true });
             }
         });
         get<any>(APIPath.profile.follower, { user: loc[4] }).then((res) => {
-            console.log(res);
             if (responseValidator(res.status)) {
                 this.setState({ followerCount: res.data.followers_count, followerList: res.data.result });
             }
         });
         get<any>(APIPath.profile.following, { user: loc[4] }).then((res) => {
-            console.log(res.data);
             if (responseValidator(res.status)) {
                 this.setState({ followingCount: res.data.followings_count, followingList: res.data.result });
             }
         });
         get<any>(APIPath.profile.edit_profile(loc[4])).then((res) => {
-            console.log(res.data);
             if (responseValidator(res.status)) {
                 this.setState({
                     photourl: res.data.photo_url,
@@ -134,35 +129,28 @@ class Profiles extends React.Component<any, any> {
     }
 
     followuser = () => {
-        if(this.state.resdata.is_private){
-            console.log('true')
-         this.setState({
-            hiderequestedbtn:false,
-            hidefollowbtn:true
-         })
+        if (this.state.resdata.is_private) {
+            this.setState({
+                hiderequestedbtn: false,
+                hidefollowbtn: true,
+            });
+        } else {
+            post<any>(APIPath.profile.followUser + '?user_id=' + this.state.resdata.username, {
+                who_is_followed: this.state.resdata.username,
+                who_follows: '',
+            }).then((res) => {
+                if (responseValidator(res.status)) {
+                    this.setState({
+                        followerCount: this.state.followerCount + 1,
+                        hidefollowbtn: true,
+                        hideunfollowbtn: false,
+                    });
+                }
+            });
         }
-        else{
-            console.log('false')
-              post<any>(APIPath.profile.followUser + '?user_id=' + this.state.resdata.username, {
-            who_is_followed: this.state.resdata.username,
-            who_follows: '',
-        }).then((res) => {
-            console.log(res);
-            if (responseValidator(res.status)) {
-                this.setState({
-                    followerCount: this.state.followerCount + 1,
-                    hidefollowbtn: true,
-                    hideunfollowbtn: false,
-                });
-            }
-        });   
-        }
-        
-   
     };
     unfollowuser = () => {
         del<any>(APIPath.profile.unfollowUser + this.state.resdata.username, {}).then((res) => {
-            console.log(res);
             if (responseValidator(res.status)) {
                 this.setState({
                     followerCount: this.state.followerCount - 1,
@@ -196,25 +184,23 @@ class Profiles extends React.Component<any, any> {
         if (this.state.name === 'who_follows') return list.who_follows;
         else return list.who_is_followed;
     };
-    checkhide=()=>{
-if(this.state.resdata.is_private){
-if(this.state.havefollow){
-return false
-}
-else{
-    return true
-}
-}
-else{
-    return false
-}
-    }
-    requested=()=>{
+    checkhide = () => {
+        if (this.state.resdata.is_private) {
+            if (this.state.havefollow) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    };
+    requested = () => {
         this.setState({
-            hiderequestedbtn:true,
-            hidefollowbtn:false
-         })
-    }
+            hiderequestedbtn: true,
+            hidefollowbtn: false,
+        });
+    };
     render() {
         return (
             <React.Fragment>
@@ -312,18 +298,20 @@ else{
                                         <i className="material-icons-outlined">settings</i>
                                         <h1>{VshareeLanguage.Profile.body.setting}</h1>
                                     </Button>
-                                    <CopyToClipboard text={window.location.href} onCopy={()=>toast.success("Copied.")}>
-                                    <Button className="sharebtn">
-                                        <h1>{VshareeLanguage.Profile.body.share}</h1>
+                                    <CopyToClipboard
+                                        text={window.location.href}
+                                        onCopy={() => toast.success('Copied.')}
+                                    >
+                                        <Button className="sharebtn">
+                                            <h1>{VshareeLanguage.Profile.body.share}</h1>
 
-                                        <div className="shareicondiv">
-                                            <i className="material-icons ">share</i>
-                                        </div>
-                                    </Button>
+                                            <div className="shareicondiv">
+                                                <i className="material-icons ">share</i>
+                                            </div>
+                                        </Button>
                                     </CopyToClipboard>
-                                 
                                 </div>
-                            
+
                                 <div className="messagediv">
                                     <img src={Message} alt="" className="messagebtn"></img>
                                 </div>
@@ -334,67 +322,63 @@ else{
 
                         <div className="row group-row">
                             <div className="col-md-1 "></div>
-                            <div className="col-md-11 col-xs-12 div-item-group-title" > 
+                            <div className="col-md-11 col-xs-12 div-item-group-title">
                                 <h1 hidden={this.checkhide()}>{VshareeLanguage.Profile.body.publicGroup}</h1>
                             </div>
                             <div className="col-md-1 "></div>
                             <div className="col-md-10 col-xs-12 " hidden={this.checkhide()}>
-                                   <div className=" div-item-group" hidden={this.state.Emptystate}>
-                                <div className="row ">
-                                    {this.state.usergroup.map((list: GroupType, i: any) => (
-                                        <div
-                                            onClick={() =>
-                                                this.setState({ isJoinGroupModal: true, idSelected: list.groupid })
-                                            }
-                                            key={i}
-                                            className="col-md-6 col-xs-12"
-                                        >
-                                            <div className="row">
-                                                <div className="col-6 div-item-group-detail">
-                                                    {list.photo ? (
-                                                        <img src={list.photo_path} alt="fakePic" />
-                                                    ) : (
-                                                        <AlphabetPicture
-                                                            size={'medium'}
-                                                            title={list.title}
-                                                            type={'square'}
-                                                        />
-                                                    )}
-                                                    {/*<AlphabetPicture*/}
-                                                    {/*    size={'medium'}*/}
-                                                    {/*    title={list.the_group}*/}
-                                                    {/*    type={'square'}*/}
-                                                    {/*/>*/}
-                                                    <h1>{list.title}</h1>
-                                                </div>
-                                                <div className="col-6 div-item-group-detail">
-                                                    <h5>{list.members.length}</h5>
-                                                    <h6>members</h6>
+                                <div className=" div-item-group" hidden={this.state.Emptystate}>
+                                    <div className="row ">
+                                        {this.state.usergroup.map((list: GroupType, i: any) => (
+                                            <div
+                                                onClick={() =>
+                                                    this.setState({ isJoinGroupModal: true, idSelected: list.groupid })
+                                                }
+                                                key={i}
+                                                className="col-md-6 col-xs-12"
+                                            >
+                                                <div className="row">
+                                                    <div className="col-6 div-item-group-detail">
+                                                        {list.photo ? (
+                                                            <img src={list.photo_path} alt="fakePic" />
+                                                        ) : (
+                                                            <AlphabetPicture
+                                                                size={'medium'}
+                                                                title={list.title}
+                                                                type={'square'}
+                                                            />
+                                                        )}
+                                                        {/*<AlphabetPicture*/}
+                                                        {/*    size={'medium'}*/}
+                                                        {/*    title={list.the_group}*/}
+                                                        {/*    type={'square'}*/}
+                                                        {/*/>*/}
+                                                        <h1>{list.title}</h1>
+                                                    </div>
+                                                    <div className="col-6 div-item-group-detail">
+                                                        <h5>{list.members.length}</h5>
+                                                        <h6>members</h6>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="div_emprystate" hidden={!this.state.Emptystate}>
+                                    <div className=" div_emprystate">
+                                        <img src={EmptyPic}></img>
+                                        <h1>No Group Found</h1>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="div_emprystate" hidden={!this.state.Emptystate}>
-                                <div className=" div_emprystate">
-                                    <img src={EmptyPic}></img>
-                                    <h1>No Group Found</h1>
+                            <div className="col-md-10 col-xs-12" hidden={!this.checkhide()}>
+                                <div className="div_privatestate">
+                                    <i className="material-icons-outlined">lock</i>
+                                    <h1>This account is private</h1>
                                 </div>
                             </div>
-                            
-                            </div>
-                       <div className="col-md-10 col-xs-12" hidden={!this.checkhide()}>
-  <div className="div_privatestate">
-  <i className="material-icons-outlined">
-lock
-</i>
-  <h1>This account is private</h1>
-                            </div>
-                           
-                       </div>
-                       
-                           {/* <div className="col-md-10 col-xs-12 div_emprystate" hidden={!this.state.hidegroups}>
+
+                            {/* <div className="col-md-10 col-xs-12 div_emprystate" hidden={!this.state.hidegroups}>
                                 <div className=" div_emprystate">
                                     <img src={EmptyPic}></img>
                                     <h1>this account is private</h1>
