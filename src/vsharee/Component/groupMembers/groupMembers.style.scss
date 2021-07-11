@@ -28,7 +28,7 @@
 
         > div {
           background-color: transparent;
-           min-height: 300px;
+          min-height: 300px;
         }
 
         .my-card-inputs {
@@ -56,23 +56,26 @@
         }
 
         .context {
-          .add-status{
+          .add-status {
             margin: 40px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            i{
+
+            i {
               font-size: 72px;
               color: $gray;
               margin-bottom: 12px;
               cursor: default;
             }
-            p{
+
+            p {
               font-size: 16px;
               color: $grayLight;
             }
           }
+
           .vsharee-dashboard-empty-state {
             margin-top: 20px;
           }
@@ -100,6 +103,13 @@
 
             &:hover {
               background-color: $black;
+            }
+
+            .remove {
+              color: $error;
+              cursor: pointer;
+              margin: 2px 0 0 6px;
+              font-size: 12px;
             }
 
             img {
@@ -138,6 +148,10 @@
                 &:nth-child(2) {
                   margin-left: 2px;
                 }
+                &.check{
+                  font-size: 22px;
+                  margin-right: 4px;
+                }
               }
 
             }
@@ -148,21 +162,24 @@
 
             label {
               font-size: 12px;
-              margin: 0 6px 0 0;
+              margin: 0 6px;
               color: $gray99;
             }
 
-            .add-icon{
+            .add-icon {
               color: $gray;
               cursor: pointer;
               transition: color 0.3s;
             }
-&:hover{
-                 .add-icon {
-                   color: white;
-                 }
+
+            &:hover {
+              .add-icon {
+                color: white;
               }
+            }
+
             > div {
+              margin: 0 0 0 6px;
 
               .MuiSelect-select:focus {
                 background-color: transparent !important;

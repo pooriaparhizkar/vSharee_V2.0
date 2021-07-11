@@ -26,7 +26,7 @@ import { getUser } from '../../vsharee.script';
 
 const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const LANG = props.text.components.CreateGroupModal;
-    const [privacy, setPrivacy] = useState<string>('false');
+    const [privacy, setPrivacy] = useState<string>(props.userData?.is_private ? 'true' : 'false');
     const [firstname, setfirstname] = useState<string | undefined>(props.userData?.firstname);
     const [lastname, setlastname] = useState<string | undefined>(props.userData?.lastname);
     const [bio, setbio] = useState<string | undefined>(props.userData?.bio);
@@ -129,7 +129,7 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
                         ) : (
                             <img src={imagePreview} alt="profile-photo" />
                         )}
-                        <input type="file" style={{ display: 'none' }} id="photoinp" onChange={upload_photo}></input>
+                        <input type="file" style={{ display: 'none' }} id="photoinp" onChange={upload_photo} />
                         <div className="icon">
                             <i className="material-icons">edit</i>
                         </div>

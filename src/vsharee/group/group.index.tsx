@@ -3,7 +3,7 @@ import { GroupPrivacy, GroupType, ReduxState } from 'interface';
 import { connect, ConnectedProps } from 'react-redux';
 import './group.style.scss';
 import waveHand from 'assets/images/group/waveHand.gif';
-import { TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import CreateGroupModal from '../Component/createGroupModal/createGroupModal.index';
 import { get, responseValidator } from '../../scripts/api';
 import { APIPath } from '../../data';
@@ -101,7 +101,7 @@ const Group: React.FC<ConnectedProps<typeof connector>> = function (props: Conne
                                         {isAdmin && (
                                             <div onClick={() => setIsNotifyModal(true)} className="notify-members">
                                                 <i className="material-icons">notifications_active</i>
-                                                <label>Notify</label>
+                                                <label>Notify members</label>
                                             </div>
                                         )}
                                     </div>
