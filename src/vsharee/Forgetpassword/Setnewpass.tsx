@@ -28,6 +28,7 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
     const [isPasswordCorrect, setIspasswordCorrect] = useState<boolean | undefined>(undefined);
     const [isrePasswordCorrect, setIsrepasswordCorrect] = useState<boolean | undefined>(undefined);
     const [eyeClicked, setEyeClicked] = useState<boolean>(false);
+    const [eyeClicked2, setEyeClicked2] = useState<boolean>(false);
     const LANG = VshareeLanguage.Newpass;
     const history = useHistory();
     const { uidb, token } = useParams<any>();
@@ -43,32 +44,15 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
             post<any>(`/auth/password/reset/confirm/${uidb}/${token}/`, body).then((res) => {
                 setSubmitLoading(false);
                 if (responseValidator(res.status) && res.data) {
-                    authToken.set(res.data);
-
-                    get<UserData[]>(APIPath.user.myInfo).then((res) => {
-                        if (responseValidator(res.status) && res.data) {
-                            document.body.classList.add(navigationAnim);
-                            setTimeout(() => {
-                                document.body.classList.remove(navigationAnim);
-                                props.dispatch(setUserData(res.data![0]));
-                                props.dispatch(setAuth(AuthStatus.isValid));
-                            }, 500);
-                        } else {
-                            authToken.remove();
-                            props.dispatch(setAuth(AuthStatus.isInValid));
-                        }
-                    });
-                    getMyGroups(props.dispatch);
-                    // props.dispatch(setAuth(AuthStatus.isValid));
-                    // history.push(RoutePath.dashboard);
+                    toast.success('Your password successfully changed');
+                    document.body.classList.add(navigationAnim);
+                    setTimeout(() => {
+                        document.body.classList.remove(navigationAnim);
+                        history.push(RoutePath.login);
+                    }, 500);
                 } else {
                     setIsError('all');
                     toast.error(LANG.incorrectData);
-                    // res.data.non_field_errors.map((item: string) => {
-                    //     toast.error(item);
-                    // });
-                    authToken.remove();
-                    props.dispatch(setAuth(AuthStatus.isInValid));
                 }
             });
         }
@@ -89,23 +73,31 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
     }
 
     function changePasswordHandler(e: any) {
-        if (isError === 'password' || isError === 'all') setIsError(undefined);
+        if (isError === 'password') setIsError(undefined);
         setPassword(e.target.value);
+        confirmPasswordHandler({ target: { value: repassword } }, e.target.value);
+
         if (e.target.value) {
-            if (passwordValidation(e.target.value)) setIspasswordCorrect(true);
-            else setIspasswordCorrect(false);
+            if (passwordValidation(e.target.value)) {
+                setIspasswordCorrect(true);
+            } else setIspasswordCorrect(false);
         } else setIspasswordCorrect(undefined);
     }
-    function changerePasswordHandler(e: any) {
-        if (isError === 'password' || isError === 'all') setIsError(undefined);
+    function confirmPasswordHandler(e: any, passwordReal?: string) {
         setrePassword(e.target.value);
         if (e.target.value) {
-            if (repassword === password) setIsrepasswordCorrect(true);
-            else setIsrepasswordCorrect(false);
+            if (passwordReal) {
+                if (e.target.value === passwordReal) setIsrepasswordCorrect(true);
+                else setIsrepasswordCorrect(false);
+            } else {
+                if (e.target.value === password) setIsrepasswordCorrect(true);
+                else setIsrepasswordCorrect(false);
+            }
         } else setIsrepasswordCorrect(undefined);
     }
+
     return (
-        <div className="vsharee-login-page">
+        <div className="vsharee-setnewpass-page">
             <img className="background" src={background} alt="background" />
             <div className="box">
                 <div className="redbox">
@@ -131,47 +123,53 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
                                 className={isError === 'password' || isError === 'all' ? 'error' : ''}
                             />
                             <i
-                                style={{ right: !password || password?.length === 0 ? '10px' : '40px' }}
+                                className={`material-icons info ${
+                                    isPasswordCorrect === true ? 'check' : isPasswordCorrect === false && 'cross'
+                                }`}
+                                data-tip
+                                data-for="global"
+                            >
+                                {isPasswordCorrect === true
+                                    ? 'check_circle'
+                                    : isPasswordCorrect === false
+                                    ? 'cancel'
+                                    : 'info'}
+                            </i>
+                            <i
+                                data-testid="eye"
                                 onClick={() => setEyeClicked(!eyeClicked)}
                                 className="material-icons eye"
                             >
                                 {eyeClicked ? 'visibility_off' : 'visibility'}
                             </i>
-                            {isPasswordCorrect === true ? (
-                                <i className="material-icons success">check_circle</i>
-                            ) : (
-                                isPasswordCorrect === false && (
-                                    <i
-                                        onMouseEnter={() => ReactTooltip.rebuild()}
-                                        data-tip
-                                        data-for="error"
-                                        className="material-icons error"
-                                    >
-                                        cancel
-                                    </i>
-                                )
-                            )}
                         </div>
-                        {!isPasswordCorrect && (
-                            <ReactTooltip id="error" place="right" type="error" effect="solid">
-                                <p>{LANG.incorrectPassword}</p>
-                            </ReactTooltip>
-                        )}
+                        <ReactTooltip
+                            id="global"
+                            place="right"
+                            type={
+                                isPasswordCorrect === true ? 'success' : isPasswordCorrect === false ? 'error' : 'info'
+                            }
+                            effect="solid"
+                        >
+                            <p>∘ {LANG.atLeast8Char}</p>
+                            <p>∘ {LANG.combineUpAndLow}</p>
+                            <p>∘ {LANG.moreDigit}</p>
+                        </ReactTooltip>
                         <div className="my-inputs">
                             <input
-                                type={eyeClicked ? 'text' : 'password'}
+                                type={eyeClicked2 ? 'text' : 'password'}
                                 onKeyUp={enterHandler}
                                 value={repassword}
-                                onChange={changerePasswordHandler}
+                                onChange={confirmPasswordHandler}
                                 placeholder={LANG.password}
                                 className={isError === 'password' || isError === 'all' ? 'error' : ''}
                             />
                             <i
-                                style={{ right: !password || password?.length === 0 ? '10px' : '40px' }}
-                                onClick={() => setEyeClicked(!eyeClicked)}
+                                style={{ right: !repassword || repassword?.length === 0 ? '10px' : '40px' }}
+                                onClick={() => setEyeClicked2(!eyeClicked2)}
                                 className="material-icons eye"
                             >
-                                {eyeClicked ? 'visibility_off' : 'visibility'}
+                                {eyeClicked2 ? 'visibility_off' : 'visibility'}
                             </i>
                             {isrePasswordCorrect === true ? (
                                 <i className="material-icons success">check_circle</i>
@@ -189,7 +187,7 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
                             )}
                         </div>
                         {!isrePasswordCorrect && (
-                            <ReactTooltip id="error1" place="right" type="error" effect="solid">
+                            <ReactTooltip id="error" place="right" type="error" effect="solid">
                                 <p>{LANG.incorrectPassword}</p>
                             </ReactTooltip>
                         )}
@@ -197,7 +195,11 @@ const Setpassnew: React.FC<ConnectedProps<typeof connector>> = function (props: 
                         <button
                             onClick={submitHandler}
                             disabled={submitLoading}
-                            className={`continue ${!(password && passwordValidation(password)) ? 'disable' : ''}`}
+                            className={`continue ${
+                                !(repassword && password && passwordValidation(password) && password == repassword)
+                                    ? 'disable'
+                                    : ''
+                            }`}
                         >
                             {!submitLoading ? (
                                 <React.Fragment>
