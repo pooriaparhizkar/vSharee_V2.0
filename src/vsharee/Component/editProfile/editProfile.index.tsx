@@ -20,6 +20,9 @@ import Logo from '../../../assets/images/landing/logo.png';
 import fakeImage from '../../../assets/images/profile/fakeimage.jpg';
 import { setAuth, setIsEdit } from '../../../redux/actions';
 import { APIPath, RoutePath } from '../../../data';
+import WhiteSpinner from '../../../utilities/component/whiteSpinner/whiteSpinner.index';
+import { toast } from 'react-toastify';
+import { getUser } from '../../vsharee.script';
 
 const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props: ConnectedProps<typeof connector>) {
     const LANG = props.text.components.CreateGroupModal;
@@ -29,7 +32,8 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
     const [bio, setbio] = useState<string | undefined>(props.userData?.bio);
     const [photourl, setphotourl] = useState<string | undefined>();
     const [resdata, setresdata] = useState<any>(props.userData);
-
+    const [imagePreview, setImagePreview] = useState(props.userData?.photo ? props.userData.photo_path : undefined);
+    const [loading, setLoading] = useState<boolean>(false);
     function openinp() {
         document.getElementById('photoinp')?.click();
     }
@@ -55,6 +59,7 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
 
     function upload_photo(e: any) {
         const file = e.target.files[0];
+        setImagePreview(URL.createObjectURL(e.target.files[0]));
         console.log(file);
         post<any>(APIPath.profile.upload_photo(resdata.username), {}).then((res) => {
             if (responseValidator(res.status) && res.data) {
@@ -87,6 +92,7 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
     }
 
     function editprofile() {
+        setLoading(true);
         const body = {
             firstname: firstname,
             lastname: lastname,
@@ -96,9 +102,12 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
 
         put<any>(APIPath.profile.edit_profile(resdata.username), body).then((res) => {
             console.log(res);
+            setLoading(false);
             if (responseValidator(res.status)) {
-                window.location.replace(RoutePath.profileDetail(resdata.username));
-            }
+                toast.success('Your Profile successfully edited');
+                props.dispatch(setIsEdit(false));
+                getUser(props.dispatch);
+            } else toast.error('Something went wrong');
         });
     }
 
@@ -111,11 +120,15 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
             <div className="vsharee-edit-profile-component">
                 <Card variant="outlined">
                     <div onClick={openinp} className="image-uploader">
-                        <img
-                            onError={() => setphotourl(Logo)}
-                            src={props.userData?.photo ? props.userData.photo_path : Logo}
-                            alt="profile-photo"
-                        />
+                        {!imagePreview ? (
+                            <img
+                                onError={() => setphotourl(Logo)}
+                                src={props.userData?.photo ? props.userData.photo_path : Logo}
+                                alt="profile-photo"
+                            />
+                        ) : (
+                            <img src={imagePreview} alt="profile-photo" />
+                        )}
                         <input type="file" style={{ display: 'none' }} id="photoinp" onChange={upload_photo}></input>
                         <div className="icon">
                             <i className="material-icons">edit</i>
@@ -162,7 +175,7 @@ const EditProfile: React.FC<ConnectedProps<typeof connector>> = function (props:
                             Cancel
                         </Button>
                         <Button variant="contained" color="primary" onClick={editprofile}>
-                            Edit
+                            {loading ? <WhiteSpinner /> : 'Edit'}
                         </Button>
                     </div>
                 </Card>
