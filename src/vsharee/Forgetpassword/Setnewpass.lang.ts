@@ -12,5 +12,8 @@ export const setnewpassLang = {
     welcomeBack: 'Welcome Back',
     welcomeBackText: 'Sign in to continue access pages',
     incorrectData: 'Your email address or password is incorrect',
-    forgetpass:"Recovery password"
+    forgetpass: 'Recovery password',
+    atLeast8Char: 'at least 8 characters',
+    combineUpAndLow: 'combination of upper and lower case characters',
+    moreDigit: 'one or more digits',
 };
